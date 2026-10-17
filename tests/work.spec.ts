@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { clientWork } from '../src/data/work';
 const names = ['P. Mari Best Catering Equipment', 'ADD Group', 'Elena Bianchi — Psicologa Psicoterapeuta', 'Landing page Centro Fitness', 'Luxury Hair Studio', 'Sito web Centro Estetico'];
-for (const width of [320, 390, 768, 1440]) {
+for (const width of [320, 375, 768, 1440]) {
   test(`/work editoriale a ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
@@ -14,6 +14,15 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('.editorial-grid h3')).toHaveText(names);
     await expect(page.locator('.editorial-grid .placeholder-label')).toHaveCount(0);
     await expect(page.locator('.editorial-grid img')).toHaveCount(6);
+    await expect(page.locator('.editorial-grid .index-image')).toHaveCount(6);
+    await expect(page.locator('.editorial-grid .project-shot, .editorial-grid .art-orbit')).toHaveCount(0);
+    for (const image of await page.locator('.editorial-grid img').all()) {
+      const rotation = await image.evaluate(el => {
+        const matrix = new DOMMatrixReadOnly(getComputedStyle(el).transform);
+        return [matrix.b, matrix.c];
+      });
+      expect(rotation).toEqual([0, 0]);
+    }
     await expect(page.locator('[data-work-path^="/work/"]')).toHaveCount(6);
     await expect(page.locator('.editorial-grid a')).toHaveCount(clientWork.filter(project => project.published).length);
     await expect(page.locator('.editorial-grid a[href="/work/add-group"]')).toHaveCount(1);
