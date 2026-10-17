@@ -10,7 +10,7 @@ for (const width of [320, 390, 768, 1440]) {
     page.on("pageerror", (error) => errors.push(error.message));
     const response = await page.goto("/");
     expect(response?.status()).toBe(200);
-    await expect(page.locator("h1")).toHaveText("DESIGNTHAT ✳︎WORKS.");
+    await expect(page.locator("h1")).toHaveText("DESIGNTHAT ✱WORKS.");
     const logos = page.locator('img[src="/logo.png"]');
     await expect(logos).toHaveCount(2);
     for (const logo of await logos.all()) {

@@ -1,4 +1,11 @@
 ---
-const services = [{name:'Siti web',symbol:'↗︎'},{name:'Restyling',symbol:'◑'},{name:'E-commerce',symbol:'▦'},{name:'WordPress',symbol:'W'},{name:'Framer',symbol:'⌁'},{name:'Supporto',symbol:'+'}];
+const services = [
+  {name:'Siti web',symbol:'↗︎',description:'Siti su misura, progettati intorno a ciò che fai e a chi vuoi raggiungere.'},
+  {name:'Restyling',symbol:'◑',description:'Una nuova identità e una struttura più efficace per un sito che non ti rappresenta più.'},
+  {name:'E-commerce',symbol:'▦',description:'Shop e cataloghi pensati per rendere semplice anche ciò che semplice non è.'},
+  {name:'WordPress',symbol:'W',description:'Siti flessibili, gestibili e costruiti senza dipendere da un castello di plugin.'},
+  {name:'Framer',symbol:'⌁',description:'Siti veloci e interattivi, dove design e movimento lavorano insieme.'},
+  {name:'Supporto',symbol:'+',description:'Aggiornamenti, nuove pagine e interventi tecnici anche dopo la messa online.'},
+];
 ---
-<section id="services" class="services section-anchor" aria-labelledby="services-title"><div class="services-intro"><p class="eyebrow">02 / Cosa faccio</p><h2 id="services-title">GOOD<br />DESIGN.<br /><span>GOOD<br />CODE.</span></h2><p>Per professionisti,<br />attività e brand.</p><span class="big-star" aria-hidden="true">✳︎</span></div><div class="service-grid">{services.map((service,i) => <article><div class="service-meta"><span>0{i+1}</span><span class="service-symbol" aria-hidden="true">{service.symbol}</span></div><h3>{service.name}</h3><p>Descrizione del servizio<br />da inserire.</p></article>)}</div></section>
+<section id="services" class="services section-anchor" aria-labelledby="services-title"><div class="services-intro"><p class="eyebrow">02 / Cosa faccio</p><h2 id="services-title">GOOD<br />DESIGN.<br /><span>GOOD<br />CODE.</span></h2><p>Per professionisti,<br />attività e brand.</p><span class="big-star" aria-hidden="true">✳︎</span></div><div class="service-grid">{services.map((service,i) => <article><div class="service-meta"><span>0{i+1}</span><span class="service-symbol" aria-hidden="true">{service.symbol}</span></div><h3>{service.name}</h3><p>{service.description}</p></article>)}</div></section>
