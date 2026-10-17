@@ -35,7 +35,7 @@ export const projects: Project[] = [
     name: "ADD Group",
     categories: "Web Design / WordPress / B2B",
     slug: "add-group",
-    caseStudyPublished: false,
+    caseStudyPublished: true,
     type: "bad",
     label: "02",
     mark: "BAD\nIDEA.",
