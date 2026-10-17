@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SideQuest from '../components/SideQuest.astro';
+import { clientWork } from '../data/work';
+---
+<Base title="Selected Projects — Code from A to Z" description="Una selezione di siti progettati, sviluppati e portati online.">
+  <Header workPage />
+  <main id="main" class="work-index">
+    <section class="index-hero" aria-labelledby="index-title">
+      <p class="eyebrow">01 / WORK</p>
+      <h1 id="index-title">SELECTED<br /><em>PROJECTS.</em></h1>
+      <div class="index-intro"><p>Una selezione di siti progettati,<br />sviluppati e portati online.</p><span aria-hidden="true">↙︎</span></div>
+    </section>
+    <section id="client-work" class="client-work section-anchor" aria-labelledby="client-title">
+      <div class="index-section-top"><h2 id="client-title">CLIENT WORK</h2><span class="eyebrow">01 — 06</span></div>
+      <div class="editorial-grid">
+        {clientWork.map((project, index) => <article class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
+          <div class="project-art" role="img" aria-label={`Segnaposto grafico per ${project.name}, non rappresenta il progetto reale`}>
+            <span class="project-number">/{String(index + 1).padStart(2, '0')}</span>
+            <span class="art-mark" aria-hidden="true">{project.mark}</span>
+            <span class="art-orbit" aria-hidden="true"></span>
+            <span class="placeholder-label">VISUAL PLACEHOLDER</span>
+          </div>
+          <div class="project-caption"><h3>{project.published ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.tags}</p></div>
+        </article>)}
+      </div>
+    </section>
+    <section class="index-quests" aria-labelledby="quests-title">
+      <div class="quests-heading"><h2 id="quests-title">SIDE QUESTS /<br class="mobile-break" /> BECAUSE WHY NOT</h2><span aria-hidden="true">✳︎</span></div>
+      <SideQuest />
+    </section>
+    <Footer />
+  </main>
+</Base>
+<style>
+  .index-hero{padding:38px 3vw 32px;border-bottom:var(--line)}
+  h1{font-size:clamp(76px,11.5vw,180px);margin:48px 0 28px}
+  h1 em{color:var(--blue)}
+  .index-intro{display:flex;justify-content:space-between;align-items:end;gap:24px}
+  .index-intro p{font-size:clamp(17px,1.8vw,25px);letter-spacing:-.04em}
+  .index-intro>span{font:85px/1 'DejaVu Sans',sans-serif;color:var(--blue);font-variant-emoji:text}
+  .client-work{background:var(--ink);color:var(--paper);padding:32px 3vw 70px}
+  .index-section-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:25px;border-bottom:1px solid #f4f1e955;margin-bottom:35px}
+  .index-section-top h2,.quests-heading h2{font:700 12px/1.5 'Courier New',monospace;letter-spacing:.04em}
+  .index-section-top h2{color:var(--pink)}
+  .editorial-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:55px 3vw;align-items:start}
+  .editorial-grid .project{grid-column:span 7;min-width:0}
+  .editorial-grid .project:nth-child(4n + 2),.editorial-grid .project:nth-child(4n + 3){grid-column:span 5}
+  .editorial-grid .project:nth-child(even){margin-top:85px}
+  .editorial-grid .project-art{aspect-ratio:1.4;border:1px solid #f4f1e933}
+  .editorial-grid .project:nth-child(4n + 2) .project-art,.editorial-grid .project:nth-child(4n + 3) .project-art{aspect-ratio:1}
+  .editorial-grid .art-mark{font-size:clamp(65px,10vw,160px)}
+  .editorial-grid .health .art-mark{font-size:clamp(100px,16vw,240px);font-family:'DejaVu Sans',sans-serif;font-variant-emoji:text}
+  .editorial-grid .bad .art-mark{font-family:'DejaVu Sans',sans-serif;font-variant-emoji:text}
+  .editorial-grid .project-caption h3{font-size:clamp(19px,2vw,28px)}
+  .editorial-grid .project-caption p{font-size:10px;line-height:1.6}
+  .editorial-grid .project-number{font-size:12px}
+  .quests-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 3vw;background:var(--purple);border-bottom:var(--line)}
+  .quests-heading>span{font:32px/1 'DejaVu Sans',sans-serif;font-variant-emoji:text}
+  .mobile-break{display:none}
+  @media(max-width:600px){
+    .index-hero{padding:28px 20px 26px}
+    h1{font-size:clamp(43px,14.5vw,82px);margin:36px 0 30px}
+    .index-intro p{font-size:16px}.index-intro>span{font-size:44px}
+    .client-work{padding:26px 20px 38px}.index-section-top{margin-bottom:28px;padding-bottom:20px}
+    .editorial-grid{display:flex;flex-direction:column;gap:32px}
+    .editorial-grid .project{width:100%;margin:0}
+    .editorial-grid .project:nth-child(even){width:calc(100% - 26px);margin:0 0 0 26px}
+    .editorial-grid .project-art{aspect-ratio:1.15}
+    .editorial-grid .project:nth-child(even) .project-art{aspect-ratio:.95}
+    .editorial-grid .project:nth-child(odd) .project-art{aspect-ratio:1.15}
+    .editorial-grid .art-mark{font-size:85px}.editorial-grid .health .art-mark{font-size:130px}
+    .editorial-grid .project-caption h3{font-size:20px}.editorial-grid .project-caption p{font-size:9px}
+    .quests-heading{padding:22px 20px}.quests-heading h2{font-size:11px}.mobile-break{display:initial}
+  }
+</style>

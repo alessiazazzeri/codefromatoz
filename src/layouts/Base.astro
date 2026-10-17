@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+interface Props { title?: string; description?: string; }
+const { title = 'Code from A to Z — Alessia · Web designer', description } = Astro.props;
+const defaultDescription = 'Code from A to Z è il portfolio di Alessia: web designer con background da developer, per professionisti, attività e brand.';
 ---
 <!doctype html>
 <html lang="it">
@@ -7,10 +10,10 @@ import '../styles/global.css';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#111326" />
-    <title>Code from A to Z — Alessia · Web designer</title>
-    <meta name="description" content="Code from A to Z è il portfolio di Alessia: web designer con background da developer, per professionisti, attività e brand." />
-    <meta property="og:title" content="Code from A to Z — Alessia · Web designer" />
-    <meta property="og:description" content="Web designer with a developer's brain. Design e sviluppo per professionisti, attività e brand." />
+    <title>{title}</title>
+    <meta name="description" content={description ?? defaultDescription} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description ?? "Web designer with a developer's brain. Design e sviluppo per professionisti, attività e brand."} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="it_IT" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
