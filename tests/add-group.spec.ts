@@ -30,9 +30,13 @@ for (const width of [320, 375, 768, 1440]) {
     expect(audit.violations).toEqual([]);
     for (const path of ["/", "/work"]) {
       await page.goto(path);
-      const link = page.locator('.project h3 a[href="/work/add-group"]');
+      const link = page.locator(`.project h3 a[href="${path === '/' ? '/work#add-group' : '/work/add-group'}"]`);
       await expect(link).toHaveCount(1);
       await link.click();
+      if (path === "/") {
+        await expect(page).toHaveURL(/\/work#add-group$/);
+        await page.locator('#add-group h3 a').click();
+      }
       await expect(page).toHaveURL(/\/work\/add-group\/?$/);
       await expect(page.locator("h1")).toHaveText("ADD GROUP.");
     }

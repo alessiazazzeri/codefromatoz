@@ -24,7 +24,7 @@ test("card collegate per ogni case study esistente e link interni validi", async
         : available;
     for (const project of expected)
       await expect(
-        page.locator(`.project h3 a[href="/work/${project.slug}"]`),
+        page.locator(`.project h3 a[href="${path === "/" ? `/work#${project.slug}` : `/work/${project.slug}`}"]`),
       ).toHaveCount(1);
     await expect(page.locator("#side-quest a")).toHaveAttribute(
       "href",
@@ -79,3 +79,33 @@ test("card collegate per ogni case study esistente e link interni validi", async
     }
   }
 });
+
+for (const width of [375, 1440]) {
+  test(`homepage → progetto in work → case study, card intere a ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const project of projects) {
+      await page.goto('/');
+      const art = page.locator(`[data-work-path="/work/${project.slug}"] .project-art`);
+      await art.scrollIntoViewIfNeeded();
+      const homeBox = (await art.boundingBox())!;
+      await page.mouse.click(homeBox.x + homeBox.width / 2, homeBox.y + homeBox.height / 2);
+      await expect(page).toHaveURL(new RegExp(`/work#${project.slug}$`));
+      const target = page.locator(`article#${project.slug}`);
+      await expect(target).toBeInViewport();
+      const workArt = target.locator('.project-art');
+      await workArt.scrollIntoViewIfNeeded();
+      const workBox = (await workArt.boundingBox())!;
+      await page.mouse.click(workBox.x + workBox.width / 2, workBox.y + workBox.height / 2);
+      await expect(page).toHaveURL(new RegExp(`/work/${project.slug}/?$`));
+    }
+    await page.goto('/work');
+    for (const project of clientWork) {
+      const link = page.locator(`#${project.slug} h3 a`);
+      await link.focus();
+      await expect(link).toBeFocused();
+      await page.keyboard.press('Enter');
+      await expect(page).toHaveURL(new RegExp(`/work/${project.slug}/?$`));
+      await page.goBack();
+    }
+  });
+}

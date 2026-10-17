@@ -1531,3 +1531,9 @@ sup {
 
 .footer-links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:16px}
 @media(max-width:600px){.footer-links{flex-direction:column;align-items:flex-end;gap:0}}
+
+/* One native link per project; its hit area covers the whole editorial card. */
+.project {position:relative}
+.project-caption h3 a::after {content:"";position:absolute;inset:0;z-index:3;cursor:pointer}
+.project-caption h3 a:focus-visible::after {outline:3px solid var(--pink);outline-offset:4px}
+.work-index .project[id] {scroll-margin-top:24px}

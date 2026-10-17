@@ -18,9 +18,9 @@ import ProjectVisual from '../components/ProjectVisual.astro';
     <section id="client-work" class="client-work section-anchor" aria-labelledby="client-title">
       <div class="index-section-top"><h2 id="client-title">CLIENT WORK</h2><span class="eyebrow">01 — 06</span></div>
       <div class="editorial-grid">
-        {clientWork.map((project, index) => <article class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
+        {clientWork.map((project, index) => <article id={project.slug} tabindex="-1" aria-labelledby={`work-name-${project.slug}`} class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
           <ProjectVisual image={projectImages[project.slug]} number={String(index + 1).padStart(2, '0')} context="index" />
-          <div class="project-caption"><h3>{project.published ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.tags}</p></div>
+          <div class="project-caption"><h3 id={`work-name-${project.slug}`}>{project.published ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.tags}</p></div>
         </article>)}
       </div>
     </section>

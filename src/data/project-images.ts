@@ -1,3 +1,7 @@
+import elenaMobile from '../../public/elena-bianchi-mobile.png';
+import fitnessMobile from '../../public/gym-center-mobile.png';
+import hairMobile from '../../public/luxury-hair-mobile.png';
+import beautyMobile from '../../public/sito-estetista-mobile.png';
 import mariCatalogue from '../../public/p-mari-lista-prodotti.png';
 import mariProduct from '../../public/p-mari-prodotto-singolo.png';
 import addCategories from '../../public/add-group-2.png';
@@ -37,3 +41,10 @@ export const projectDetails = {
   'luxury-hair-studio': { source: hairPhilosophy, alt: 'Luxury Hair Studio: filosofia del salone e strumenti di lavoro' },
   'centro-estetico': { source: beautyTreatments, alt: 'Centro estetico: trattamenti viso e relativo listino' },
 } satisfies Record<string, PortfolioImage>;
+
+export const projectMobile: Record<string, PortfolioImage> = {
+  'elena-bianchi': { source: elenaMobile, alt: 'Elena Bianchi su mobile: presentazione e contatto per un colloquio' },
+  'centro-fitness': { source: fitnessMobile, alt: 'Gym Center su mobile: presentazione e invito a iniziare' },
+  'luxury-hair-studio': { source: hairMobile, alt: 'Luxury Hair Studio su mobile: salone e prenotazione' },
+  'centro-estetico': { source: beautyMobile, alt: 'Centro estetico su mobile: trattamenti e prenotazione' },
+};
