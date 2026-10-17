@@ -25,7 +25,7 @@ for (const width of [320, 375, 768, 1440]) {
       "data-next-project",
       "/work/add-group",
     );
-    await expect(page.locator(".case-next a")).toHaveCount(0);
+    await expect(page.locator(".case-next a")).toHaveAttribute("href", "/work/add-group");
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

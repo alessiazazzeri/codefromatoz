@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { clientWork } from '../src/data/work';
 const names = ['P. Mari Best Catering Equipment', 'ADD Group', 'Elena Bianchi — Psicologa Psicoterapeuta', 'Landing page Centro Fitness', 'Luxury Hair Studio', 'Sito web Centro Estetico'];
 for (const width of [320, 390, 768, 1440]) {
   test(`/work editoriale a ${width}px`, async ({ page }) => {
@@ -14,8 +15,8 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('.editorial-grid .placeholder-label')).toHaveCount(6);
     await expect(page.locator('.editorial-grid img')).toHaveCount(0);
     await expect(page.locator('[data-work-path^="/work/"]')).toHaveCount(6);
-    await expect(page.locator('.editorial-grid a')).toHaveCount(1);
-    await expect(page.locator('.editorial-grid a')).toHaveAttribute('href', '/work/add-group');
+    await expect(page.locator('.editorial-grid a')).toHaveCount(clientWork.filter(project => project.published).length);
+    await expect(page.locator('.editorial-grid a[href="/work/add-group"]')).toHaveCount(1);
     await expect(page.locator('#side-quest a')).toHaveAttribute('href', 'https://codefromatoz.github.io/bubu-siby/');
     await expect(page.getByRole('heading', { name: 'SIDE QUESTS / BECAUSE WHY NOT' })).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
