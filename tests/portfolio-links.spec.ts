@@ -50,6 +50,9 @@ test("card collegate per ogni case study esistente e link interni validi", async
   for (const path of [
     "/",
     "/work",
+    "/services",
+    "/about",
+    "/contact",
     ...available.map((project) => `/work/${project.slug}`),
   ]) {
     await page.goto(path);

@@ -32,10 +32,6 @@ for (const width of [320, 375, 768, 1440]) {
     );
     await expect(page.locator(".ap-primary")).toHaveAttribute(
       "href",
-      "mailto:info@codefromatoz.it",
-    );
-    await expect(page.locator(".ap-primary")).toHaveAttribute(
-      "data-future-href",
       "/contact",
     );
     await expect(page.locator('.ap-actions a[href="/work"]')).toHaveCount(1);

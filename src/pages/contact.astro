@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import '../styles/contact.css';
+const needs = ['Nuovo sito','Landing page','Restyling','E-commerce','Supporto / modifiche','Non lo so ancora'];
+const budgets = ['Meno di €650','€650 – €1.000','€1.000 – €1.500','€1.500 – €3.000','€3.000+','Preferisco parlarne'];
+const next = [['LEGGO', "Mi racconti il progetto e mi faccio un'idea di cosa può servire."],['PARLIAMO', 'Se ha senso proseguire, ci sentiamo e mettiamo a fuoco esigenze e obiettivi.'],['PREVENTIVO', 'Ti mando una proposta chiara con lavoro previsto, costi e tempi.']];
+---
+<Base title="Contact — Code from A to Z" description="Hai un progetto, un sito da rifare o semplicemente un'idea ancora un po' confusa? Raccontamela. Non serve arrivare con tutte le risposte.">
+  <Header workPage contactPage workHref="/work" />
+  <main id="main" class="contact-page">
+    <section class="cp-hero" aria-labelledby="cp-title"><p class="eyebrow">01 / CONTACT</p><div class="cp-hero-grid"><h1 id="cp-title">TELL ME<br />WHAT'S ON<br /><em>YOUR MIND.</em></h1><div><p class="cp-lead">Hai un progetto, un sito da rifare o semplicemente un'idea ancora un po' confusa?</p><p class="cp-intro">Raccontamela. Non serve arrivare con tutte le risposte.</p><p class="cp-micro">NO PERFECT BRIEF REQUIRED.</p></div></div></section>
+    <section class="cp-form-section" aria-labelledby="form-title"><div class="cp-form-intro"><p class="eyebrow">01 / THE FORM</p><h2 id="form-title">START<br /><em>ANYWHERE.</em></h2><p class="cp-setup-note" id="form-availability">L'invio dal modulo non è ancora attivo. Per contattarmi, <a href="mailto:info@codefromatoz.it">scrivimi via email</a>.</p></div>
+      <form id="project-form" method="post" aria-labelledby="form-title" aria-describedby="form-availability" data-state="idle">
+        <div id="form-errors" class="cp-errors" role="alert" tabindex="-1" hidden><p>Controlla questi campi:</p><ul></ul></div>
+        <fieldset class="cp-fields" disabled><legend class="cp-sr-only">Raccontami il progetto</legend>
+          <div class="cp-field"><label for="contact-name">Nome <span>(obbligatorio)</span></label><input id="contact-name" name="name" autocomplete="name" required aria-describedby="contact-name-error" /><p id="contact-name-error" class="cp-field-error" hidden></p></div>
+          <div class="cp-field"><label for="contact-email">Email <span>(obbligatorio)</span></label><input id="contact-email" name="email" type="email" autocomplete="email" required aria-describedby="contact-email-error" /><p id="contact-email-error" class="cp-field-error" hidden></p></div>
+          <div class="cp-field"><label for="contact-brand">Attività / brand <span>(facoltativo)</span></label><input id="contact-brand" name="brand" autocomplete="organization" aria-describedby="contact-brand-error" /><p id="contact-brand-error" class="cp-field-error" hidden></p></div>
+          <div class="cp-field"><label for="contact-website">Hai già un sito? <span>(facoltativo)</span></label><input id="contact-website" name="website" type="url" autocomplete="url" aria-describedby="contact-website-error" /><p id="contact-website-error" class="cp-field-error" hidden></p></div>
+          <div class="cp-field"><label for="contact-need">Di cosa hai bisogno? <span>(facoltativo)</span></label><select id="contact-need" name="need"><option value="">Seleziona</option>{needs.map(value => <option value={value}>{value}</option>)}</select></div>
+          <div class="cp-field"><label for="contact-budget">Budget indicativo <span>(facoltativo)</span></label><select id="contact-budget" name="budget" aria-describedby="budget-note"><option value="">Seleziona</option>{budgets.map(value => <option value={value}>{value}</option>)}</select></div>
+          <aside id="budget-note" class="cp-budget cp-wide" aria-labelledby="budget-title"><p class="eyebrow">02 / BUDGET NOTE</p><h3 id="budget-title">NOT SURE ABOUT BUDGET?</h3><p>I prezzi dei progetti partono da €650. Se non sai ancora quale soluzione ti serve, nessun problema: il budget serve solo a capire da dove partire.</p><a class="cp-link" href="/services">VEDI I PREZZI <span aria-hidden="true">→</span></a></aside>
+          <div class="cp-field cp-wide"><label for="contact-project">Raccontami il progetto <span>(obbligatorio)</span></label><textarea id="contact-project" name="project" rows="7" required placeholder="Cosa vuoi realizzare? Cosa non funziona oggi? Anche appunti sparsi vanno bene." aria-describedby="contact-project-error"></textarea><p id="contact-project-error" class="cp-field-error" hidden></p></div>
+          <div class="cp-privacy cp-wide"><div><input id="contact-privacy" name="privacy" type="checkbox" required aria-describedby="contact-privacy-error privacy-note" /><label for="contact-privacy">Ho letto l'<a href="#privacy-note" data-future-href="/privacy">informativa privacy</a> e acconsento al trattamento dei dati per ricevere risposta alla mia richiesta.</label></div><p id="contact-privacy-error" class="cp-field-error" hidden></p><p id="privacy-note" tabindex="-1">L'informativa privacy sarà disponibile prima dell'attivazione dell'invio dal modulo.</p></div>
+        </fieldset>
+        <button class="cp-submit" type="submit" disabled>INVIA IL PROGETTO <span aria-hidden="true">→</span></button>
+        <noscript><p class="cp-setup-note">Per usare la validazione del modulo è necessario JavaScript. Puoi scrivermi a <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>.</p></noscript>
+        <p class="cp-sending cp-form-status" role="status" aria-live="polite" hidden>SENDING...</p>
+        <div class="cp-success cp-form-status" role="status" aria-live="polite" tabindex="-1" hidden><h3>GOT IT.</h3><p>Il messaggio è partito. Ti risponderò appena possibile.</p></div>
+        <div class="cp-error cp-form-status" role="alert" tabindex="-1" hidden><h3>QUALCOSA NON HA FUNZIONATO.</h3><p>Riprova oppure <a href="mailto:info@codefromatoz.it">scrivimi direttamente via email</a>.</p></div>
+      </form>
+    </section>
+    <section class="cp-direct" aria-labelledby="direct-title"><div><p class="eyebrow">03 / DIRECT CONTACT</p><h2 id="direct-title">MORE OF AN<br /><em>EMAIL PERSON?</em></h2></div><div><p>Va bene anche quello.</p><a href="mailto:info@codefromatoz.it">info@codefromatoz.it <span aria-hidden="true">↗︎</span></a></div></section>
+    <section class="cp-next" aria-labelledby="cp-next-title"><div><p class="eyebrow">04 / WHAT HAPPENS NEXT</p><h2 id="cp-next-title">THEN<br /><em>WHAT?</em></h2></div><div><ol>{next.map(([title,text],index) => <li><h3>0{index+1} / {title}</h3><p>{text}</p></li>)}</ol><p class="cp-micro">NO MYSTERY PRICING. NO SURPRISE SCOPE.</p></div></section>
+    <div class="cp-final-visual" role="img" aria-label="YOUR IDEA, dalla A alla Z"><span>YOUR IDEA</span><span aria-hidden="true">↓</span><strong>A <i>→</i> Z</strong></div>
+  </main>
+  <footer class="site-footer"><a class="footer-brand" href="/" aria-label="Code from A to Z, inizio pagina"><img class="brand-logo" src="/logo.png" width="183" height="142" alt="Code from A to Z" loading="lazy" decoding="async" /></a><p>© 2026 Code from A to Z di Alessia Zazzeri<br />P. IVA [PLACEHOLDER]</p><div class="footer-links"><a href="https://www.instagram.com/alessiaz.webdesign/">Instagram ↗︎</a><a href="#main">Torna su ↑</a></div></footer>
+  <script src="../scripts/contact.ts"></script>
+</Base>

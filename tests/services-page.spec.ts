@@ -33,13 +33,9 @@ for (const width of [320, 375, 768, 1440]) {
     ).toHaveAttribute("aria-current", "page");
     await expect(page.locator(".srv-final a")).toHaveAttribute(
       "href",
-      "mailto:info@codefromatoz.it",
-    );
-    await expect(page.locator(".srv-final a")).toHaveAttribute(
-      "data-future-href",
       "/contact",
     );
-    await expect(page.locator('a[href="/contact"]')).toHaveCount(0);
+    await expect(page.locator('a[href="/contact"]')).toHaveCount(2);
     await page.keyboard.press("Tab");
     await expect(page.locator(".skip-link")).toBeFocused();
     const audit = await new AxeBuilder({ page })
