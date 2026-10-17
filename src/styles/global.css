@@ -1424,8 +1424,107 @@ sup {
   }
 }
 /* Original supplied logo: preserve its aspect ratio and colors. */
-.brand-logo{display:block;max-width:100%;height:auto;object-fit:contain}
-.wordmark .brand-logo{width:80px}
-.footer-brand{justify-content:center;justify-self:start;background:var(--paper);padding:8px 12px}
-.footer-brand .brand-logo{width:90px}
-@media(max-width:600px){.wordmark .brand-logo{width:70px}.wordmark{padding-top:12px;padding-bottom:12px}.footer-brand .brand-logo{width:80px}}
+.brand-logo {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.wordmark .brand-logo {
+  width: 80px;
+}
+.footer-brand {
+  justify-content: center;
+  justify-self: start;
+  background: var(--paper);
+  padding: 8px 12px;
+}
+.footer-brand .brand-logo {
+  width: 90px;
+}
+@media (max-width: 600px) {
+  .wordmark .brand-logo {
+    width: 70px;
+  }
+  .wordmark {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .footer-brand .brand-logo {
+    width: 80px;
+  }
+}
+/* Real media occupies exactly the existing editorial frames. */
+.has-image .portfolio-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+.image-number {
+  background: var(--paper);
+  color: var(--ink);
+  padding: 6px 8px;
+}
+.project-art.has-image:after {
+  display: none;
+}
+.service-grid article {
+  --service-accent: var(--blue);
+  position: relative;
+  isolation: isolate;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+.service-grid article:nth-child(3n + 2) {
+  --service-accent: var(--pink);
+}
+.service-grid article:nth-child(3n) {
+  --service-accent: var(--purple);
+}
+.service-grid article:after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 0;
+  height: 3px;
+  background: var(--service-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+.service-grid .service-symbol {
+  display: inline-block;
+  transition:
+    color 0.3s,
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@media (hover: hover) {
+  .service-grid article:hover {
+    background: color-mix(in srgb, var(--service-accent) 7%, var(--paper));
+  }
+  .service-grid article:hover:after {
+    transform: scaleX(1);
+  }
+  .service-grid article:hover .service-symbol {
+    color: var(--service-accent);
+    transform: translateY(-3px) rotate(-6deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .service-grid article:hover .service-symbol {
+    transform: none;
+  }
+  .service-grid article:after {
+    transform: none;
+    visibility: hidden;
+  }
+  .service-grid article:hover:after {
+    visibility: visible;
+  }
+}

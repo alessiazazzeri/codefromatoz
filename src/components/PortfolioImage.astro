@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import type { PortfolioImage } from '../data/portfolio';
+interface Props {
+  image: PortfolioImage;
+  sizes: string;
+}
+const { image, sizes } = Astro.props;
+---
+<Image
+  class="portfolio-image"
+  src={image.source}
+  alt={image.alt}
+  widths={[360, 720, 1080]}
+  sizes={sizes}
+  format="webp"
+  quality={80}
+  loading="lazy"
+  decoding="async"
+  style={{ objectPosition: image.position ?? '50% 50%' }}
+/>

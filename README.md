@@ -40,3 +40,13 @@ Se Chromium è già installato, usare `CHROMIUM_PATH=/usr/bin/chromium npm test`
 Un solo modulo TypeScript gestisce IntersectionObserver, parallax di massimo 12px e pausa globale. Il resto è CSS: ingresso hero, orbite/asterischi, marquee e hover. `prefers-reduced-motion` disattiva il motion anche quando cambia durante la sessione. Contenuti sempre disponibili senza JavaScript. Il pulsante nella hero mette in pausa tutti i movimenti. La CTA risponde anche al focus da tastiera; non è un link di contatto finché mancano i recapiti.
 
 Il logo ufficiale originale è `public/logo.png` (183 × 142 px): usato in header e footer senza ritagli, filtri o modifiche al file. Nel footer è appoggiato su un fondo off-white per conservarne la leggibilità.
+
+## Inserire screenshot e ritratto reali
+
+1. Aggiungere gli originali approvati in `src/assets/` (JPG, PNG o WebP). Non sostituire il logo.
+2. Importare i file in `src/data/portfolio.ts`, ad esempio `import funteamScreenshot from '../assets/funteam.webp';`.
+3. Sostituire solo `screenshot: null` della card corrispondente con `{ source: funteamScreenshot, alt: 'Descrizione fedele dello screenshot', position: '50% 0%' }`.
+4. Per la fotografia importare l'originale e impostare `about.portrait` con lo stesso formato. Scegliere un testo alternativo reale e un `position` adeguato al soggetto.
+5. Eseguire `npm run check`, `npm run build` e i test; controllare l'inquadratura desktop/mobile.
+
+Astro genera WebP e `srcset` responsive con dimensioni esplicite e caricamento lazy. Le cornici conservano proporzioni e layout esistenti; le immagini usano `object-fit: cover`, senza filtri o ricolorazioni. `position` controlla l'inquadratura. Finché un campo resta `null`, rimane il placeholder esplicito: nessun asset mancante viene richiesto. Gli screenshot non ricevono le decorazioni dei placeholder. Copy e dettagli dei progetti rimangono invariati; nessun URL o caso studio viene inventato. La fotografia riguarda solo About: il visual A→Z animato della hero è indipendente.
