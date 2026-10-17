@@ -65,7 +65,7 @@ for (const width of [375, 1440]) {
         await expect(mobile).toHaveAttribute('srcset', /480w.*588w/);
         await expect(mobile).not.toHaveAttribute('srcset', /960w/);
       }
-      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(slug === 'add-group' || slug === 'p-mari-best-catering-ltd' ? 0 : 1);
+      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(0);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     }
   });

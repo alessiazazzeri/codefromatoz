@@ -1,28 +1,28 @@
-import elenaMobile from '../../public/elena-bianchi-mobile.png';
-import fitnessMobile from '../../public/gym-center-mobile.png';
-import hairMobile from '../../public/luxury-hair-mobile.png';
-import beautyMobile from '../../public/sito-estetista-mobile.png';
-import mariSearch from '../../public/p-mari-search.png';
-import mariCatalogue from '../../public/p-mari-lista-prodotti.png';
-import mariProduct from '../../public/p-mari-prodotto-singolo.png';
-import addCategories from '../../public/add-group-sector.png';
-import addVisual from '../../public/add-group-visual.png';
-import addMobile from '../../public/add-group-mobile.png';
-import elenaServices from '../../public/elena-bianchi-servizi.png';
-import fitnessFeatures from '../../public/gym-center-2.png';
-import hairPhilosophy from '../../public/luxury-hair-studio-2.png';
-import beautyTreatments from '../../public/sito-estetista-listino.png';
-import mari from '../../public/p-mari-best-catering.png';
-import add from '../../public/add-group.png';
-import elena from '../../public/elena-bianchi.png';
-import fitness from '../../public/gym-center.png';
-import hair from '../../public/luxury-hair-studio.png';
-import beauty from '../../public/sito-estetista.png';
-import bubu from '../../public/bubu-siby.png';
+import elenaMobile from '../assets/projects/elena-bianchi-mobile.png';
+import fitnessMobile from '../assets/projects/gym-center-mobile.png';
+import hairMobile from '../assets/projects/luxury-hair-mobile.png';
+import beautyMobile from '../assets/projects/sito-estetista-mobile.png';
+import mariSearch from '../assets/projects/p-mari-search.png';
+import mariCatalogue from '../assets/projects/p-mari-lista-prodotti.png';
+import mariProduct from '../assets/projects/p-mari-prodotto-singolo.png';
+import addCategories from '../assets/projects/add-group-sector.png';
+import addVisual from '../assets/projects/add-group-visual.png';
+import addMobile from '../assets/projects/add-group-mobile.png';
+import elenaServices from '../assets/projects/elena-bianchi-servizi.png';
+import fitnessFeatures from '../assets/projects/gym-center-2.png';
+import hairPhilosophy from '../assets/projects/luxury-hair-studio-2.png';
+import beautyTreatments from '../assets/projects/sito-estetista-listino.png';
+import mari from '../assets/projects/p-mari-best-catering.png';
+import add from '../assets/projects/add-group.png';
+import elena from '../assets/projects/elena-bianchi.png';
+import fitness from '../assets/projects/gym-center.png';
+import hair from '../assets/projects/luxury-hair-studio.png';
+import beauty from '../assets/projects/sito-estetista.png';
+import bubu from '../assets/projects/bubu-siby.png';
 import type { PortfolioImage } from './portfolio';
 
 // Explicit associations verified against the supplied screenshots.
-// Public originals remain untouched; Astro generates responsive derivatives.
+// Repository source originals remain untouched; only responsive derivatives are published.
 export const projectImages: Record<string, PortfolioImage> = {
   'p-mari-best-catering-ltd': { source: mari, alt: 'Homepage P.Mari: catalogo di attrezzature per la ristorazione', position: '0% 50%' },
   'add-group': { source: add, alt: 'Homepage ADD Group: presentazione aziendale e offerta per partner business', position: '0% 50%' },

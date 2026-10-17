@@ -109,18 +109,10 @@ for (const width of [320, 375]) {
     ).toBe("");
   });
 }
-test("esplorazione logo e pagine legali temporanee", async ({ page }) => {
-  await page.goto("/brand-exploration");
-  await expect(page.locator(".direction-grid article")).toHaveCount(3);
-  await expect(page.locator(".isolated-logo svg")).toHaveCount(3);
-  await expect(page.locator(".isolated-logo img")).toHaveCount(0);
-  await expect(page.locator(".logo-swatch.light")).toHaveCount(3);
-  await expect(page.locator(".logo-swatch.dark")).toHaveCount(3);
-  await expect(page.locator("#header-preview .global-logo svg")).toHaveCount(1);
-  await expect(page.locator("header").first().locator("img")).toHaveAttribute(
-    "src",
-    "/logo.svg",
-  );
+test("esplorazioni non pubblicate e pagine legali temporanee", async ({ page }) => {
+  for (const route of ["/brand-exploration", "/brand-exploration/a-z-mark"]) {
+    expect((await page.request.get(route)).status()).toBe(404);
+  }
   for (const route of ["/privacy-policy", "/cookie-policy"]) {
     const r = await page.goto(route);
     expect(r?.status()).toBe(200);

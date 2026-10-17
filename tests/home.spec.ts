@@ -23,7 +23,7 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('.project-grid .index-image--home')).toHaveCount(4);
     await expect(page.locator('.project-grid .project-shot, .project-grid .art-orbit')).toHaveCount(0);
     await expect(page.locator(".service-grid article")).toHaveCount(6);
-    await expect(page.locator("script")).toHaveCount(2);
+    await expect(page.locator('script:not([type="application/ld+json"])')).toHaveCount(2);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

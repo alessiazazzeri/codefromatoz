@@ -61,7 +61,6 @@ p {
 .art-index,
 .art-footer,
 .contact-placeholder > a,
-.site-footer,
 .project-caption p,
 .portrait-placeholder small {
   font-family: "Courier New", monospace;
@@ -90,56 +89,8 @@ p {
 .skip-link:focus {
   transform: translateY(0);
 }
-.site-header {
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  border-bottom: var(--line);
-  min-height: 90px;
-}
-.wordmark {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 16px 3vw;
-  font-size: 13px;
-  letter-spacing: -0.04em;
-  font-weight: bold;
-  border-right: var(--line);
-}
-.wordmark > span {
-  font-size: 30px;
-  line-height: 1;
-  letter-spacing: -0.08em;
-}
-.logo-star {
-  color: var(--blue);
-  font-size: 27px;
-  margin: 0 8px;
-}
-.site-header nav {
-  display: flex;
-  align-items: center;
-  gap: 3.5vw;
-  padding: 0 3vw;
-  font-family: "Courier New", monospace;
-  font-size: 12px;
-  font-weight: bold;
-}
-.site-header nav a {
-  padding: 14px 0;
-}
-.site-header nav a:hover {
-  color: var(--blue);
-}
 sup {
   font-size: 9px;
-}
-.nav-contact {
-  margin-left: 4vw;
-}
-.nav-contact span {
-  margin-left: 25px;
 }
 .hero {
   display: grid;
@@ -279,6 +230,7 @@ sup {
   text-transform: uppercase;
 }
 .hero-side span:last-child {
+  line-height: 1;
   font-size: 28px;
 }
 .marquee {
@@ -652,32 +604,6 @@ sup {
   font-size: 65px;
   line-height: 1;
 }
-.site-footer {
-  background: var(--ink);
-  color: var(--paper);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  padding: 30px 3vw;
-  font-size: 10px;
-}
-.footer-brand {
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  font-size: 19px;
-  letter-spacing: -0.04em;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-.footer-brand span {
-  color: var(--pink);
-  font-size: 30px;
-}
-.site-footer a:focus-visible {
-  outline-color: var(--pink);
-}
 @media (min-width: 1600px) {
   body {
     max-width: 1800px;
@@ -752,42 +678,6 @@ sup {
   }
 }
 @media (max-width: 600px) {
-  .site-header {
-    min-height: 82px;
-    flex-wrap: wrap;
-  }
-  .wordmark {
-    width: 128px;
-    padding: 12px 20px;
-    border-right: 0;
-    font-size: 11px;
-  }
-  .wordmark > span {
-    font-size: 25px;
-  }
-  .logo-star {
-    font-size: 22px;
-  }
-  .site-header nav {
-    padding: 8px 18px;
-    gap: 18px;
-    justify-content: end;
-    flex: 1;
-    font-size: 10px;
-  }
-  .site-header nav a {
-    padding: 12px 0;
-  }
-  .site-header nav a:nth-child(2),
-  .site-header nav a:nth-child(3) {
-    display: none;
-  }
-  .nav-contact {
-    margin-left: 0;
-  }
-  .nav-contact span {
-    margin-left: 4px;
-  }
   .hero {
     display: grid;
     grid-template-columns: 1fr;
@@ -1069,24 +959,6 @@ sup {
   .contact-arrow {
     font-size: 50px;
   }
-  .site-footer {
-    padding: 25px 20px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 22px;
-    font-size: 9px;
-  }
-  .footer-brand {
-    grid-column: 1/-1;
-    font-size: 22px;
-    justify-content: space-between;
-  }
-  .site-footer p {
-    max-width: 200px;
-  }
-  .footer-links a {
-    padding: 10px 0;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -1172,7 +1044,6 @@ sup {
     font-size: 22px;
   }
 }
-.logo-star,
 .hero-spark,
 .sculpture-star,
 .big-star,
@@ -1181,7 +1052,6 @@ sup {
 .project-caption > span,
 .contact-arrow,
 .contact-top > span,
-.footer-brand > span,
 .text-link > span,
 .portrait-placeholder > span > span,
 .service-symbol,
@@ -1430,29 +1300,7 @@ sup {
   height: auto;
   object-fit: contain;
 }
-.wordmark .brand-logo {
-  width: 80px;
-}
-.footer-brand {
-  justify-content: center;
-  justify-self: start;
-  background: var(--paper);
-  padding: 8px 12px;
-}
-.footer-brand .brand-logo {
-  width: 90px;
-}
 @media (max-width: 600px) {
-  .wordmark .brand-logo {
-    width: 70px;
-  }
-  .wordmark {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-  .footer-brand .brand-logo {
-    width: 80px;
-  }
 }
 /* Real media occupies exactly the existing editorial frames. */
 .has-image .portfolio-image {
@@ -1528,12 +1376,14 @@ sup {
     visibility: visible;
   }
 }
-
-.footer-links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:16px}
-@media(max-width:600px){.footer-links{flex-direction:column;align-items:flex-end;gap:0}}
+@media(max-width:600px){}
 
 /* One native link per project; its hit area covers the whole editorial card. */
 .project {position:relative}
 .project-caption h3 a::after {content:"";position:absolute;inset:0;z-index:3;cursor:pointer}
 .project-caption h3 a:focus-visible::after {outline:3px solid var(--pink);outline-offset:4px}
 .work-index .project[id] {scroll-margin-top:24px}
+
+/* Enlarge only the contact hit area, without moving the text or surrounding content. */
+.contact-placeholder > a { position:relative; display:inline-block; }
+.contact-placeholder > a::after { content:""; position:absolute; inset:-16px -8px; min-height:44px; }

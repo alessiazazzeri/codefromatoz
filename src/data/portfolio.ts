@@ -50,4 +50,3 @@ export const projects: Project[] = [
     label: "04",
   },
 ];
-export const about: { portrait: PortfolioImage | null } = { portrait: null };

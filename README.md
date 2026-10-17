@@ -31,17 +31,25 @@ La UI gestisce invio, successo confermato da Gmail ed errore, conservando il tes
 
 Le pagine Privacy Policy e Cookie Policy sono ancora temporanee e vanno completate prima dell'attivazione pubblica. Non sono implementati cookie banner, CMP, CAPTCHA, Turnstile, analytics o tracking; la verifica va ripetuta sul deploy Cloudflare definitivo.
 
-## Contenuti da completare
+## Stato dei contenuti e SEO
 
-I visual dei quattro progetti sono segnaposto grafici originali, non screenshot o rappresentazioni del lavoro reale. Mancano descrizioni, case study, ritratto, biografia, dettagli dei servizi. Nessuna testimonianza o risultato commerciale inventato. I contatti sono collegati alla pagina `/contact` e alla casella professionale già fornita. Il progetto health ha un nome provvisorio.
+Homepage, Work, Services, About, Contact e sei case study sono presenti con screenshot reali desktop/mobile. Non restano visual placeholder nei case study. Le informative legali rimangono documenti temporanei: completarle prima del lancio; per ora sono noindex ed escluse dalla sitemap.
 
-Prima della pubblicazione aggiungere dominio definitivo e canonical/og:url, immagine social e contatti approvati. Non sono presenti analytics, cookie di tracciamento, font esterni o librerie di animazione esterne.
+URL di produzione: `https://www.codefromatoz.it/`, con route senza slash finale (homepage esclusa). `astro.config.mjs` dichiara site e convenzione; `src/data/site.ts` centralizza identità e dati SEO. `Base.astro` emette canonical, OG/Twitter e schema WebSite/Person verificabile. `/sitemap.xml` deriva dalle pagine Astro pubbliche, escludendo 404 e informative provvisorie; `/robots.txt` indica la sitemap e non blocca il crawl delle policy noindex. Le esplorazioni logo sono archiviate fuori da src/pages in `design-reference/`.
+
+La preview globale è `public/social/code-from-a-to-z.png` (1200×630). I case study usano derivati JPEG 1200×630 dei propri screenshot reali. Icone PNG e immagine brand possono essere rigenerate con `CHROMIUM_PATH=/usr/bin/chromium node scripts/generate-brand-assets.mjs`, usando il browser dei test già installato. Nessun manifest o PWA.
+
+## Sicurezza del build
+
+`npm run build` esegue Astro e `scripts/finalize-build.mjs`. Il secondo passaggio elimina soltanto copie PNG generate di screenshot sorgente che non hanno riferimenti nell'output e possiedono derivati WebP. Gli originali in `src/assets/projects/` non vengono modificati o cancellati.
+
+Lo stesso script genera `dist/_headers` per Cloudflare Pages: CSP con hash SHA-256 degli script effettivamente emessi (incluso JSON-LD), script attribute disabilitati, connessioni solo same-origin, object/frame vietati e frame-ancestors none. Le style inline sono ammesse intenzionalmente per crop e motion attuali. Include Referrer-Policy, nosniff, X-Frame-Options e Permissions-Policy. Nessun dominio Google deve essere consentito al browser: Gmail viene chiamato dalla Function server-side. Gli header Pages non si applicano automaticamente alle risposte delle Functions; l'API mantiene i propri header no-store/nosniff. Verificare gli header effettivi, la 404 HTTP, la normalizzazione URL e il funzionamento completo in produzione. Non pubblicare un output Astro parziale saltando il passaggio finale.
 
 ## Interfaccia
 
 Componenti Astro, CSS responsive, font di sistema, decorazioni CSS, navigazione ad ancore, skip link, focus visibile e supporto reduced motion. Sotto 600px: copertina compatta, artwork orizzontale, progetti in sequenza sfalsata e servizi in righe da rivista verticale.
 
-## Test della homepage
+## Test
 
 ```sh
 npm run build
@@ -49,7 +57,7 @@ npx playwright install chromium
 npm test
 ```
 
-Se Chromium è già installato, usare `CHROMIUM_PATH=/usr/bin/chromium npm test` senza scaricarlo. I quattro test coprono 320, 390, 768 e 1440 px: risposta HTTP, sezioni, navigazione, tastiera, overflow, caricamento dello script motion e audit axe WCAG A/AA. Gli audit automatici non sostituiscono una verifica manuale con tecnologie assistive.
+Se Chromium è già installato, usare `CHROMIUM_PATH=/usr/bin/chromium npm test` senza scaricarlo. La suite copre pagine, case study, link, API simulata, navigazione, tastiera, motion, asset, responsive e audit axe WCAG A/AA. I test pre-launch verificano anche metadata, sitemap, header di sicurezza e contenuti del build. Gli audit automatici non sostituiscono una verifica manuale con tecnologie assistive.
 
 ## Brand e motion
 
@@ -57,12 +65,10 @@ Un solo modulo TypeScript gestisce IntersectionObserver, parallax di massimo 12p
 
 Il logo ufficiale approvato è 02C — Slash / Square, in `public/logo.svg` (viewBox 128 × 128). I tracciati sono quelli della proposta approvata: usati senza deformazioni in header, footer e favicon. Il nero su off-white mantiene la leggibilità anche nel footer scuro.
 
-## Inserire screenshot e ritratto reali
+## Asset del portfolio
 
-1. Aggiungere gli originali approvati in `src/assets/` (JPG, PNG o WebP). Non sostituire il logo.
-2. Importare i file in `src/data/portfolio.ts`, ad esempio `import funteamScreenshot from '../assets/funteam.webp';`.
-3. Sostituire solo `screenshot: null` della card corrispondente con `{ source: funteamScreenshot, alt: 'Descrizione fedele dello screenshot', position: '50% 0%' }`.
-4. Per la fotografia importare l'originale e impostare `about.portrait` con lo stesso formato. Scegliere un testo alternativo reale e un `position` adeguato al soggetto.
-5. Eseguire `npm run check`, `npm run build` e i test; controllare l'inquadratura desktop/mobile.
+Gli originali approvati sono in `src/assets/projects/`; le associazioni esplicite sono in `src/data/project-images.ts`. `PortfolioImage.astro` genera WebP responsive con width/height e lazy loading, salvo visual prioritari. Il primo visual di /work e le copertine dei case study sono eager/high priority. `CaseStudyMedia.astro` accetta sizes per i diversi slot; crop e composizioni editoriali restano nei componenti e CSS esistenti.
 
-Astro genera WebP e `srcset` responsive con dimensioni esplicite e caricamento lazy. Le cornici conservano proporzioni e layout esistenti; le immagini usano `object-fit: cover`, senza filtri o ricolorazioni. `position` controlla l'inquadratura. Finché un campo resta `null`, rimane il placeholder esplicito: nessun asset mancante viene richiesto. Gli screenshot non ricevono le decorazioni dei placeholder. Copy e dettagli dei progetti rimangono invariati; nessun URL o caso studio viene inventato. La fotografia riguarda solo About: il visual A→Z animato della hero è indipendente.
+Il ritratto trasparente resta `public/portrait.png` (408×612): nessun upscale artificiale. Una sorgente più grande sarebbe preferibile per display densi. `logo.svg` e `favicon.svg` sono entrambi utilizzati e mantengono i tracciati 02C approvati.
+
+Non sono presenti analytics, cookie di tracciamento, storage browser, font esterni o librerie di animazione esterne. La verifica va ripetuta sul deploy Cloudflare effettivo.

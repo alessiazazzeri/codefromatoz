@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import SideQuest from '../components/SideQuest.astro';
 import { clientWork } from '../data/work';
 import { projectImages } from '../data/project-images';
@@ -30,6 +31,7 @@ import ProjectVisual from '../components/ProjectVisual.astro';
     </section>
     <Footer />
   </main>
+  <SiteFooter />
 </Base>
 <style>
   .index-hero{padding:38px 3vw 32px;border-bottom:var(--line)}

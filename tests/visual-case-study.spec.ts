@@ -17,7 +17,7 @@ for (const slug of projects)
         slug === "luxury-hair-studio" ? 3 : 4,
       );
       await expect(page.locator(".visual-case .case-section")).toHaveCount(4);
-      await expect(page.locator(".visual-case .case-media")).toHaveCount(4);
+      await expect(page.locator(".visual-case .case-media")).toHaveCount(3);
       await expect(page.locator(".visual-case img")).toHaveCount(3);
       expect(
         await page.evaluate(

@@ -12,7 +12,7 @@ const alt = slug === 'elena-bianchi'
   : image.alt;
 ---
 <div class={`project-art has-image index-image index-image--${slug} index-image--${context}`}>
-  <PortfolioImage image={{ ...image, position: crop, alt }} sizes={sizes} />
+  <PortfolioImage image={{ ...image, position: crop, alt }} sizes={sizes} priority={context === 'index' && number === '01'} />
   <span class="project-number image-number" aria-hidden="true">/{number}</span>
 </div>
 <style>

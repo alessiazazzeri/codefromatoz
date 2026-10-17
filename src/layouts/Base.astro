@@ -1,9 +1,25 @@
 ---
 import '../styles/global.css';
 import '../styles/navigation.css';
-interface Props { title?: string; description?: string; }
-const { title = 'Code from A to Z — Alessia · Web designer', description } = Astro.props;
-const defaultDescription = 'Code from A to Z è il portfolio di Alessia: web designer con background da developer, per professionisti, attività e brand.';
+import { getImage } from 'astro:assets';
+import { site, excludedFromIndex, absoluteUrl } from '../data/site';
+import { projectImages } from '../data/project-images';
+interface Props { title?: string; description?: string; noindex?: boolean; }
+const { title = site.title, description = site.description, noindex = false } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = absoluteUrl(path);
+const notIndexed = noindex || excludedFromIndex.has(path);
+const project = path.startsWith('/work/') ? projectImages[path.slice('/work/'.length)] : undefined;
+const socialImage = project ? await getImage({ src: project.source, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpeg', quality: 90 }) : undefined;
+const image = absoluteUrl(socialImage?.src ?? '/social/code-from-a-to-z.png');
+const imageAlt = project?.alt ?? 'Code from A to Z — Web Design + Development — Alessia Zazzeri';
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': absoluteUrl('/#website'), url: site.url, name: site.name, inLanguage: 'it-IT', creator: { '@id': absoluteUrl('/#alessia') } },
+    { '@type': 'Person', '@id': absoluteUrl('/#alessia'), name: site.person, url: absoluteUrl('/about'), jobTitle: 'Web Designer + Developer', sameAs: site.social },
+  ],
+};
 ---
 <!doctype html>
 <html lang="it">
@@ -12,12 +28,28 @@ const defaultDescription = 'Code from A to Z è il portfolio di Alessia: web des
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#111326" />
     <title>{title}</title>
-    <meta name="description" content={description ?? defaultDescription} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content={notIndexed ? 'noindex, follow' : 'index, follow'} />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description ?? "Web designer with a developer's brain. Design e sviluppo per professionisti, attività e brand."} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    {!notIndexed && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
   </head>
   <body><a class="skip-link" href="#main">Vai al contenuto</a><slot /><script src="../scripts/motion.ts"></script></body>
 </html>

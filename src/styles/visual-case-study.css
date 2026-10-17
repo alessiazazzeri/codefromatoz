@@ -339,3 +339,12 @@
     border-top: var(--line);
   }
 }
+
+/* The unnecessary preview slot is removed; retain the editorial two-column text rhythm. */
+.visual-case .visual-direction { grid-template-columns: minmax(0, 1fr); }
+.visual-case .visual-direction-copy { display:grid; grid-template-columns:1fr 1fr; gap:20px 5vw; grid-column:auto; grid-row:auto; align-items:start; }
+.visual-case .visual-direction-copy > .eyebrow:first-child { grid-column:1/-1; }
+.visual-case .visual-direction-copy h2 { grid-column:1; grid-row:2/4; margin:0; }
+.visual-case .visual-direction-copy .case-prose { grid-column:2; }
+.visual-case .visual-direction-copy .visual-microcopy { grid-column:2; margin:0; }
+@media(max-width:600px){.visual-case .visual-direction-copy{display:block}.visual-case .visual-direction-copy h2{margin:26px 0}.visual-case .visual-direction-copy .visual-microcopy{margin-top:24px}}

@@ -1,0 +1,1 @@
+Archivio delle esplorazioni del logo, conservato come riferimento progettuale. Non è una route Astro né parte del build pubblico. I file .astro.txt conservano il codice e gli import originali come documentazione: non sono preview eseguibili né vengono analizzati da Astro check. Il logo ufficiale resta public/logo.svg, variante 02C approvata.
