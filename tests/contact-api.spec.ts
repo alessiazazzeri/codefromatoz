@@ -101,7 +101,7 @@ test("server: successo solo dopo conferma Gmail, MIME e credenziali solo server"
     globalThis.fetch = original;
   }
 });
-test("server: campi invalidi, consenso, opzioni arbitrarie e header injection", async () => {
+test("server: campi invalidi, presa visione privacy, opzioni arbitrarie e header injection", async () => {
   const { env, store } = fixture();
   const challenge = await token(env);
   const result = await onRequestPost({
@@ -117,7 +117,7 @@ test("server: campi invalidi, consenso, opzioni arbitrarie e header injection", 
     }),
   });
   expect(result.status).toBe(422);
-  const body = (await result.json()) as { fields: object };
+  const body = (await result.json()) as { fields: Record<string, string> };
   expect(Object.keys(body.fields)).toEqual([
     "name",
     "email",
@@ -125,6 +125,7 @@ test("server: campi invalidi, consenso, opzioni arbitrarie e header injection", 
     "project",
     "privacy",
   ]);
+  expect(body.fields.privacy).toBe("Conferma di aver letto l’informativa privacy.");
   expect(store.size).toBe(0);
 });
 test("server: origine, token contraffatto, honeypot, payload e configurazione", async () => {

@@ -170,7 +170,7 @@ export async function onRequestPost({ request, env }: Context) {
     fields.project = "Scrivi un messaggio di massimo 4.000 caratteri.";
   if (body.privacy !== true)
     fields.privacy =
-      "Conferma di aver letto l’informativa privacy e il consenso.";
+      "Conferma di aver letto l’informativa privacy.";
   if (Object.keys(fields).length)
     return json({ ok: false, code: "validation", fields }, 422);
   try {

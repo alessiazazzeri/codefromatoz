@@ -42,7 +42,7 @@ for (const width of [320, 375, 768, 1024, 1600]) {
       await expect(footer).toHaveCount(1);
       await expect(footer.locator('a[href="/privacy-policy"]')).toHaveCount(1);
       await expect(footer.locator('a[href="/cookie-policy"]')).toHaveCount(1);
-      await expect(footer).toContainText("P. IVA 075065104811");
+      await expect(footer).toContainText("P. IVA 07506510481");
       for (const link of await footer.locator(".footer-social a").all()) {
         await expect(link).toHaveAttribute("target", "_blank");
         await expect(link).toHaveAttribute("rel", "noopener noreferrer");

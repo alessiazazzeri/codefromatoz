@@ -7,5 +7,5 @@ const path = Astro.url.pathname.replace(/\/$/,'');
   <nav aria-label="Navigazione footer"><p class="footer-heading">NAVIGATION</p>{links.map(([label,href]) => <a href={href} aria-current={path===href||(href==='/work'&&path.startsWith('/work/')) ? 'page' : undefined}>{label}<span aria-hidden="true">↗︎</span></a>)}</nav>
   <div class="footer-social"><p class="footer-heading">SOCIAL</p><a href="https://www.instagram.com/alessiaz.webdesign/" target="_blank" rel="noopener noreferrer">INSTAGRAM <span aria-hidden="true">↗︎</span></a><a href="https://www.linkedin.com/in/alessia-zazzeri/" target="_blank" rel="noopener noreferrer">LINKEDIN <span aria-hidden="true">↗︎</span></a></div>
   <nav aria-label="Informazioni legali"><p class="footer-heading">LEGAL</p><a href="/privacy-policy">PRIVACY POLICY</a><a href="/cookie-policy">COOKIE POLICY</a></nav>
-  <div class="footer-colophon"><p>© 2026 CODE FROM A TO Z DI ALESSIA ZAZZERI</p><p>P. IVA 075065104811</p><a href="#main">TORNA SU ↑</a></div>
+  <div class="footer-colophon"><p>© 2026 CODE FROM A TO Z DI ALESSIA ZAZZERI</p><p>P. IVA 07506510481</p><a href="#main">TORNA SU ↑</a></div>
 </footer>

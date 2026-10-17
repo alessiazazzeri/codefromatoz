@@ -16,6 +16,9 @@ for (const width of [320, 375, 768, 1440]) {
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveText("TELL MEWHAT'S ONYOUR MIND.");
     await expect(page.getByLabel("Nome (obbligatorio)")).toBeEnabled();
+    await expect(page.locator('label[for="contact-privacy"]')).toHaveText("Ho letto l'informativa privacy.");
+    await expect(page.locator('#contact-privacy')).toHaveAttribute('required');
+    await expect(page.locator('.cp-privacy a')).toHaveAttribute('href', '/privacy-policy');
     await expect(
       page.locator("#contact-brand, #contact-website, #contact-budget"),
     ).toHaveCount(0);
@@ -36,6 +39,8 @@ for (const width of [320, 375, 768, 1440]) {
     await page.getByRole("button", { name: "PARLIAMONE" }).click();
     await expect(page.locator("#form-errors")).toBeFocused();
     await expect(page.locator('[aria-invalid="true"]')).toHaveCount(5);
+    await expect(page.locator('#contact-privacy-error')).toHaveText('Conferma di aver letto l’informativa privacy.');
+    await expect(page.locator('#form-errors')).toContainText('Presa visione dell’informativa privacy');
     await expect(page.locator("#contact-name-error")).toHaveText(
       "Compila questo campo.",
     );

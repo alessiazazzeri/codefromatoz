@@ -24,7 +24,7 @@ if (form) {
     ) {
       message =
         field.type === "checkbox"
-          ? "Conferma di aver letto l’informativa privacy e il consenso."
+          ? "Conferma di aver letto l’informativa privacy."
           : field instanceof HTMLSelectElement
             ? "Seleziona un’opzione, anche “Non lo so ancora”."
             : "Compila questo campo.";
@@ -55,7 +55,7 @@ if (form) {
       link.href = `#${field.id}`;
       link.textContent =
         field.type === "checkbox"
-          ? "Consenso privacy"
+          ? "Presa visione dell’informativa privacy"
           : (field.labels?.[0]?.textContent ?? field.name);
       link.addEventListener("click", (event) => {
         event.preventDefault();
