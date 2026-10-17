@@ -11,6 +11,10 @@ export interface PortfolioImage {
 }
 interface Project {
   name: string;
+  categories: string;
+  slug: string;
+  /** Enable only after the matching /work/[slug] page exists. */
+  caseStudyPublished: boolean;
   type: string;
   label: string;
   mark: string;
@@ -18,28 +22,40 @@ interface Project {
 }
 export const projects: Project[] = [
   {
-    name: "FunTeam",
+    name: "P. Mari Best Catering Ltd",
+    categories: "WordPress / WooCommerce / Multilingual",
+    slug: "p-mari-best-catering-ltd",
+    caseStudyPublished: false,
     type: "fun",
     label: "01",
     mark: "FUN\nTEAM",
     screenshot: null,
   },
   {
-    name: "Bad Idea",
+    name: "ADD Group",
+    categories: "Web Design / WordPress / B2B",
+    slug: "add-group",
+    caseStudyPublished: false,
     type: "bad",
     label: "02",
     mark: "BAD\nIDEA.",
     screenshot: null,
   },
   {
-    name: "Mari Best Catering",
+    name: "Elena Bianchi — Psicologa Psicoterapeuta",
+    categories: "Web Design / WordPress / Health",
+    slug: "elena-bianchi",
+    caseStudyPublished: false,
     type: "mari",
     label: "03",
     mark: "mari\nbest",
     screenshot: null,
   },
   {
-    name: "Progetto health",
+    name: "Luxury Hair Studio",
+    categories: "Web Design / WordPress",
+    slug: "luxury-hair-studio",
+    caseStudyPublished: false,
     type: "health",
     label: "04",
     mark: "+",
