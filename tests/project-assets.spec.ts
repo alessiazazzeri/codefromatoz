@@ -7,6 +7,7 @@ const assets = {
   'luxury-hair-studio': 'luxury-hair-studio',
   'centro-estetico': 'sito-estetista',
 };
+const previewAssets: Record<string, string> = { 'p-mari-best-catering-ltd': 'p-mari-full', 'add-group': 'add-group-full', 'elena-bianchi': 'elena-bianchi-full', 'centro-fitness': 'gym-center-full', 'luxury-hair-studio': 'luxury-hair-full', 'centro-estetico': 'sito-estetista-full' };
 const details: Record<string, string[]> = {
   'p-mari-best-catering-ltd': ['p-mari-lista-prodotti', 'p-mari-prodotto-singolo', 'p-mari-search'],
   'add-group': ['add-group-sector', 'add-group-visual', 'add-group-mobile'],
@@ -33,8 +34,8 @@ for (const width of [375, 1440]) {
         const slug = (await card.getAttribute('data-work-path'))!.split('/').pop()!;
         const image = card.locator('img');
         await image.scrollIntoViewIfNeeded();
-        await expect(image).toHaveAttribute('src', new RegExp(`/_astro/${assets[slug as keyof typeof assets]}\\..*\\.webp$`));
-        await expect(image).toHaveAttribute('srcset', /480w.*960w.*1600w.*2400w/);
+        await expect(image).toHaveAttribute('src', new RegExp(`/_astro/${previewAssets[slug]}\\..*\\.webp$`));
+        await expect(image).toHaveAttribute('srcset', /320w.*480w/);
         await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth > 0)).toBe(true);
         expect(Number(await image.getAttribute('width'))).toBeGreaterThan(0);
         expect(Number(await image.getAttribute('height'))).toBeGreaterThan(0);

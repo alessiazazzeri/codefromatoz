@@ -6,19 +6,23 @@ async function files(dir) {
   return (await Promise.all((await readdir(dir, { withFileTypes: true })).map(entry => entry.isDirectory() ? files(new URL(`${entry.name}/`, dir)) : new URL(entry.name, dir)))).flat();
 }
 const output = await files(root);
+if (!output.some(file => file.href === new URL('404.html', root).href)) throw new Error('Missing Cloudflare Pages top-level 404.html');
 const textFiles = output.filter(file => ['.html', '.css', '.js', '.json', '.xml', '.txt', '.svg'].includes(extname(file.pathname)));
 const texts = await Promise.all(textFiles.map(file => readFile(file, 'utf8')));
 const references = texts.join('\n');
-// Astro emits source PNGs while resolving imports. Remove ONLY known portfolio
-// source copies with a generated WebP sibling and no reference in any built text.
-const sourceNames = new Set((await readdir(new URL('../src/assets/projects/', import.meta.url))).filter(name => name.endsWith('.png')).map(name => name.slice(0, -4)));
+// Remove only known source copies that have an optimized sibling and no
+// references. Sources themselves remain intact in src/assets/projects.
+const sources = await files(new URL('../src/assets/projects/', import.meta.url));
+const sourceNames = new Set(sources.filter(file => /\.(png|webp)$/.test(file.pathname)).map(file => basename(file.pathname).replace(/\.(png|webp)$/, '')));
+const sourceHashes = new Set(await Promise.all(sources.map(async file => createHash('sha256').update(await readFile(file)).digest('hex'))));
 let removed = 0;
 for (const file of output) {
   const name = basename(file.pathname);
-  if (!file.pathname.includes('/_astro/') || !name.endsWith('.png')) continue;
+  if (!file.pathname.includes('/_astro/') || !/\.(png|webp)$/.test(name)) continue;
   const stem = [...sourceNames].find(stem => name.startsWith(`${stem}.`));
   if (!stem || references.includes(name)) continue;
-  if (!output.some(other => basename(other.pathname).startsWith(`${stem}.`) && other.pathname.endsWith('.webp'))) throw new Error(`Missing optimized derivative for ${name}`);
+  if (!sourceHashes.has(createHash('sha256').update(await readFile(file)).digest('hex'))) continue;
+  if (!output.some(other => basename(other.pathname).startsWith(`${stem}.`) && other.href !== file.href && other.pathname.endsWith('.webp'))) throw new Error(`Missing optimized derivative for ${name}`);
   await unlink(file); removed++;
 }
 // Hash the final emitted scripts, including JSON-LD. Style attributes are used

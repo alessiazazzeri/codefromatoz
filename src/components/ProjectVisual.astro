@@ -1,35 +1,27 @@
 ---
-import PortfolioImage from './PortfolioImage.astro';
+import { Image } from 'astro:assets';
+import { fullPreviews } from '../data/full-previews';
 import type { PortfolioImage as ProjectImage } from '../data/portfolio';
 interface Props { image: ProjectImage; number: string; slug: string; context?: 'home' | 'index'; }
 const { image, number, slug, context = 'index' } = Astro.props;
+const source = fullPreviews[slug];
+if (!source) throw new Error(`Missing verified full-width screenshot for ${slug}`);
 const sizes = context === 'home'
-  ? (slug === 'elena-bianchi' ? '(max-width: 600px) 150vw, (max-width: 1000px) 100vw, 55vw' : '(max-width: 600px) 110vw, (max-width: 1000px) 65vw, 45vw')
-  : (slug === 'elena-bianchi' ? '(max-width: 600px) 150vw, 80vw' : '(max-width: 600px) 105vw, 60vw');
-const crop = slug === 'elena-bianchi' ? '100% 50%' : '0% 50%';
-const alt = slug === 'elena-bianchi'
-  ? 'Dettaglio della homepage Elena Bianchi: ritratto e palette cream'
-  : image.alt;
+  ? '(max-width: 600px) calc(100vw - 40px), (max-width: 1000px) 47vw, 24vw'
+  : '(max-width: 600px) calc(100vw - 40px), 55vw';
+const priority = context === 'index' && number === '01';
+// The tallest existing frame is 3:4. Retain the full source width and only
+// pre-trim pixels below that viewport, avoiding delivery of the entire page.
+const previewHeight = Math.ceil(source.width * 4 / 3);
+const widths = [...new Set([320, 480, source.width])].filter(width => width <= source.width);
 ---
 <div class={`project-art has-image index-image index-image--${slug} index-image--${context}`}>
-  <PortfolioImage image={{ ...image, position: crop, alt }} sizes={sizes} priority={context === 'index' && number === '01'} />
+  <Image class="portfolio-image" src={source} alt={image.alt} width={source.width} height={previewHeight} widths={widths} sizes={sizes} fit="cover" position="top" format="webp" quality={88} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : undefined} decoding="async" />
   <span class="project-number image-number" aria-hidden="true">/{number}</span>
 </div>
 <style>
-/* Shared editorial treatment; each context keeps its existing card proportions. */
-.index-image{--image-scale:1.04;--image-origin:left center}
-.index-image :global(.portfolio-image){transform:translateY(-1%) scale(var(--image-scale));transform-origin:var(--image-origin);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.index-image--p-mari-best-catering-ltd{--image-scale:1.1;--image-origin:left top}
-.index-image--add-group{--image-scale:1.12}
-.index-image--elena-bianchi{--image-scale:1.4;--image-origin:right center}
-.index-image--centro-fitness{--image-scale:1.035}
-.index-image--luxury-hair-studio{--image-scale:1.025}
-.index-image--centro-estetico{--image-scale:1.07}
-.index-image--add-group::before,.index-image--centro-estetico::before{content:"";position:absolute;z-index:1;pointer-events:none}
-.index-image--add-group::before{inset:0 auto 0 0;width:3px;background:var(--blue)}
-.index-image--centro-estetico::before{inset:auto 0 0;height:3px;background:var(--purple)}
+/* A viewport onto the real page: the full width is visible, only height clips.
+   The build-time crop above has the same horizontal scale as the full source. */
+.index-image :global(.portfolio-image){display:block;position:absolute;inset:0 auto auto 0;width:100%;height:auto;max-width:none;object-fit:initial;transform:none;transition:none}
 .index-image .image-number{z-index:2}
-@media(max-width:600px){.index-image--elena-bianchi{--image-scale:1.5}.index-image--add-group{--image-scale:1.035}}
-@media(hover:hover) and (prefers-reduced-motion:no-preference){:global(.project:hover) .index-image :global(.portfolio-image){transform:translateY(-1%) scale(calc(var(--image-scale) + .025))}}
-@media(prefers-reduced-motion:reduce){.index-image :global(.portfolio-image){transition:none}}
 </style>

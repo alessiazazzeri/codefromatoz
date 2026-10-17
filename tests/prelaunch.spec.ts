@@ -53,6 +53,7 @@ test('metadata centralizzati, sitemap, robots, social e icone', async ({ page, r
   for (const path of ['/brand-exploration', '/brand-exploration/a-z-mark', '/missing-page-audit']) {
     expect((await request.get(path)).status()).toBe(404);
     await page.goto(path);
+    expect(new URL(page.url()).pathname).toBe(path);
     await expect(page.locator('main')).toContainText('Questa pagina non esiste.');
   }
   expect(htmlFiles('dist').some(file => file.includes('brand-exploration'))).toBe(false);

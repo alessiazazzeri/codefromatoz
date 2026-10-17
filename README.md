@@ -41,7 +41,7 @@ La preview globale è `public/social/code-from-a-to-z.png` (1200×630). I case s
 
 ## Sicurezza del build
 
-`npm run build` esegue Astro e `scripts/finalize-build.mjs`. Il secondo passaggio elimina soltanto copie PNG generate di screenshot sorgente che non hanno riferimenti nell'output e possiedono derivati WebP. Gli originali in `src/assets/projects/` non vengono modificati o cancellati.
+`npm run build` esegue Astro e `scripts/finalize-build.mjs`. Il secondo passaggio elimina soltanto copie PNG/WebP generate identiche agli screenshot sorgente che non hanno riferimenti nell'output e possiedono derivati WebP. Gli originali in `src/assets/projects/` non vengono modificati o cancellati.
 
 Lo stesso script genera `dist/_headers` per Cloudflare Pages: CSP con hash SHA-256 degli script effettivamente emessi (incluso JSON-LD), script attribute disabilitati, connessioni solo same-origin, object/frame vietati e frame-ancestors none. Le style inline sono ammesse intenzionalmente per crop e motion attuali. Include Referrer-Policy, nosniff, X-Frame-Options e Permissions-Policy. Nessun dominio Google deve essere consentito al browser: Gmail viene chiamato dalla Function server-side. Gli header Pages non si applicano automaticamente alle risposte delle Functions; l'API mantiene i propri header no-store/nosniff. Verificare gli header effettivi, la 404 HTTP, la normalizzazione URL e il funzionamento completo in produzione. Non pubblicare un output Astro parziale saltando il passaggio finale.
 
@@ -76,3 +76,11 @@ Non sono presenti analytics, cookie di tracciamento, storage browser, font ester
 ## Informative e verifiche residue
 
 Le pagine legali utilizzano `src/layouts/LegalPage.astro`. Dati confermati, basi giuridiche, criteri di conservazione e punti contrattuali/infrastrutturali da verificare sono riepilogati in [docs/privacy-policy-notes.md](docs/privacy-policy-notes.md). Le informative non introducono cookie banner né richieste a terze parti.
+
+## Anteprime portfolio a larghezza intera
+
+I sei screenshot completi sono conservati senza modifiche in `src/assets/projects/full/`, con associazioni verificate in `src/data/full-previews.ts`. `ProjectVisual.astro` li usa soltanto per le card homepage e Work: larghezza 100%, height auto, allineamento top e overflow verticale della cornice. Il build ritaglia solo la parte inferiore oltre la massima altezza utile (4/3 della larghezza), preservando tutti i pixel in larghezza. Non viene inviato lo screenshot lungo completo né applicato zoom/cover CSS. Numerazione, griglie, link e Side Quest restano invariati; i case study mantengono i visual reali già completi.
+
+Le sorgenti full attualmente fornite misurano 532–644px di larghezza: non vengono generati derivati con risoluzione maggiore. Una visualizzazione desktop più grande resta limitata dalla risoluzione originale.
+
+`npm run build` richiede la presenza di `dist/404.html`; una URL inesistente deve ricevere la pagina branded mantenendo URL e status 404. Non sono necessari redirect JS o alla home. La verifica Cloudflare effettiva va eseguita dopo la pubblicazione del build aggiornato: i commit locali di remediation includono la 404, mentre il commit remoto di upload dei full non la conteneva ancora.
