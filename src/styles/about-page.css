@@ -1,0 +1,507 @@
+.about-page {
+  --ap-space: clamp(35px, 5vw, 80px);
+}
+.ap-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  border-bottom: var(--line);
+}
+.ap-hero-copy {
+  padding: 36px 3vw 42px;
+  display: flex;
+  flex-direction: column;
+}
+.ap-hero h1 {
+  font-size: clamp(48px, 6.5vw, 104px);
+  line-height: 0.94;
+  letter-spacing: -0.07em;
+  margin: 50px 0 40px;
+}
+.ap-hero h1 em {
+  color: var(--blue);
+}
+.ap-hero-intro {
+  font-size: clamp(17px, 1.6vw, 23px);
+  letter-spacing: -0.035em;
+  max-width: 490px;
+  margin-top: auto;
+}
+.ap-hero-intro p + p {
+  margin-top: 16px;
+}
+.ap-portrait {
+  margin: 0;
+  border-left: var(--line);
+  background: var(--ink);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  gap: 20px;
+}
+.ap-portrait-frame {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--paper);
+  aspect-ratio: 0.8;
+  overflow: hidden;
+  max-height: 650px;
+}
+.ap-portrait img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: 100%;
+  max-width: none;
+  filter: grayscale(1);
+}
+.ap-portrait-star {
+  position: absolute;
+  right: 8%;
+  top: 8%;
+  color: var(--blue);
+  font:
+    44px/1 "DejaVu Sans",
+    sans-serif;
+  font-variant-emoji: text;
+}
+.ap-portrait figcaption {
+  font:
+    700 10px/1.6 "Courier New",
+    monospace;
+  letter-spacing: 0.025em;
+  color: var(--paper);
+}
+.ap-section {
+  padding: var(--ap-space) 3vw;
+  border-bottom: var(--line);
+}
+.ap-section h2 {
+  font-size: clamp(44px, 6.7vw, 106px);
+  line-height: 0.96;
+  letter-spacing: -0.065em;
+  margin: 30px 0;
+}
+.ap-section h2 em {
+  color: var(--blue);
+}
+.ap-split {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+.ap-split h2 {
+  font-size: clamp(37px, 4.8vw, 76px);
+}
+.ap-prose {
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+.ap-prose p + p {
+  margin-top: 18px;
+}
+.ap-lead {
+  font-size: clamp(20px, 2.5vw, 36px);
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+  max-width: 500px;
+}
+.ap-tech {
+  border-top: var(--line);
+  padding-top: 25px;
+  margin-top: 35px;
+  font:
+    700 clamp(12px, 1.4vw, 20px)/1.8 "Courier New",
+    monospace;
+  letter-spacing: 0.02em;
+}
+.ap-then {
+  background: var(--ink);
+  color: var(--paper);
+}
+.ap-then h2 em {
+  color: var(--pink);
+}
+.ap-then .ap-prose {
+  margin-top: 30px;
+}
+.ap-statement {
+  font-size: clamp(35px, 6.1vw, 98px);
+  font-weight: 900;
+  letter-spacing: -0.065em;
+  line-height: 1.05;
+  border-top: 1px solid #f4f1e955;
+  padding-top: 35px;
+  margin-top: 45px;
+}
+.ap-statement em {
+  color: var(--pink);
+}
+.ap-bridge {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 25px;
+  align-items: center;
+  border-top: var(--line);
+  border-bottom: var(--line);
+  padding: 25px 0;
+  margin-top: 40px;
+  font-size: clamp(24px, 4vw, 64px);
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.065em;
+}
+.ap-bridge > span:last-child {
+  text-align: right;
+}
+.ap-bridge-arrow {
+  font-family: "DejaVu Sans", sans-serif;
+  color: var(--blue);
+}
+.ap-think {
+  background: var(--blue);
+  color: var(--paper);
+}
+.ap-think h2 em {
+  color: #ffd2f0;
+}
+.ap-think .ap-lead {
+  align-self: center;
+}
+.ap-principles {
+  list-style: none;
+  margin: 35px 0 30px;
+  padding: 0;
+}
+.ap-principles li {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr;
+  gap: 3vw;
+  border-top: 1px solid #f4f1e966;
+  padding: 26px 0;
+  align-items: start;
+}
+.ap-principles li:last-child {
+  border-bottom: 1px solid #f4f1e966;
+}
+.ap-principles h3 {
+  font-size: clamp(24px, 3.3vw, 52px);
+  letter-spacing: -0.065em;
+  line-height: 1.1;
+}
+.ap-principles p {
+  font-size: 15px;
+  max-width: 470px;
+}
+.ap-principles .eyebrow {
+  color: #ffd2f0;
+}
+.ap-note {
+  font:
+    700 11px/1.6 "Courier New",
+    monospace;
+  letter-spacing: 0.02em;
+}
+.ap-one h2 {
+  font-size: clamp(43px, 6.7vw, 106px);
+}
+.ap-one-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: start;
+}
+.ap-one-note {
+  border: var(--line);
+  background: var(--pink);
+  padding: 22px;
+  justify-self: start;
+  transform: rotate(-3deg);
+  margin: 20px 0 0 10px;
+}
+.ap-offline {
+  background: var(--purple);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: center;
+}
+.ap-offline h2 {
+  font-size: clamp(45px, 5.8vw, 92px);
+}
+.ap-offline h2 em {
+  color: #162ba5;
+}
+.ap-offline-star {
+  display: block;
+  font:
+    60px/1 "DejaVu Sans",
+    sans-serif;
+  color: #162ba5;
+  font-variant-emoji: text;
+}
+.ap-link {
+  display: inline-block;
+  font:
+    700 11px/1.7 "Courier New",
+    monospace;
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid currentColor;
+  padding: 12px 0 7px;
+  margin-top: 25px;
+  transition: color 0.25s;
+}
+.ap-link span {
+  display: inline-block;
+  font-family: "DejaVu Sans", sans-serif;
+  transition: translate 0.3s;
+}
+.ap-link:focus-visible {
+  outline-color: currentColor;
+}
+.ap-link:focus-visible span {
+  translate: 4px 0;
+}
+.ap-offline .ap-note {
+  margin-top: 20px;
+  font-size: 10px;
+}
+.ap-final {
+  background: var(--pink);
+}
+.ap-final h2 em {
+  color: #162ba5;
+}
+.ap-final-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6vw;
+  align-items: end;
+}
+.ap-actions {
+  justify-self: end;
+  max-width: 400px;
+}
+.ap-actions .ap-link {
+  margin: 0 20px 18px 0;
+}
+.ap-actions .ap-primary {
+  font-size: 15px;
+}
+.ap-actions .ap-note {
+  font-size: 10px;
+  margin-top: 5px;
+}
+@media (hover: hover) {
+  .ap-link:hover {
+    color: #162ba5;
+  }
+  .ap-link:hover span {
+    translate: 4px 0;
+  }
+}
+@keyframes ap-arrive {
+  from {
+    translate: 0 10px;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ap-motion .ap-hero h1 {
+    animation: ap-arrive 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .ap-motion .ap-hero-intro {
+    animation: ap-arrive 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.1s both;
+  }
+  .ap-motion .ap-portrait {
+    animation: ap-arrive 0.75s cubic-bezier(0.2, 0.7, 0.2, 1) 0.16s both;
+  }
+  .ap-motion [data-about-reveal].ap-pending {
+    translate: 0 10px;
+    transition: translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .ap-motion [data-about-reveal].ap-pending.ap-inview {
+    translate: 0 0;
+  }
+}
+@media (max-width: 1000px) and (min-width: 601px) {
+  .ap-hero h1 {
+    font-size: 6.25vw;
+  }
+  .ap-hero-copy {
+    padding-top: 30px;
+  }
+  .ap-hero-intro {
+    font-size: 16px;
+  }
+  .ap-portrait {
+    padding: 20px;
+  }
+  .ap-portrait figcaption {
+    font-size: 8px;
+  }
+  .ap-split {
+    gap: 30px;
+  }
+  .ap-split h2 {
+    font-size: 4.5vw;
+  }
+  .ap-prose {
+    font-size: 14px;
+  }
+  .ap-principles li {
+    grid-template-columns: 25px 1fr 1fr;
+    gap: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .ap-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ap-hero-copy {
+    padding: 28px 20px 30px;
+  }
+  .ap-hero h1 {
+    font-size: clamp(35px, 10.6vw, 64px);
+    margin: 35px 0 28px;
+  }
+  .ap-hero-intro {
+    font-size: 18px;
+    max-width: 360px;
+  }
+  .ap-hero-intro p + p {
+    margin-top: 14px;
+  }
+  .ap-portrait {
+    border-left: 0;
+    border-top: var(--line);
+    padding: 20px;
+    gap: 16px;
+  }
+  .ap-portrait-frame {
+    aspect-ratio: 0.85;
+    max-height: 500px;
+  }
+  .ap-portrait-star {
+    font-size: 35px;
+  }
+  .ap-portrait figcaption {
+    font-size: 9px;
+  }
+  .ap-section {
+    padding: 35px 20px;
+  }
+  .ap-section h2 {
+    font-size: clamp(30px, 8.5vw, 51px);
+    margin: 26px 0;
+  }
+  .ap-split,
+  .ap-one-bottom,
+  .ap-final-bottom,
+  .ap-offline {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+  }
+  .ap-split h2 {
+    font-size: clamp(29px, 8.2vw, 49px);
+  }
+  .ap-split > div:first-child h2 {
+    margin-bottom: 0;
+  }
+  .ap-prose {
+    font-size: 14px;
+  }
+  .ap-lead {
+    font-size: 23px;
+  }
+  .ap-tech {
+    font-size: 12px;
+    line-height: 1.8;
+    margin-top: 28px;
+    padding-top: 20px;
+  }
+  .ap-then .ap-prose {
+    margin-top: 0;
+  }
+  .ap-statement {
+    font-size: clamp(27px, 7.8vw, 47px);
+    margin-top: 30px;
+    padding-top: 25px;
+  }
+  .ap-bridge {
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    padding: 20px 0;
+    margin-top: 28px;
+    font-size: clamp(25px, 8vw, 48px);
+  }
+  .ap-bridge > span:last-child {
+    grid-column: 1/-1;
+    text-align: left;
+  }
+  .ap-bridge-arrow {
+    justify-self: end;
+  }
+  .ap-principles {
+    margin: 30px 0 25px;
+  }
+  .ap-principles li {
+    grid-template-columns: 25px minmax(0, 1fr);
+    gap: 15px;
+    padding: 23px 0;
+  }
+  .ap-principles h3 {
+    font-size: 27px;
+  }
+  .ap-principles p {
+    grid-column: 2;
+    font-size: 13px;
+  }
+  .ap-note {
+    font-size: 10px;
+  }
+  .ap-one h2 {
+    font-size: clamp(23px, 6.8vw, 41px);
+  }
+  .ap-one-note {
+    font-size: 10px;
+    margin: 0 0 0 6px;
+    padding: 18px;
+  }
+  .ap-offline h2 {
+    font-size: clamp(38px, 10.5vw, 63px);
+  }
+  .ap-offline-star {
+    font-size: 40px;
+  }
+  .ap-link {
+    font-size: 10px;
+  }
+  .ap-offline .ap-note {
+    font-size: 9px;
+  }
+  .ap-final h2 {
+    font-size: clamp(32px, 9.2vw, 55px);
+  }
+  .ap-actions {
+    justify-self: start;
+  }
+  .ap-actions .ap-primary {
+    font-size: 13px;
+  }
+  .ap-actions .ap-note {
+    font-size: 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ap-link:hover span,
+  .ap-link:focus-visible span {
+    translate: none;
+  }
+}

@@ -1,8 +1,8 @@
 ---
-interface Props { workPage?: boolean; workHref?: string; servicesPage?: boolean; }
-const { workPage = false, workHref, servicesPage = false } = Astro.props;
+interface Props { workPage?: boolean; workHref?: string; servicesPage?: boolean; aboutPage?: boolean; }
+const { workPage = false, workHref, servicesPage = false, aboutPage = false } = Astro.props;
 ---
 <header class="site-header">
   <a class="wordmark" href={workPage ? "/" : "#"} aria-label="Code from A to Z, inizio pagina"><img class="brand-logo" src="/logo.png" width="183" height="142" alt="Code from A to Z" decoding="async" /></a>
-  <nav aria-label="Navigazione principale"><a href={workHref ?? (workPage ? "#client-work" : "#work")} aria-current={workPage && !servicesPage ? "page" : undefined}>Progetti <sup>{workPage ? "06" : "04"}</sup></a><a href={servicesPage ? "/services" : (workPage ? "/#services" : "#services")} aria-current={servicesPage ? "page" : undefined}>Servizi</a><a href={workPage ? "/#about" : "#about"}>Alessia</a><a class="nav-contact" href="mailto:info@codefromatoz.it">Parliamone <span aria-hidden="true">↗︎</span></a></nav>
+  <nav aria-label="Navigazione principale"><a href={workHref ?? (workPage ? "#client-work" : "#work")} aria-current={workPage && !servicesPage && !aboutPage ? "page" : undefined}>Progetti <sup>{workPage ? "06" : "04"}</sup></a><a href={servicesPage ? "/services" : (workPage ? "/#services" : "#services")} aria-current={servicesPage ? "page" : undefined}>Servizi</a><a href={aboutPage ? "/about" : (workPage ? "/#about" : "#about")} aria-current={aboutPage ? "page" : undefined}>Alessia</a><a class="nav-contact" href="mailto:info@codefromatoz.it">Parliamone <span aria-hidden="true">↗︎</span></a></nav>
 </header>
