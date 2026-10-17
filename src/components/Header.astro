@@ -8,7 +8,7 @@ const active = (href: string) => path === href || (href === '/work' && path.star
 const menuId = `${idPrefix}-menu`;
 ---
 <header class="global-header" data-navigation>
-  <a class="global-logo" href="/" aria-label="Code from A to Z, homepage">{previewLogo ? <BrandLogo direction={previewLogo} /> : <img src="/logo.png" width="183" height="142" alt="Code from A to Z" decoding="async" />}</a>
+  <a class="global-logo" href="/" aria-label="Code from A to Z, homepage">{previewLogo ? <BrandLogo direction={previewLogo} /> : <img src="/logo.svg" width="128" height="128" alt="Code from A to Z" decoding="async" />}</a>
   <nav class="desktop-navigation" aria-label="Navigazione principale">{links.map(([label,href],index) => <a href={href} aria-current={active(href) ? 'page' : undefined}><sup>0{index+1}</sup>{label}{label==='CONTACT' && <span aria-hidden="true">↗︎</span>}</a>)}</nav>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls={menuId} hidden>MENU <span aria-hidden="true">＋</span></button>
   <dialog id={menuId} class="mobile-menu" aria-label="Menu di navigazione">

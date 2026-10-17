@@ -11,12 +11,12 @@ for (const width of [320, 390, 768, 1440]) {
     const response = await page.goto("/");
     expect(response?.status()).toBe(200);
     await expect(page.locator("h1")).toHaveText("DESIGNTHAT ✱WORKS.");
-    const logos = page.locator('img[src="/logo.png"]');
+    const logos = page.locator('img[src="/logo.svg"]');
     await expect(logos).toHaveCount(2);
     for (const logo of await logos.all()) {
       await logo.scrollIntoViewIfNeeded();
       await expect(logo).toBeVisible();
-      await expect.poll(() => logo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth === 183 && img.naturalHeight === 142)).toBe(true);
+      await expect.poll(() => logo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth === 128 && img.naturalHeight === 128)).toBe(true);
     }
     await page.evaluate(() => scrollTo(0, 0));
     await expect(page.locator(".project")).toHaveCount(4);

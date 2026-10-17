@@ -17,7 +17,7 @@
   color: var(--ink);
 }
 .global-logo img {
-  width: 80px;
+  width: 64px;
   height: auto;
   display: block;
 }
@@ -285,7 +285,7 @@
     padding: 10px 20px;
   }
   .global-logo img {
-    width: 70px;
+    width: 56px;
   }
   .global-logo svg {
     max-width: 90px;

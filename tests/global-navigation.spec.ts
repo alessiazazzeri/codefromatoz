@@ -17,7 +17,7 @@ for (const width of [320, 375, 768, 1024, 1600]) {
       await expect(header.locator(".global-logo")).toHaveAttribute("href", "/");
       await expect(header.locator(".global-logo img")).toHaveAttribute(
         "src",
-        "/logo.png",
+        "/logo.svg",
       );
       await expect(header.locator(".desktop-navigation a")).toHaveText([
         "01WORK",
@@ -119,7 +119,7 @@ test("esplorazione logo e pagine legali temporanee", async ({ page }) => {
   await expect(page.locator("#header-preview .global-logo svg")).toHaveCount(1);
   await expect(page.locator("header").first().locator("img")).toHaveAttribute(
     "src",
-    "/logo.png",
+    "/logo.svg",
   );
   for (const route of ["/privacy-policy", "/cookie-policy"]) {
     const r = await page.goto(route);
