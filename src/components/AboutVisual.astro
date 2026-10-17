@@ -1,0 +1,11 @@
+---
+import './AboutVisual.css';
+import source from './AboutVisual.css?raw';
+const codeTexture = source.split('/* Reveal')[0].trim();
+---
+<div class="portrait-placeholder about-composition">
+  <pre class="about-code" aria-hidden="true">{codeTexture}</pre>
+  <img class="about-portrait" src="/portrait.png" width="408" height="612" alt="Alessia Zazzeri con un computer portatile" loading="lazy" decoding="async" />
+  <span class="about-decoration about-decoration-arrow" aria-hidden="true">↗︎</span>
+  <span class="about-decoration about-decoration-star" aria-hidden="true">✳︎</span>
+</div>

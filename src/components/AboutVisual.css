@@ -1,0 +1,95 @@
+.about-composition {
+  background: var(--purple);
+  isolation: isolate;
+}
+.about-composition .about-code {
+  position: absolute;
+  inset: 18px 20px;
+  margin: 0;
+  color: var(--ink);
+  opacity: .18;
+  font: 11px/1.8 "Courier New", monospace;
+  white-space: pre;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+.about-composition .about-portrait {
+  position: absolute;
+  z-index: 1;
+  height: 115%;
+  width: auto;
+  max-width: none;
+  left: 50%;
+  bottom: -15%;
+  transform: translateX(-50%);
+  filter: grayscale(1);
+}
+.about-composition .about-decoration {
+  position: absolute;
+  z-index: 2;
+  font-family: "DejaVu Sans", sans-serif;
+  font-variant-emoji: text;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: none;
+  pointer-events: none;
+}
+.about-composition .about-decoration-arrow {
+  left: 7%;
+  bottom: 12%;
+  font-size: clamp(45px, 6vw, 85px);
+  color: var(--blue);
+}
+.about-composition .about-decoration-star {
+  right: 8%;
+  top: 9%;
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 400;
+  color: var(--ink);
+}
+@media (max-width: 600px) {
+  .about-composition .about-portrait {
+    height: 130%;
+    bottom: -28%;
+    left: 52%;
+  }
+  .about-composition .about-code {
+    inset: 12px;
+    font-size: 9px;
+    line-height: 1.7;
+  }
+  .about-composition .about-decoration-arrow {
+    left: 5%;
+    bottom: 10%;
+  }
+  .about-composition .about-decoration-star {
+    right: 6%;
+    top: 8%;
+  }
+}
+/* Reveal uses the existing About intersection state; no extra observer. */
+@media (prefers-reduced-motion: no-preference) {
+  .motion-enabled .about-visual.will-reveal .about-code {
+    transition: translate .65s ease;
+  }
+  .motion-enabled .about-visual.will-reveal .about-portrait {
+    transition: opacity .65s ease .12s, translate .65s ease .12s;
+  }
+  .motion-enabled .about-visual.will-reveal .about-decoration,
+  .motion-enabled .about-visual.will-reveal .about-sticker {
+    transition: opacity .6s ease .24s, translate .6s ease .24s;
+  }
+  .motion-enabled .about-visual.will-reveal:not(.is-revealed) .about-code {
+    translate: 0 5px;
+  }
+  .motion-enabled .about-visual.will-reveal:not(.is-revealed) .about-portrait {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  .motion-enabled .about-visual.will-reveal:not(.is-revealed) .about-decoration,
+  .motion-enabled .about-visual.will-reveal:not(.is-revealed) .about-sticker {
+    opacity: 0;
+    translate: 0 5px;
+  }
+}
