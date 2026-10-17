@@ -9,7 +9,7 @@ const assets = {
 };
 const details: Record<string, string[]> = {
   'p-mari-best-catering-ltd': ['p-mari-lista-prodotti', 'p-mari-prodotto-singolo'],
-  'add-group': ['add-group-2', 'add-group-mobile'],
+  'add-group': ['add-group-sector', 'add-group-visual', 'add-group-mobile'],
   'elena-bianchi': ['elena-bianchi-servizi', 'elena-bianchi-mobile'],
   'centro-fitness': ['gym-center-2', 'gym-center-mobile'],
   'luxury-hair-studio': ['luxury-hair-studio-2', 'luxury-hair-mobile'],
@@ -51,7 +51,7 @@ for (const width of [375, 1440]) {
       await expect(primary).toHaveAttribute('fetchpriority', 'high');
       await primary.scrollIntoViewIfNeeded();
       await expect.poll(() => primary.evaluate((img: HTMLImageElement) => img.naturalWidth > 0)).toBe(true);
-      await expect(page.locator('main img.portfolio-image')).toHaveCount(3);
+      await expect(page.locator('main img.portfolio-image')).toHaveCount(slug === 'add-group' ? 5 : 3);
       for (const filename of details[slug]) {
         const image = page.locator(`main img.portfolio-image[src*="/${filename}."]`);
         await expect(image).toHaveCount(1);
@@ -65,7 +65,7 @@ for (const width of [375, 1440]) {
         await expect(mobile).toHaveAttribute('srcset', /480w.*588w/);
         await expect(mobile).not.toHaveAttribute('srcset', /960w/);
       }
-      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(slug === 'add-group' ? 2 : 1);
+      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(slug === 'add-group' ? 0 : 1);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     }
   });

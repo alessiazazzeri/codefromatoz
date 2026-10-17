@@ -10,7 +10,12 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.locator(".add-info dl > div")).toHaveCount(4);
     await expect(page.locator(".add-case .case-media")).toHaveCount(4);
     await expect(page.locator(".add-phone")).toHaveCount(1);
-    await expect(page.locator(".add-case img")).toHaveCount(3);
+    await expect(page.locator('.add-case [aria-label^="Placeholder"]')).toHaveCount(0);
+    await expect(page.locator('.add-structure img')).toHaveAttribute('src', /add-group-sector.*\.webp$/);
+    await expect(page.locator('.add-direction img')).toHaveAttribute('src', /add-group-visual.*\.webp$/);
+    await expect(page.locator('.add-desktop img')).toHaveAttribute('src', /add-group\..*\.webp$/);
+    await expect(page.locator('.add-phone img')).toHaveAttribute('src', /add-group-mobile.*\.webp$/);
+    await expect(page.locator(".add-case img")).toHaveCount(5);
     await expect(page.locator(".add-next")).toHaveAttribute(
       "data-next-project",
       "/work/elena-bianchi",

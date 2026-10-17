@@ -4,7 +4,8 @@ import hairMobile from '../../public/luxury-hair-mobile.png';
 import beautyMobile from '../../public/sito-estetista-mobile.png';
 import mariCatalogue from '../../public/p-mari-lista-prodotti.png';
 import mariProduct from '../../public/p-mari-prodotto-singolo.png';
-import addCategories from '../../public/add-group-2.png';
+import addCategories from '../../public/add-group-sector.png';
+import addVisual from '../../public/add-group-visual.png';
 import addMobile from '../../public/add-group-mobile.png';
 import elenaServices from '../../public/elena-bianchi-servizi.png';
 import fitnessFeatures from '../../public/gym-center-2.png';
@@ -34,6 +35,7 @@ export const projectImages: Record<string, PortfolioImage> = {
 export const projectDetails = {
   mariCatalogue: { source: mariCatalogue, alt: 'P.Mari: categorie del catalogo di attrezzature per la ristorazione' },
   mariProduct: { source: mariProduct, alt: 'P.Mari: scheda forno con caratteristiche e richiesta di disponibilità' },
+  addVisual: { source: addVisual, alt: 'ADD Group: pagina About us con presentazione aziendale e logistica' },
   addCategories: { source: addCategories, alt: 'ADD Group: categorie merceologiche e settori serviti' },
   addMobile: { source: addMobile, alt: 'Homepage ADD Group su mobile, con presentazione e contatto per i partner' },
   'elena-bianchi': { source: elenaServices, alt: 'Elena Bianchi: percorsi di sostegno psicologico e servizi' },
