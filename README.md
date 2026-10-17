@@ -39,4 +39,4 @@ Se Chromium è già installato, usare `CHROMIUM_PATH=/usr/bin/chromium npm test`
 
 Un solo modulo TypeScript gestisce IntersectionObserver, parallax di massimo 12px e pausa globale. Il resto è CSS: ingresso hero, orbite/asterischi, marquee e hover. `prefers-reduced-motion` disattiva il motion anche quando cambia durante la sessione. Contenuti sempre disponibili senza JavaScript. Il pulsante nella hero mette in pausa tutti i movimenti. La CTA risponde anche al focus da tastiera; non è un link di contatto finché mancano i recapiti.
 
-Il logo ufficiale è in attesa del file originale: il riferimento visibile in chat non è disponibile come asset nel checkout. Non è stato ridisegnato o ricostruito.
+Il logo ufficiale originale è `public/logo.png` (183 × 142 px): usato in header e footer senza ritagli, filtri o modifiche al file. Nel footer è appoggiato su un fondo off-white per conservarne la leggibilità.

@@ -1423,3 +1423,9 @@ sup {
     transform: rotate(-50deg);
   }
 }
+/* Original supplied logo: preserve its aspect ratio and colors. */
+.brand-logo{display:block;max-width:100%;height:auto;object-fit:contain}
+.wordmark .brand-logo{width:80px}
+.footer-brand{justify-content:center;justify-self:start;background:var(--paper);padding:8px 12px}
+.footer-brand .brand-logo{width:90px}
+@media(max-width:600px){.wordmark .brand-logo{width:70px}.wordmark{padding-top:12px;padding-bottom:12px}.footer-brand .brand-logo{width:80px}}
