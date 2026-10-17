@@ -8,6 +8,9 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.locator("h1")).toHaveText("P.MARI BESTCATERING LTD.");
     await expect(page.locator(".case-section")).toHaveCount(7);
     await expect(page.locator(".case-media")).toHaveCount(4);
+    await expect(page.locator('.case-media-real')).toHaveCount(4);
+    await expect(page.locator('.search-story img')).toHaveAttribute('src', /p-mari-search.*\.webp$/);
+    await expect(page.locator('.search-story img')).toHaveAttribute('loading', 'lazy');
     await expect(page.locator(".case-info dl > div")).toHaveCount(5);
     await expect(page.locator(".catalogue-path strong")).toHaveText([
       "CATEGORIE",

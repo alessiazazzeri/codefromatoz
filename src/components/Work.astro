@@ -7,7 +7,7 @@ import { projectImages } from '../data/project-images';
   <div class="section-top"><p class="eyebrow">01 / Il portfolio</p><span class="small-note">Una selezione, dalla A alla Z.</span></div>
   <div class="section-heading"><h2 id="work-title">SELECTED<br /><em>WORK.</em></h2><p>Una selezione di progetti,<br />dall'idea alla messa online.</p><span class="heading-arrow" aria-hidden="true">↙︎</span></div>
   <div class="project-grid">{projects.map(project => <article class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
-    <ProjectVisual image={projectImages[project.slug]} number={project.label} />
+    <ProjectVisual image={projectImages[project.slug]} number={project.label} slug={project.slug} context="home" />
     <div class="project-caption"><h3>{project.caseStudyPublished ? <a href={`/work#${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.categories}</p></div>
   </article>)}</div>
 </section>

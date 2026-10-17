@@ -2,6 +2,7 @@ import elenaMobile from '../../public/elena-bianchi-mobile.png';
 import fitnessMobile from '../../public/gym-center-mobile.png';
 import hairMobile from '../../public/luxury-hair-mobile.png';
 import beautyMobile from '../../public/sito-estetista-mobile.png';
+import mariSearch from '../../public/p-mari-search.png';
 import mariCatalogue from '../../public/p-mari-lista-prodotti.png';
 import mariProduct from '../../public/p-mari-prodotto-singolo.png';
 import addCategories from '../../public/add-group-sector.png';
@@ -33,6 +34,7 @@ export const projectImages: Record<string, PortfolioImage> = {
 };
 
 export const projectDetails = {
+  mariSearch: { source: mariSearch, alt: 'Ricerca P.Mari con suggerimenti di categorie e prodotti' },
   mariCatalogue: { source: mariCatalogue, alt: 'P.Mari: categorie del catalogo di attrezzature per la ristorazione' },
   mariProduct: { source: mariProduct, alt: 'P.Mari: scheda forno con caratteristiche e richiesta di disponibilità' },
   addVisual: { source: addVisual, alt: 'ADD Group: pagina About us con presentazione aziendale e logistica' },

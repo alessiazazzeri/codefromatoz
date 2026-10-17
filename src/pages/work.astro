@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import SideQuest from '../components/SideQuest.astro';
 import { clientWork } from '../data/work';
 import { projectImages } from '../data/project-images';
-import WorkIndexVisual from '../components/WorkIndexVisual.astro';
+import ProjectVisual from '../components/ProjectVisual.astro';
 ---
 <Base title="Selected Projects — Code from A to Z" description="Una selezione di siti progettati, sviluppati e portati online.">
   <Header />
@@ -19,7 +19,7 @@ import WorkIndexVisual from '../components/WorkIndexVisual.astro';
       <div class="index-section-top"><h2 id="client-title">CLIENT WORK</h2><span class="eyebrow">01 — 06</span></div>
       <div class="editorial-grid">
         {clientWork.map((project, index) => <article id={project.slug} tabindex="-1" aria-labelledby={`work-name-${project.slug}`} class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
-          <WorkIndexVisual image={projectImages[project.slug]} number={String(index + 1).padStart(2, '0')} slug={project.slug} />
+          <ProjectVisual image={projectImages[project.slug]} number={String(index + 1).padStart(2, '0')} slug={project.slug} />
           <div class="project-caption"><h3 id={`work-name-${project.slug}`}>{project.published ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.tags}</p></div>
         </article>)}
       </div>
