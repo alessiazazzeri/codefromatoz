@@ -1,0 +1,43 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+for (const width of [320, 390, 768, 1440]) {
+  test(`homepage, navigazione e accessibilità a ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width, height: 900 });
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    const response = await page.goto("/");
+    expect(response?.status()).toBe(200);
+    await expect(page.locator("h1")).toHaveText("DESIGNTHAT ✳︎WORKS.");
+    await expect(page.locator(".project")).toHaveCount(4);
+    await expect(page.locator(".service-grid article")).toHaveCount(6);
+    await expect(page.locator("script")).toHaveCount(0);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    const anchors = await page
+      .locator('a[href^="#"]')
+      .evaluateAll((elements) =>
+        elements.map((e) => e.getAttribute("href")!).filter((h) => h !== "#"),
+      );
+    for (const anchor of anchors)
+      await expect(page.locator(anchor)).toHaveCount(1);
+    await page.keyboard.press("Tab");
+    await expect(page.locator(".skip-link")).toBeFocused();
+    await page.keyboard.press("Enter");
+    await page
+      .getByRole("navigation")
+      .getByRole("link", { name: /Progetti/ })
+      .click();
+    await expect(page).toHaveURL(/#work$/);
+    const accessibility = await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+      .analyze();
+    expect(accessibility.violations).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
