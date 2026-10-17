@@ -4,18 +4,21 @@ import type { PortfolioImage } from '../data/portfolio';
 interface Props {
   image: PortfolioImage;
   sizes: string;
+  priority?: boolean;
 }
-const { image, sizes } = Astro.props;
+const { image, sizes, priority = false } = Astro.props;
 ---
 <Image
   class="portfolio-image"
   src={image.source}
   alt={image.alt}
-  widths={[360, 720, 1080]}
+  width={1600}
+  widths={[480, 960, 1600, 2400]}
   sizes={sizes}
   format="webp"
-  quality={80}
-  loading="lazy"
+  quality={88}
+  loading={priority ? "eager" : "lazy"}
+  fetchpriority={priority ? "high" : undefined}
   decoding="async"
   style={{ objectPosition: image.position ?? '50% 50%' }}
 />

@@ -1,8 +1,6 @@
 import type { ImageMetadata } from "astro";
 
-// Import approved original assets from src/assets, then replace the relevant null.
-// Example shape: { source: importedImage, alt: 'Approved description', position: '50% 50%' }
-// Keep null until the real asset is supplied. No file path is guessed or requested at runtime.
+// Image metadata shared by the explicit project asset map.
 export interface PortfolioImage {
   source: ImageMetadata;
   alt: string;
@@ -17,8 +15,6 @@ interface Project {
   caseStudyPublished: boolean;
   type: string;
   label: string;
-  mark: string;
-  screenshot: PortfolioImage | null;
 }
 export const projects: Project[] = [
   {
@@ -28,8 +24,6 @@ export const projects: Project[] = [
     caseStudyPublished: true,
     type: "fun",
     label: "01",
-    mark: "FUN\nTEAM",
-    screenshot: null,
   },
   {
     name: "ADD Group",
@@ -38,8 +32,6 @@ export const projects: Project[] = [
     caseStudyPublished: true,
     type: "bad",
     label: "02",
-    mark: "BAD\nIDEA.",
-    screenshot: null,
   },
   {
     name: "Elena Bianchi — Psicologa Psicoterapeuta",
@@ -48,8 +40,6 @@ export const projects: Project[] = [
     caseStudyPublished: true,
     type: "mari",
     label: "03",
-    mark: "mari\nbest",
-    screenshot: null,
   },
   {
     name: "Luxury Hair Studio",
@@ -58,8 +48,6 @@ export const projects: Project[] = [
     caseStudyPublished: true,
     type: "health",
     label: "04",
-    mark: "+",
-    screenshot: null,
   },
 ];
 export const about: { portrait: PortfolioImage | null } = { portrait: null };

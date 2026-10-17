@@ -18,7 +18,7 @@ for (const slug of projects)
       );
       await expect(page.locator(".visual-case .case-section")).toHaveCount(4);
       await expect(page.locator(".visual-case .case-media")).toHaveCount(4);
-      await expect(page.locator(".visual-case img")).toHaveCount(0);
+      await expect(page.locator(".visual-case img")).toHaveCount(1);
       expect(
         await page.evaluate(
           () => document.documentElement.scrollWidth <= innerWidth,

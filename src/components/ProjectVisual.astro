@@ -1,0 +1,22 @@
+---
+import PortfolioImage from './PortfolioImage.astro';
+import type { PortfolioImage as ProjectImage } from '../data/portfolio';
+interface Props { image: ProjectImage; number: string; context?: 'home' | 'index'; }
+const { image, number, context = 'home' } = Astro.props;
+---
+<div class={`project-art has-image project-visual project-visual--${context}`}>
+  <span class="art-orbit" aria-hidden="true"></span>
+  <div class="project-shot"><PortfolioImage image={image} sizes={context === 'home' ? '(max-width: 600px) 110vw, (max-width: 1000px) 55vw, 28vw' : '(max-width: 600px) 110vw, 62vw'} /></div>
+  <span class="project-number image-number" aria-hidden="true">/{number}</span>
+</div>
+<style>
+.project-visual .project-shot{position:absolute;inset:13% -5%;border:var(--line);overflow:hidden;transform:rotate(-3deg);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.project-visual .art-orbit{opacity:.5}
+.project-visual--index .project-shot{inset:10% 5%;transform:rotate(2deg)}
+:global(.bad) .project-visual .project-shot{transform:rotate(3deg);inset:16% -6% 11%}
+:global(.mari) .project-visual .project-shot{transform:rotate(-2deg);inset:10% 4%}
+:global(.health) .project-visual .project-shot{transform:rotate(2deg);inset:15% -8%}
+:global(.project) .project-visual .image-number{z-index:2}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){:global(.project:hover) .project-shot{transform:rotate(0) scale(1.025)}}
+@media(prefers-reduced-motion:reduce){.project-visual .project-shot{transition:none}}
+</style>

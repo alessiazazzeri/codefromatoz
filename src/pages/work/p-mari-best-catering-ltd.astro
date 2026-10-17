@@ -1,6 +1,7 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
 import CaseStudyMedia from '../../components/CaseStudyMedia.astro';
+import { projectImages } from '../../data/project-images';
 const info = [
   ['CLIENTE', 'P.Mari Best Catering Ltd'],
   ['SETTORE', 'Catering equipment'],
@@ -14,7 +15,7 @@ const info = [
     <p class="eyebrow">01 / CLIENT WORK</p>
     <h1 id="case-title">P.MARI BEST<br /><em>CATERING LTD.</em></h1>
     <div class="case-hero-bottom"><p>Un catalogo multilingua per rendere semplice la consultazione di un'offerta tutt'altro che piccola.</p><p class="case-tags">WEB DESIGN / WORDPRESS / WOOCOMMERCE / MULTILINGUAL</p></div>
-    <CaseStudyMedia label="VISUAL PRINCIPALE" />
+    <CaseStudyMedia label="VISUAL PRINCIPALE" image={projectImages['p-mari-best-catering-ltd']} />
   </section>
   <section class="case-info" aria-label="Project info"><dl>{info.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>
   <section class="case-section project-story" aria-labelledby="project-title">

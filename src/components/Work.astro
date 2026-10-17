@@ -1,12 +1,13 @@
 ---
 import { projects } from '../data/portfolio';
-import PortfolioImage from './PortfolioImage.astro';
+import ProjectVisual from './ProjectVisual.astro';
+import { projectImages } from '../data/project-images';
 ---
 <section id="work" class="work section-anchor" aria-labelledby="work-title">
   <div class="section-top"><p class="eyebrow">01 / Il portfolio</p><span class="small-note">Una selezione, dalla A alla Z.</span></div>
   <div class="section-heading"><h2 id="work-title">SELECTED<br /><em>WORK.</em></h2><p>Una selezione di progetti,<br />dall'idea alla messa online.</p><span class="heading-arrow" aria-hidden="true">↙︎</span></div>
   <div class="project-grid">{projects.map(project => <article class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
-    {project.screenshot ? <div class="project-art has-image"><PortfolioImage image={project.screenshot} sizes="(max-width: 600px) calc(100vw - 40px), (max-width: 1000px) 46vw, 23vw" /><span class="project-number image-number" aria-hidden="true">/{project.label}</span></div> : <div class="project-art" role="img" aria-label={`Segnaposto grafico per ${project.name}, non rappresenta il progetto reale`}><span class="project-number">/{project.label}</span><span class="art-mark" aria-hidden="true">{project.mark}</span><span class="art-orbit" aria-hidden="true"></span><span class="placeholder-label">VISUAL PLACEHOLDER</span></div>}
+    <ProjectVisual image={projectImages[project.slug]} number={project.label} />
     <div class="project-caption"><h3>{project.caseStudyPublished ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.categories}</p></div>
   </article>)}</div>
 </section>

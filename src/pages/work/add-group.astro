@@ -1,6 +1,7 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
 import CaseStudyMedia from '../../components/CaseStudyMedia.astro';
+import { projectImages } from '../../data/project-images';
 import '../../styles/add-group.css';
 const info = [
   ['CLIENTE', 'ADD Group'],
@@ -15,7 +16,7 @@ const info = [
       <p class="eyebrow">02 / CLIENT WORK</p>
       <h1 id="add-title">ADD <em>GROUP.</em></h1>
       <div class="case-hero-bottom"><p>Un restyling per spostare il focus dai singoli settori a un'identità più chiaramente B2B.</p><p class="case-tags">WEB DESIGN / WORDPRESS / RESTYLING / B2B</p></div>
-      <div class="add-cover"><CaseStudyMedia label="ADD GROUP / VISUAL PRINCIPALE" /></div>
+      <div class="add-cover"><CaseStudyMedia label="ADD GROUP / VISUAL PRINCIPALE" image={projectImages['add-group']} /></div>
     </section>
     <section class="case-info add-info" aria-label="Project info"><dl>{info.map(([label,value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>
     <section class="case-section add-project" aria-labelledby="add-project-title">

@@ -4,6 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SideQuest from '../components/SideQuest.astro';
 import { clientWork } from '../data/work';
+import { projectImages } from '../data/project-images';
+import ProjectVisual from '../components/ProjectVisual.astro';
 ---
 <Base title="Selected Projects — Code from A to Z" description="Una selezione di siti progettati, sviluppati e portati online.">
   <Header />
@@ -17,12 +19,7 @@ import { clientWork } from '../data/work';
       <div class="index-section-top"><h2 id="client-title">CLIENT WORK</h2><span class="eyebrow">01 — 06</span></div>
       <div class="editorial-grid">
         {clientWork.map((project, index) => <article class={`project ${project.type}`} data-work-path={`/work/${project.slug}`}>
-          <div class="project-art" role="img" aria-label={`Segnaposto grafico per ${project.name}, non rappresenta il progetto reale`}>
-            <span class="project-number">/{String(index + 1).padStart(2, '0')}</span>
-            <span class="art-mark" aria-hidden="true">{project.mark}</span>
-            <span class="art-orbit" aria-hidden="true"></span>
-            <span class="placeholder-label">VISUAL PLACEHOLDER</span>
-          </div>
+          <ProjectVisual image={projectImages[project.slug]} number={String(index + 1).padStart(2, '0')} context="index" />
           <div class="project-caption"><h3>{project.published ? <a href={`/work/${project.slug}`}>{project.name}</a> : project.name}</h3><span aria-hidden="true">↗︎</span><p>{project.tags}</p></div>
         </article>)}
       </div>
@@ -49,14 +46,14 @@ import { clientWork } from '../data/work';
   .editorial-grid .project{grid-column:span 7;min-width:0}
   .editorial-grid .project:nth-child(4n + 2),.editorial-grid .project:nth-child(4n + 3){grid-column:span 5}
   .editorial-grid .project:nth-child(even){margin-top:85px}
-  .editorial-grid .project-art{aspect-ratio:1.4;border:1px solid #f4f1e933}
-  .editorial-grid .project:nth-child(4n + 2) .project-art,.editorial-grid .project:nth-child(4n + 3) .project-art{aspect-ratio:1}
+  .editorial-grid :global(.project-art){aspect-ratio:1.4;border:1px solid #f4f1e933}
+  .editorial-grid .project:nth-child(4n + 2) :global(.project-art),.editorial-grid .project:nth-child(4n + 3) :global(.project-art){aspect-ratio:1}
   .editorial-grid .art-mark{font-size:clamp(65px,10vw,160px)}
   .editorial-grid .health .art-mark{font-size:clamp(100px,16vw,240px);font-family:'DejaVu Sans',sans-serif;font-variant-emoji:text}
   .editorial-grid .bad .art-mark{font-family:'DejaVu Sans',sans-serif;font-variant-emoji:text}
   .editorial-grid .project-caption h3{font-size:clamp(19px,2vw,28px)}
   .editorial-grid .project-caption p{font-size:10px;line-height:1.6}
-  .editorial-grid .project-number{font-size:12px}
+  .editorial-grid :global(.project-number){font-size:12px}
   .quests-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 3vw;background:var(--purple);border-bottom:var(--line)}
   .quests-heading>span{font:32px/1 'DejaVu Sans',sans-serif;font-variant-emoji:text}
   .mobile-break{display:none}
@@ -68,9 +65,9 @@ import { clientWork } from '../data/work';
     .editorial-grid{display:flex;flex-direction:column;gap:32px}
     .editorial-grid .project{width:100%;margin:0}
     .editorial-grid .project:nth-child(even){width:calc(100% - 26px);margin:0 0 0 26px}
-    .editorial-grid .project-art{aspect-ratio:1.15}
-    .editorial-grid .project:nth-child(even) .project-art{aspect-ratio:.95}
-    .editorial-grid .project:nth-child(odd) .project-art{aspect-ratio:1.15}
+    .editorial-grid :global(.project-art){aspect-ratio:1.15}
+    .editorial-grid .project:nth-child(even) :global(.project-art){aspect-ratio:.95}
+    .editorial-grid .project:nth-child(odd) :global(.project-art){aspect-ratio:1.15}
     .editorial-grid .art-mark{font-size:85px}.editorial-grid .health .art-mark{font-size:130px}
     .editorial-grid .project-caption h3{font-size:20px}.editorial-grid .project-caption p{font-size:9px}
     .quests-heading{padding:22px 20px}.quests-heading h2{font-size:11px}.mobile-break{display:initial}

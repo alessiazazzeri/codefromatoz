@@ -12,8 +12,8 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page).toHaveTitle('Selected Projects — Code from A to Z');
     await expect(page.locator('h1')).toHaveText('SELECTEDPROJECTS.');
     await expect(page.locator('.editorial-grid h3')).toHaveText(names);
-    await expect(page.locator('.editorial-grid .placeholder-label')).toHaveCount(6);
-    await expect(page.locator('.editorial-grid img')).toHaveCount(0);
+    await expect(page.locator('.editorial-grid .placeholder-label')).toHaveCount(0);
+    await expect(page.locator('.editorial-grid img')).toHaveCount(6);
     await expect(page.locator('[data-work-path^="/work/"]')).toHaveCount(6);
     await expect(page.locator('.editorial-grid a')).toHaveCount(clientWork.filter(project => project.published).length);
     await expect(page.locator('.editorial-grid a[href="/work/add-group"]')).toHaveCount(1);

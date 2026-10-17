@@ -1,3 +1,7 @@
+---
+import PortfolioImage from './PortfolioImage.astro';
+import { projectImages } from '../data/project-images';
+---
 <section id="side-quest" class="side-quest section-anchor" aria-labelledby="side-quest-title">
   <div class="quest-copy">
     <p class="eyebrow quest-label">SIDE QUEST / 01 <span aria-hidden="true">↗︎</span></p>
@@ -7,15 +11,17 @@
     <a class="quest-link" href="https://codefromatoz.github.io/bubu-siby/">ENTRA NEL LORO MONDO <span aria-hidden="true">→</span></a>
   </div>
   <div class="quest-visual">
-    <div class="quest-screenshot" role="img" aria-label="Segnaposto per lo screenshot di Bubu & Siby">
+    <div class="quest-screenshot">
       <div class="quest-window" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="quest-art" aria-hidden="true"><span class="quest-orbit"></span><span class="quest-amp">&amp;</span><span class="quest-star">✳︎</span></div>
-      <span class="quest-placeholder">VISUAL PLACEHOLDER</span>
+      <div class="quest-art quest-real"><PortfolioImage image={projectImages['bubu-siby']} sizes="(max-width: 600px) calc(100vw - 60px), 44vw" /></div>
     </div>
     <span class="quest-corner" aria-hidden="true">↙︎</span>
   </div>
 </section>
 <style>
+  .quest-real{inset:26px 0 0 !important}
+  .quest-real :global(.portfolio-image){width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+
   .side-quest{display:grid;grid-template-columns:1.15fr 1fr;background:var(--purple);color:var(--ink);border-bottom:var(--line);overflow:hidden}
   .quest-copy{padding:34px 3vw 36px;position:relative;z-index:1}
   .quest-label{display:inline-flex;gap:32px;align-items:center;background:var(--ink);color:var(--paper);padding:9px 12px;transform:rotate(-2deg);margin-bottom:28px}
