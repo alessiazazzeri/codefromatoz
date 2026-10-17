@@ -13,7 +13,7 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator("h1")).toHaveText("DESIGNTHAT ✳︎WORKS.");
     await expect(page.locator(".project")).toHaveCount(4);
     await expect(page.locator(".service-grid article")).toHaveCount(6);
-    await expect(page.locator("script")).toHaveCount(0);
+    await expect(page.locator("script")).toHaveCount(1);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

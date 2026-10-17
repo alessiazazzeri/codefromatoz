@@ -1189,3 +1189,237 @@ sup {
   font-family: "DejaVu Sans", Arial, sans-serif;
   font-variant-emoji: text;
 }
+/* Brand and motion: transforms never alter the approved grid. */
+.sculpture {
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+}
+.sculpture-a {
+  font-size: clamp(200px, 29vw, 450px);
+  transform: rotate(-14deg) translate(-22%, -14%);
+  letter-spacing: -0.1em;
+}
+.sculpture-z {
+  font-size: clamp(200px, 29vw, 450px);
+  transform: rotate(13deg) translate(22%, 20%);
+  letter-spacing: -0.1em;
+}
+.sculpture-arrow {
+  position: absolute;
+  z-index: 2;
+  font:
+    clamp(75px, 10vw, 150px)/1 "DejaVu Sans",
+    sans-serif;
+  color: var(--ink);
+  transform: rotate(-8deg);
+}
+.sculpture-ring-secondary {
+  width: 68%;
+  height: 48%;
+  transform: rotate(42deg);
+  border-color: #11132665;
+}
+.motion-toggle {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 16px;
+}
+.motion-toggle[hidden] {
+  display: none;
+}
+.motion-toggle:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+.art-footer .motion-toggle span {
+  font-size: 16px;
+  line-height: 1;
+}
+.project-art {
+  isolation: isolate;
+}
+.project-art:after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid currentColor;
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 0.35s,
+    transform 0.45s;
+  pointer-events: none;
+}
+.project .art-mark {
+  transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.project .art-orbit {
+  transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.project-caption > span {
+  transition:
+    transform 0.35s,
+    color 0.35s;
+}
+.contact {
+  outline-offset: -5px;
+}
+.contact h2 em {
+  transition:
+    color 0.6s,
+    text-shadow 0.6s;
+}
+.contact-arrow {
+  display: inline-block;
+  transition:
+    transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 0.6s;
+}
+.contact:focus-visible h2 em {
+  color: var(--ink);
+  text-shadow: 2px 2px 0 var(--purple);
+}
+.contact:focus-visible .contact-arrow {
+  transform: translate(5px, -5px);
+  color: #162ba5;
+}
+@media (hover: hover) {
+  .project:hover .project-art:after {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  .project:hover .art-mark {
+    transform: rotate(-3deg) scale(1.045);
+  }
+  .project:hover .art-orbit {
+    transform: rotate(-30deg) scale(1.05);
+  }
+  .project:hover .project-caption > span {
+    transform: translate(3px, -3px);
+    color: var(--pink);
+  }
+  .contact:hover h2 em {
+    color: var(--ink);
+    text-shadow: 2px 2px 0 var(--purple);
+  }
+  .contact:hover .contact-arrow {
+    transform: translate(5px, -5px);
+    color: #162ba5;
+  }
+  .motion-toggle:hover {
+    background: var(--purple);
+  }
+}
+@keyframes hero-arrive {
+  from {
+    transform: translateY(14px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slow-turn {
+  to {
+    rotate: 360deg;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion-enabled .hero-main > .eyebrow,
+  .motion-enabled .hero h1,
+  .motion-enabled .hero-bottom,
+  .motion-enabled .hero-art {
+    animation: hero-arrive 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .motion-enabled .hero h1 {
+    animation-delay: 0.1s;
+  }
+  .motion-enabled .hero-bottom {
+    animation-delay: 0.2s;
+  }
+  .motion-enabled .hero-art {
+    animation-delay: 0.15s;
+  }
+  .motion-enabled .sculpture-star,
+  .motion-enabled .big-star,
+  .motion-enabled .contact-top > span {
+    animation: slow-turn 65s linear infinite;
+  }
+  .motion-enabled .big-star {
+    animation-direction: reverse;
+    animation-duration: 85s;
+  }
+  .motion-enabled .will-reveal {
+    transform: translateY(18px);
+    transition: transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .motion-enabled .will-reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+  .motion-enabled .project:nth-child(even).will-reveal {
+    transition-delay: 0.08s;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+}
+.motion-paused *,
+.motion-paused *:before,
+.motion-paused *:after {
+  animation: none !important;
+  transition: none !important;
+}
+.motion-paused .will-reveal {
+  opacity: 1;
+  transform: none;
+}
+.motion-paused .marquee-track {
+  animation-play-state: paused;
+}
+@media (max-width: 600px) {
+  .sculpture-a,
+  .sculpture-z {
+    font-size: 240px;
+  }
+  .sculpture-a {
+    transform: rotate(-14deg) translate(-30%, -4%);
+  }
+  .sculpture-z {
+    transform: rotate(13deg) translate(28%, 12%);
+  }
+  .sculpture-arrow {
+    font-size: 90px;
+  }
+  .motion-toggle {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sculpture {
+    transform: none;
+  }
+  .will-reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .contact:hover .contact-arrow,
+  .contact:focus-visible .contact-arrow {
+    transform: none;
+  }
+  .project:hover .art-mark {
+    transform: none;
+  }
+  .project:hover .art-orbit {
+    transform: rotate(-50deg);
+  }
+}
