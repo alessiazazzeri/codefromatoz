@@ -1,0 +1,21 @@
+---
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+interface Props { title: string; description: string; number: string; sections: { id: string; title: string }[]; }
+const { title, description, number, sections } = Astro.props;
+---
+<Base title={`${title} — Code from A to Z`} description={description}>
+  <Header />
+  <main id="main" class="legal-page">
+    <div class="legal-heading"><p class="eyebrow">{number} / LEGAL</p><h1>{title}</h1><p>Ultimo aggiornamento: <time datetime="2026-10-17">17 ottobre 2026</time></p></div>
+    <div class="legal-grid">
+      <nav class="legal-index" aria-label={`Indice ${title}`}><p class="eyebrow">IN QUESTA PAGINA</p><ol>{sections.map(section => <li><a href={`#${section.id}`}>{section.title}</a></li>)}</ol></nav>
+      <div class="legal-copy"><slot /></div>
+    </div>
+  </main>
+  <SiteFooter />
+</Base>
+<style>
+.legal-heading{padding:40px 3vw;border-bottom:var(--line)}.legal-heading h1{font-size:clamp(44px,8vw,120px);margin:38px 0 28px;line-height:.95;overflow-wrap:normal}.legal-heading>p:last-child{font:12px/1.6 'Courier New',monospace}.legal-grid{display:grid;grid-template-columns:minmax(180px,1fr) minmax(0,2fr);gap:6vw;padding:42px 3vw 70px;border-bottom:var(--line)}.legal-index{align-self:start}.legal-index ol{padding-left:22px;margin:20px 0 0}.legal-index li{padding-left:4px;border-bottom:1px solid #11132630;font:12px/1.6 'Courier New',monospace}.legal-index a{display:block;padding:13px 0;min-height:44px}.legal-copy{max-width:72ch;font-size:17px;line-height:1.7;min-width:0}.legal-copy :global(section){scroll-margin-top:24px}.legal-copy :global(section+section){margin-top:42px;padding-top:32px;border-top:1px solid #11132630}.legal-copy :global(h2){font-size:clamp(24px,2.5vw,34px);line-height:1.15;letter-spacing:-.04em;margin-bottom:20px}.legal-copy :global(p){line-height:1.7}.legal-copy :global(p+p),.legal-copy :global(ul),.legal-copy :global(address){margin-top:16px}.legal-copy :global(ul){padding-left:22px;margin-bottom:16px}.legal-copy :global(li+li){margin-top:8px}.legal-copy :global(a){text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}.legal-copy :global(address){font-style:normal;line-height:1.7}.legal-copy :global(strong){font-weight:700}@media(max-width:768px){.legal-grid{grid-template-columns:minmax(0,1fr);gap:38px}.legal-index{max-width:72ch}.legal-index ol{columns:2;column-gap:35px}.legal-index li{break-inside:avoid}}@media(max-width:600px){.legal-heading{padding:30px 20px}.legal-heading h1{font-size:clamp(40px,12vw,70px);max-width:9ch;line-height:1;margin:30px 0 24px}.legal-grid{padding:28px 20px 48px;gap:32px}.legal-index ol{columns:1}.legal-copy{font-size:16px}.legal-copy :global(section+section){margin-top:32px;padding-top:26px}}
+</style>

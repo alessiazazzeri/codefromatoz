@@ -1,4 +1,78 @@
 ---
-import LegalPlaceholder from '../components/LegalPlaceholder.astro';
+import LegalPage from '../layouts/LegalPage.astro';
+const sections = [
+  { id: 'titolare', title: 'Titolare del trattamento' },
+  { id: 'dati', title: 'Quali dati vengono trattati' },
+  { id: 'navigazione', title: 'Dati di navigazione' },
+  { id: 'richieste', title: 'Richieste di contatto' },
+  { id: 'basi-giuridiche', title: 'Finalità e basi giuridiche' },
+  { id: 'sicurezza', title: 'Sicurezza e prevenzione degli abusi' },
+  { id: 'destinatari', title: 'Fornitori e destinatari' },
+  { id: 'trasferimenti', title: 'Trasferimenti di dati' },
+  { id: 'conservazione', title: 'Tempi di conservazione' },
+  { id: 'diritti', title: 'Diritti dell’interessato' },
+  { id: 'reclamo', title: 'Reclamo all’autorità di controllo' },
+  { id: 'modifiche', title: 'Modifiche all’informativa' },
+  { id: 'contatti', title: 'Contatti' },
+];
 ---
-<LegalPlaceholder title="PRIVACY POLICY" />
+<LegalPage title="PRIVACY POLICY" number="01" description="Informativa sul trattamento dei dati personali di Code from A to Z di Zazzeri Alessia: contatti, sicurezza, fornitori, conservazione e diritti." sections={sections}>
+  <section id="titolare" aria-labelledby="titolare-title"><h2 id="titolare-title">1. Titolare del trattamento</h2>
+    <p>Questa informativa descrive il trattamento dei dati personali connesso al sito <a href="https://www.codefromatoz.it/">www.codefromatoz.it</a>, portfolio e sito professionale dedicato ai servizi di web design e sviluppo web di Code from A to Z.</p>
+    <address><strong>Code from A to Z di Zazzeri Alessia</strong><br />Ditta individuale — titolare: Alessia Zazzeri<br />P. IVA 07506510481<br />Domicilio professionale: Via G. F. Mariti 2<br />50127 Firenze (FI), Italia<br />Email: <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a></address>
+    <p>L’informativa è resa ai sensi dell’articolo 13 del Regolamento (UE) 2016/679 (GDPR).</p>
+  </section>
+  <section id="dati" aria-labelledby="dati-title"><h2 id="dati-title">2. Quali dati vengono trattati</h2>
+    <ul><li><strong>Dati forniti direttamente:</strong> nome, indirizzo email, tipologia di esigenza, contenuto del messaggio e conferma di presa visione di questa informativa, quando utilizzi il modulo di contatto. Se scrivi via email, vengono trattati i dati e gli eventuali allegati che decidi di inviare.</li><li><strong>Dati tecnici:</strong> dati di connessione e sicurezza necessari all’erogazione del sito e alla prevenzione degli abusi, compreso l’indirizzo IP nei limiti descritti di seguito.</li></ul>
+    <p>Ti invitiamo a condividere soltanto le informazioni utili alla richiesta, evitando dati sensibili o dati di altre persone non necessari.</p>
+  </section>
+  <section id="navigazione" aria-labelledby="navigazione-title"><h2 id="navigazione-title">3. Dati di navigazione</h2>
+    <p>Il sito è ospitato su Cloudflare Pages. Per rendere disponibili le pagine e proteggerle, l’infrastruttura può trattare normali dati tecnici delle richieste, come indirizzo IP, data e ora, risorsa richiesta e informazioni tecniche di connessione e del browser.</p>
+    <p>L’applicazione non utilizza analytics, pixel pubblicitari, strumenti di marketing, fingerprinting o profilazione. Non carica font esterni, Google Fonts, incorporamenti social o iframe di terze parti e non utilizza cookie applicativi, localStorage o sessionStorage. I collegamenti esterni comportano la visita di un altro sito solo quando scegli di aprirli; su tali siti si applicano le rispettive informative.</p>
+    <p>Per le informazioni sulle tecnologie di memorizzazione consulta la <a href="/cookie-policy">Cookie Policy</a>. L’assenza di strumenti di tracciamento nell’applicazione non significa che l’infrastruttura non tratti dati tecnici necessari al servizio.</p>
+  </section>
+  <section id="richieste" aria-labelledby="richieste-title"><h2 id="richieste-title">4. Richieste tramite modulo di contatto o email</h2>
+    <p>Il modulo serve ad aprire una conversazione e a ricevere una risposta sulla tua richiesta. I campi nome, email, tipologia di esigenza e messaggio sono necessari per inviarlo. La mancata compilazione impedisce l’invio tramite modulo; puoi comunque scegliere di scrivere direttamente a <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>.</p>
+    <p>La checkbox obbligatoria «Ho letto l’informativa privacy.» conferma la presa visione del testo: non costituisce la base giuridica del trattamento e non è un consenso marketing.</p>
+    <p>Il messaggio passa attraverso una funzione sul server di Cloudflare ed è inviato tramite Gmail API alla casella info@codefromatoz.it, gestita con Google Workspace / Gmail. L’accesso alla casella è riservato alla titolare. Il tuo indirizzo email consente di risponderti.</p>
+    <p>L’autenticazione e l’invio verso Google avvengono sul server: il semplice caricamento del sito non provoca richieste automatiche del browser verso Google. L’applicazione non salva il contenuto dei messaggi in un database e non lo scrive nei log applicativi.</p>
+    <p>Il modulo non iscrive a newsletter e non viene utilizzato per comunicazioni promozionali o profilazione.</p>
+  </section>
+  <section id="basi-giuridiche" aria-labelledby="basi-title"><h2 id="basi-title">5. Finalità e basi giuridiche</h2>
+    <ul><li><strong>Gestire richieste relative ai servizi ed eventuali misure precontrattuali richieste da te:</strong> il trattamento si basa sull’articolo 6, paragrafo 1, lettera b) del GDPR, quando la richiesta riguarda attività necessarie in vista di un possibile rapporto professionale.</li><li><strong>Rispondere ad altre richieste spontanee:</strong> ove non ricorrano misure precontrattuali, la base è il legittimo interesse della titolare a gestire la corrispondenza e dare riscontro alle persone che la contattano, ai sensi dell’articolo 6, paragrafo 1, lettera f), tenendo conto dei loro diritti e delle loro ragionevoli aspettative.</li><li><strong>Erogare il sito e prevenire spam, abusi e accessi impropri:</strong> la base è il legittimo interesse a mantenere il sito e il canale di contatto funzionanti e sicuri, ai sensi dell’articolo 6, paragrafo 1, lettera f).</li><li><strong>Adempiere obblighi di legge eventualmente applicabili:</strong> la base è l’articolo 6, paragrafo 1, lettera c). L’eventuale conservazione necessaria per accertare, esercitare o difendere un diritto si fonda sul relativo legittimo interesse, nei limiti applicabili.</li></ul>
+    <p>Non viene richiesto un consenso per attività di marketing, perché il sito non effettua tali trattamenti.</p>
+  </section>
+  <section id="sicurezza" aria-labelledby="sicurezza-title"><h2 id="sicurezza-title">6. Sicurezza e prevenzione degli abusi</h2>
+    <p>Il modulo applica controlli sui dati ricevuti e protezioni tecniche contro invii automatici, ripetuti o eccessivi. Queste comprendono un campo antispam non destinato alla compilazione, un token tecnico con controllo del riutilizzo e un limite di invio.</p>
+    <p>Per applicare il limite, la funzione può leggere l’indirizzo IP. Prima di conservarne un identificativo nel servizio Cloudflare KV, lo trasforma con una funzione crittografica HMAC. Il risultato è <strong>pseudonimizzato, non completamente anonimizzato</strong>. In KV sono conservati contatori e identificativi tecnici, non il testo dei messaggi o l’indirizzo IP in chiaro; la loro scadenza è di circa un’ora.</p>
+    <p>Questi dati sono utilizzati esclusivamente per sicurezza e prevenzione degli abusi, non per analytics, profilazione o marketing. Non sono utilizzati CAPTCHA o Turnstile.</p>
+  </section>
+  <section id="destinatari" aria-labelledby="destinatari-title"><h2 id="destinatari-title">7. Fornitori e destinatari</h2>
+    <p>I dati sono trattati dalla titolare e, per quanto necessario alle rispettive funzioni, dai fornitori tecnici coinvolti:</p>
+    <ul><li><strong>Cloudflare:</strong> hosting e distribuzione del sito tramite Pages, esecuzione della funzione del modulo, sicurezza tecnica e servizio KV antispam.</li><li><strong>Google / Google Workspace:</strong> autenticazione server-side per l’invio, Gmail API e gestione della posta elettronica della casella professionale.</li><li><strong>Soggetti coinvolti per obblighi legali o professionali:</strong> soltanto quando necessario, nei limiti delle finalità e degli obblighi applicabili, comprese le autorità legittimate a richiedere i dati.</li></ul>
+    <p>Il ruolo e gli obblighi dei fornitori dipendono dal servizio e dagli accordi applicabili. Non viene attestata qui una specifica configurazione contrattuale non verificata. L’accesso ordinario alla casella info@codefromatoz.it è riservato alla titolare. I dati non vengono diffusi al pubblico.</p>
+  </section>
+  <section id="trasferimenti" aria-labelledby="trasferimenti-title"><h2 id="trasferimenti-title">8. Trasferimenti di dati</h2>
+    <p>L’utilizzo di fornitori infrastrutturali e di posta elettronica può comportare trattamenti anche al di fuori dello Spazio economico europeo. Le localizzazioni effettive e i meccanismi applicabili dipendono dai servizi, dalle configurazioni e dagli accordi con i fornitori.</p>
+    <p>Gli eventuali trasferimenti devono rispettare le condizioni del Capo V del GDPR, mediante una decisione di adeguatezza o altre garanzie applicabili, come le clausole contrattuali standard, quando pertinenti. Questa informativa non attesta una specifica localizzazione dei dati o uno strumento contrattuale non verificato. Puoi richiedere informazioni sui trasferimenti e sulle garanzie applicabili scrivendo a <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>.</p>
+  </section>
+  <section id="conservazione" aria-labelledby="conservazione-title"><h2 id="conservazione-title">9. Tempi di conservazione</h2>
+    <ul><li><strong>Dati tecnici antispam e rate limiting:</strong> circa un’ora nel servizio KV, dopo la quale scadono.</li><li><strong>Richieste che non danno origine a un rapporto professionale:</strong> fino a 12 mesi dalla gestione della richiesta, salvo necessità di ulteriore conservazione per tutelare diritti o adempiere obblighi di legge.</li><li><strong>Rapporti professionali:</strong> se nasce un rapporto, i dati necessari sono successivamente trattati e conservati per gestirlo e per gli eventuali obblighi amministrativi, contabili, fiscali o legali, secondo i termini applicabili. Il limite di 12 mesi non si applica indistintamente a tutti i dati dei clienti.</li></ul>
+    <p>La scadenza di un’ora riguarda i dati antispam in KV e non i messaggi email né tutti i dati tecnici dell’infrastruttura. I tempi dei log infrastrutturali dipendono dai servizi e dalle configurazioni del fornitore; non viene indicata una durata non verificata. Per informazioni puoi contattare la titolare.</p>
+  </section>
+  <section id="diritti" aria-labelledby="diritti-title"><h2 id="diritti-title">10. Diritti dell’interessato</h2>
+    <p>Nei casi e nei limiti previsti dalla normativa puoi chiedere:</p>
+    <ul><li>l’accesso ai tuoi dati e alle informazioni sul trattamento;</li><li>la rettifica dei dati inesatti e l’integrazione di quelli incompleti;</li><li>la cancellazione dei dati, quando ne ricorrono i presupposti;</li><li>la limitazione del trattamento;</li><li>di opporti al trattamento fondato sul legittimo interesse per motivi connessi alla tua situazione particolare;</li><li>la portabilità dei dati, quando il trattamento si basa su contratto ed è effettuato con mezzi automatizzati, se ne ricorrono le condizioni.</li></ul>
+    <p>Per esercitare i diritti scrivi a <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>. La titolare risponde nei termini previsti dal GDPR, normalmente entro un mese; eventuali proroghe e relative motivazioni vengono comunicate nei casi consentiti. Se necessario, possono essere richieste le sole informazioni utili a verificare l’identità del richiedente.</p>
+    <p>Alcuni diritti possono incontrare limiti, per esempio quando la conservazione è necessaria per un obbligo di legge o per la tutela di diritti.</p>
+  </section>
+  <section id="reclamo" aria-labelledby="reclamo-title"><h2 id="reclamo-title">11. Reclamo all’autorità di controllo</h2>
+    <p>Se ritieni che il trattamento dei tuoi dati violi la normativa, puoi proporre reclamo all’autorità di controllo competente. In Italia è il Garante per la protezione dei dati personali. Puoi rivolgerti anche all’autorità dello Stato membro in cui risiedi abitualmente, lavori o in cui si è verificata la presunta violazione, secondo le condizioni previste dal GDPR.</p>
+  </section>
+  <section id="modifiche" aria-labelledby="modifiche-title"><h2 id="modifiche-title">12. Modifiche all’informativa</h2>
+    <p>Questa informativa può essere aggiornata quando cambiano le modalità di trattamento, i servizi utilizzati o la normativa applicabile. La data in apertura indica l’ultimo aggiornamento. Le modifiche saranno pubblicate in questa pagina.</p>
+  </section>
+  <section id="contatti" aria-labelledby="contatti-title"><h2 id="contatti-title">13. Contatti</h2>
+    <p>Per chiarimenti sul trattamento dei dati o per esercitare i tuoi diritti: <strong>Code from A to Z di Zazzeri Alessia</strong>, Via G. F. Mariti 2, 50127 Firenze (FI), Italia — <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>.</p>
+  </section>
+</LegalPage>

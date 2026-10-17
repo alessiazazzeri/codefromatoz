@@ -1,4 +1,37 @@
 ---
-import LegalPlaceholder from '../components/LegalPlaceholder.astro';
+import LegalPage from '../layouts/LegalPage.astro';
+const sections = [
+  { id: 'cookie', title: 'Cosa sono i cookie' },
+  { id: 'tecnologie', title: 'Tecnologie utilizzate' },
+  { id: 'non-necessari', title: 'Cookie non necessari' },
+  { id: 'infrastruttura', title: 'Servizi infrastrutturali' },
+  { id: 'aggiornamenti', title: 'Modifiche future' },
+  { id: 'contatti', title: 'Contatti' },
+];
 ---
-<LegalPlaceholder title="COOKIE POLICY" />
+<LegalPage title="COOKIE POLICY" number="02" description="Cookie Policy di Code from A to Z: tecnologie attuali del sito, assenza di strumenti di tracciamento e informazioni sui servizi infrastrutturali." sections={sections}>
+  <section id="cookie" aria-labelledby="cookie-title"><h2 id="cookie-title">1. Cosa sono i cookie</h2>
+    <p>I cookie sono piccoli file che un sito può memorizzare nel browser per conservare informazioni tra una visita e l’altra. Altre tecnologie, come localStorage e sessionStorage, possono memorizzare dati sul dispositivo con modalità diverse.</p>
+    <p>Alcune tecnologie sono strettamente necessarie al funzionamento o alla sicurezza di un servizio; altre, per esempio quelle di profilazione o marketing, richiedono il consenso preventivo secondo la normativa applicabile.</p>
+  </section>
+  <section id="tecnologie" aria-labelledby="tecnologie-title"><h2 id="tecnologie-title">2. Tecnologie utilizzate da questo sito</h2>
+    <p>Nell’implementazione attuale di <a href="https://www.codefromatoz.it/">www.codefromatoz.it</a> non risultano cookie applicativi impostati dal frontend. Il sito non utilizza localStorage o sessionStorage.</p>
+    <p>Le protezioni del modulo di contatto utilizzano token tecnici e contatori antispam gestiti sul server. Il servizio Cloudflare KV conserva temporaneamente dati tecnici pseudonimizzati: non è uno spazio di archiviazione nel browser del visitatore. Ulteriori dettagli sono disponibili nella <a href="/privacy-policy#sicurezza">Privacy Policy</a>.</p>
+  </section>
+  <section id="non-necessari" aria-labelledby="non-necessari-title"><h2 id="non-necessari-title">3. Cookie e tecnologie non necessari</h2>
+    <p>Il sito non utilizza direttamente cookie analytics, pubblicitari, di marketing o di profilazione. Non sono presenti tracker, pixel, fingerprinting, font esterni, incorporamenti social o iframe di terze parti.</p>
+    <p>Allo stato attuale non sono utilizzati cookie o tecnologie analoghe non necessari che richiedano consenso preventivo. Per questo non sono presenti cookie banner, piattaforme di gestione del consenso o pulsanti per accettare o rifiutare cookie.</p>
+    <p>I link a siti esterni non incorporano i loro contenuti nella pagina. Se scegli di aprirli, le tecnologie utilizzate dal sito di destinazione sono descritte nelle sue informative.</p>
+  </section>
+  <section id="infrastruttura" aria-labelledby="infrastruttura-title"><h2 id="infrastruttura-title">4. Servizi infrastrutturali</h2>
+    <p>Il sito utilizza Cloudflare Pages, Pages Functions e KV per hosting, distribuzione tecnica, funzionamento del modulo e protezione dagli abusi. L’infrastruttura può trattare dati tecnici di connessione e sicurezza e, in funzione delle configurazioni effettive, utilizzare meccanismi tecnici strettamente necessari.</p>
+    <p>Non vengono attribuiti a Cloudflare cookie specifici non verificati. La verifica finale di eventuali cookie tecnici infrastrutturali deve essere effettuata sul sito in produzione. Nell’implementazione attuale non sono attivi Cloudflare Web Analytics, Zaraz o Turnstile.</p>
+    <p>Google Workspace / Gmail è utilizzato sul server per ricevere le richieste di contatto: il caricamento delle pagine non attiva richieste automatiche del browser verso Google. Per le altre informazioni sul trattamento dei dati consulta la <a href="/privacy-policy">Privacy Policy</a>.</p>
+  </section>
+  <section id="aggiornamenti" aria-labelledby="aggiornamenti-title"><h2 id="aggiornamenti-title">5. Modifiche future</h2>
+    <p>Se saranno introdotti servizi che utilizzano cookie o tecnologie analoghe, questa informativa sarà aggiornata per descriverli. Qualora richiedano consenso preventivo, saranno predisposti i relativi strumenti prima della loro attivazione. La data in apertura indica l’ultimo aggiornamento.</p>
+  </section>
+  <section id="contatti" aria-labelledby="contatti-title"><h2 id="contatti-title">6. Contatti</h2>
+    <p>Il titolare è <strong>Code from A to Z di Zazzeri Alessia</strong>, ditta individuale di Alessia Zazzeri, P. IVA 07506510481. Per informazioni: <a href="mailto:info@codefromatoz.it">info@codefromatoz.it</a>.</p>
+  </section>
+</LegalPage>

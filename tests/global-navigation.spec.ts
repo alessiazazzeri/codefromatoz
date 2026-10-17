@@ -109,7 +109,7 @@ for (const width of [320, 375]) {
     ).toBe("");
   });
 }
-test("esplorazioni non pubblicate e pagine legali temporanee", async ({ page }) => {
+test("esplorazioni non pubblicate e informative complete", async ({ page }) => {
   for (const route of ["/brand-exploration", "/brand-exploration/a-z-mark"]) {
     expect((await page.request.get(route)).status()).toBe(404);
   }
@@ -117,7 +117,7 @@ test("esplorazioni non pubblicate e pagine legali temporanee", async ({ page }) 
     const r = await page.goto(route);
     expect(r?.status()).toBe(200);
     await expect(page.locator("main")).toContainText(
-      "DOCUMENTO IN PREPARAZIONE",
+      "Ultimo aggiornamento:",
     );
   }
   await page.goto("/contact");

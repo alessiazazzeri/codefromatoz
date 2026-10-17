@@ -29,13 +29,13 @@ Sono presenti validazione frontend e server-side, honeypot, token HMAC, controll
 
 La UI gestisce invio, successo confermato da Gmail ed errore, conservando il testo in caso di errore e offrendo il contatto email diretto. Senza i secret e il binding richiesti, l'API risponde con indisponibilità. `npm run dev` e `npm run preview` non eseguono Pages Functions; per il runtime locale completo consultare la guida sopra. I test automatici dell'invio simulano Google e non attestano una consegna reale.
 
-Le pagine Privacy Policy e Cookie Policy sono ancora temporanee e vanno completate prima dell'attivazione pubblica. Non sono implementati cookie banner, CMP, CAPTCHA, Turnstile, analytics o tracking; la verifica va ripetuta sul deploy Cloudflare definitivo.
+Le pagine Privacy Policy e Cookie Policy descrivono i dati confermati; accordi/trasferimenti dei fornitori e log infrastrutturali restano da verificare prima della produzione. Non sono implementati cookie banner, CMP, CAPTCHA, Turnstile, analytics o tracking; la verifica va ripetuta sul deploy Cloudflare definitivo.
 
 ## Stato dei contenuti e SEO
 
-Homepage, Work, Services, About, Contact e sei case study sono presenti con screenshot reali desktop/mobile. Non restano visual placeholder nei case study. Le informative legali rimangono documenti temporanei: completarle prima del lancio; per ora sono noindex ed escluse dalla sitemap.
+Homepage, Work, Services, About, Contact e sei case study sono presenti con screenshot reali desktop/mobile. Non restano visual placeholder nei case study. Le informative legali sono complete con i dati forniti e mantengono la scelta noindex ed esclusione dalla sitemap, senza modificare la strategia SEO.
 
-URL di produzione: `https://www.codefromatoz.it/`, con route senza slash finale (homepage esclusa). `astro.config.mjs` dichiara site e convenzione; `src/data/site.ts` centralizza identità e dati SEO. `Base.astro` emette canonical, OG/Twitter e schema WebSite/Person verificabile. `/sitemap.xml` deriva dalle pagine Astro pubbliche, escludendo 404 e informative provvisorie; `/robots.txt` indica la sitemap e non blocca il crawl delle policy noindex. Le esplorazioni logo sono archiviate fuori da src/pages in `design-reference/`.
+URL di produzione: `https://www.codefromatoz.it/`, con route senza slash finale (homepage esclusa). `astro.config.mjs` dichiara site e convenzione; `src/data/site.ts` centralizza identità e dati SEO. `Base.astro` emette canonical, OG/Twitter e schema WebSite/Person verificabile. `/sitemap.xml` deriva dalle pagine Astro pubbliche, escludendo 404 e informative legali; `/robots.txt` indica la sitemap e non blocca il crawl delle policy noindex. Le esplorazioni logo sono archiviate fuori da src/pages in `design-reference/`.
 
 La preview globale è `public/social/code-from-a-to-z.png` (1200×630). I case study usano derivati JPEG 1200×630 dei propri screenshot reali. Icone PNG e immagine brand possono essere rigenerate con `CHROMIUM_PATH=/usr/bin/chromium node scripts/generate-brand-assets.mjs`, usando il browser dei test già installato. Nessun manifest o PWA.
 
@@ -72,3 +72,7 @@ Gli originali approvati sono in `src/assets/projects/`; le associazioni esplicit
 Il ritratto trasparente resta `public/portrait.png` (408×612): nessun upscale artificiale. Una sorgente più grande sarebbe preferibile per display densi. `logo.svg` e `favicon.svg` sono entrambi utilizzati e mantengono i tracciati 02C approvati.
 
 Non sono presenti analytics, cookie di tracciamento, storage browser, font esterni o librerie di animazione esterne. La verifica va ripetuta sul deploy Cloudflare effettivo.
+
+## Informative e verifiche residue
+
+Le pagine legali utilizzano `src/layouts/LegalPage.astro`. Dati confermati, basi giuridiche, criteri di conservazione e punti contrattuali/infrastrutturali da verificare sono riepilogati in [docs/privacy-policy-notes.md](docs/privacy-policy-notes.md). Le informative non introducono cookie banner né richieste a terze parti.
