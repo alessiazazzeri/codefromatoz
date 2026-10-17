@@ -60,7 +60,9 @@ for (const width of [390, 1440]) {
           .map((a) => a.finished.catch(() => {})),
       );
     });
+    // About code is a deliberately low-contrast, aria-hidden decorative texture.
     const results = await new AxeBuilder({ page })
+      .exclude('.about-code[aria-hidden="true"]')
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
     expect(results.violations).toEqual([]);
