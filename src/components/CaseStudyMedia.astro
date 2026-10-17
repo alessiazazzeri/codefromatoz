@@ -1,0 +1,22 @@
+---
+interface Props { label: string; variant?: 'catalogue' | 'search' | 'detail'; }
+const { label, variant = 'catalogue' } = Astro.props;
+---
+<figure class={`case-media ${variant}`} role="img" aria-label={`Placeholder: ${label}`}>
+  <div class="media-bar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
+  <div class="media-canvas" aria-hidden="true">
+    {variant === 'search' ? <div class="media-search"><span>⌕</span><div></div><b>↗︎</b></div> : <div class="media-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div>}
+    <span class="media-orbit"></span>
+  </div>
+  <figcaption>{label} / PLACEHOLDER</figcaption>
+</figure>
+<style>
+.case-media{margin:0;position:relative;background:var(--paper);border:var(--line);color:var(--ink);aspect-ratio:1.9;overflow:hidden}
+.media-bar{height:32px;display:flex;gap:5px;align-items:center;padding:0 13px;border-bottom:var(--line)}.media-bar>span{width:5px;height:5px;border-radius:50%;background:var(--ink)}.media-bar i{margin-left:auto;border:1px solid #11132644;width:33%;height:9px}
+.media-canvas{position:absolute;inset:60px 7% 50px;display:grid;place-items:center;overflow:hidden}
+.media-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:100%;height:100%}.media-grid>div{background:#11132609;border:1px solid #11132630;position:relative}.media-grid>div:before{content:'';position:absolute;width:35%;height:35%;border:1px solid #11132650;border-radius:50%;top:22%;left:32%}.media-grid>div:after{content:'';position:absolute;width:50%;height:1px;bottom:15%;left:25%;background:#11132640}
+.media-orbit{position:absolute;width:65%;height:65%;border:1px solid #2544f544;border-radius:50%;transform:rotate(-18deg);pointer-events:none}
+figcaption{position:absolute;bottom:15px;left:18px;right:18px;font:700 10px/1.4 'Courier New',monospace;letter-spacing:.03em}
+.search{aspect-ratio:1.35;background:var(--purple)}.media-search{display:flex;align-items:center;gap:20px;width:95%;padding:22px;background:var(--paper);border:var(--line);box-shadow:6px 6px 0 var(--ink);z-index:1}.media-search>span{font-size:28px}.media-search>div{height:1px;background:#11132666;flex:1}.media-search>b{font:30px 'DejaVu Sans',sans-serif;color:var(--blue)}.detail{aspect-ratio:1.2}.detail .media-grid{grid-template-columns:1fr 1fr}.detail .media-grid>div:nth-child(n+3){display:none}
+@media(max-width:600px){.case-media{aspect-ratio:1.2}.media-bar{height:26px}.media-canvas{inset:45px 6% 45px}.media-grid{gap:8px}figcaption{font-size:8px;left:12px;bottom:12px}.search{aspect-ratio:1.1}.media-search{padding:16px;gap:12px}.detail{aspect-ratio:1.1}}
+</style>

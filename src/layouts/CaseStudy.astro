@@ -1,0 +1,9 @@
+---
+import Base from './Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/case-study.css';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+---
+<Base title={title} description={description}><Header workPage workHref="/work" /><main id="main" class="case-study"><slot /><Footer /></main></Base>
