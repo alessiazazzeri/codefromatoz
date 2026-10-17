@@ -1,0 +1,4 @@
+---
+const services = [{name:'Siti web',symbol:'↗︎'},{name:'Restyling',symbol:'◑'},{name:'E-commerce',symbol:'▦'},{name:'WordPress',symbol:'W'},{name:'Framer',symbol:'⌁'},{name:'Supporto',symbol:'+'}];
+---
+<section id="services" class="services section-anchor" aria-labelledby="services-title"><div class="services-intro"><p class="eyebrow">02 / Cosa faccio</p><h2 id="services-title">GOOD<br />DESIGN.<br /><span>GOOD<br />CODE.</span></h2><p>Per professionisti,<br />attività e brand.</p><span class="big-star" aria-hidden="true">✳︎</span></div><div class="service-grid">{services.map((service,i) => <article><div class="service-meta"><span>0{i+1}</span><span class="service-symbol" aria-hidden="true">{service.symbol}</span></div><h3>{service.name}</h3><p>Descrizione del servizio<br />da inserire.</p></article>)}</div></section>

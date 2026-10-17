@@ -1,0 +1,4 @@
+---
+const words = ['Web Design', 'Development', 'WordPress', 'Framer', 'UX/UI', 'E-commerce'];
+---
+<div class="marquee" role="img" aria-label={words.join(', ')}><div class="marquee-track" aria-hidden="true">{[0,1].map(() => <span>{words.map(word => <><b>{word}</b><i>✳︎</i></>)}</span>)}</div></div>

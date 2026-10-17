@@ -1,0 +1,16 @@
+---
+const projects = [
+  {name:'FunTeam', type:'fun', label:'01', mark:'FUN\nTEAM'},
+  {name:'Bad Idea', type:'bad', label:'02', mark:'BAD\nIDEA.'},
+  {name:'Mari Best Catering', type:'mari', label:'03', mark:'mari\nbest'},
+  {name:'Progetto health', type:'health', label:'04', mark:'+'},
+];
+---
+<section id="work" class="work section-anchor" aria-labelledby="work-title">
+  <div class="section-top"><p class="eyebrow">01 / Il portfolio</p><span class="small-note">Una selezione, dalla A alla Z.</span></div>
+  <div class="section-heading"><h2 id="work-title">SELECTED<br /><em>WORK.</em></h2><p>Spazio ai progetti.<br /><span class="muted">Case study in preparazione.</span></p><span class="heading-arrow" aria-hidden="true">↙︎</span></div>
+  <div class="project-grid">{projects.map(project => <article class={`project ${project.type}`}>
+    <div class="project-art" role="img" aria-label={`Segnaposto grafico per ${project.name}, non rappresenta il progetto reale`}><span class="project-number">/{project.label}</span><span class="art-mark" aria-hidden="true">{project.mark}</span><span class="art-orbit" aria-hidden="true"></span><span class="placeholder-label">VISUAL PLACEHOLDER</span></div>
+    <div class="project-caption"><h3>{project.name}</h3><span aria-hidden="true">↗︎</span><p>Dettagli del progetto da inserire</p></div>
+  </article>)}</div>
+</section>

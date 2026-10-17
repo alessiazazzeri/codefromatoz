@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Marquee from '../components/Marquee.astro';
+import Work from '../components/Work.astro';
+import Services from '../components/Services.astro';
+import About from '../components/About.astro';
+import Footer from '../components/Footer.astro';
+---
+<Base><Header /><main id="main"><section class="hero" aria-labelledby="hero-title"><div class="hero-main"><p class="eyebrow">Alessia / Web designer & developer</p><h1 id="hero-title">DESIGN<br />THAT <span class="hero-spark" aria-hidden="true">✳︎</span><br /><em>WORKS.</em></h1><div class="hero-bottom"><p>Web designer with<br /><strong>a developer's brain</strong></p><a class="round-link" href="#work" aria-label="Esplora i progetti">↓</a></div></div><div class="hero-art"><div class="art-index"><span>CREATIVE MIND.<br />TECHNICAL SOUL.</span><span>EST. A → Z</span></div><div class="sculpture" aria-hidden="true"><span class="sculpture-a">a</span><span class="sculpture-z">z</span><span class="sculpture-ring"></span><span class="sculpture-star">✳︎</span></div><div class="art-footer"><span>DESIGN + CODE</span><span>↗︎</span></div></div><div class="hero-side"><span>Idee chiare. Forma libera.</span><span aria-hidden="true">＋</span></div></section><Marquee /><Work /><Services /><About /><Footer /></main></Base>
