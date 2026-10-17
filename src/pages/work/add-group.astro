@@ -1,7 +1,8 @@
 ---
 import CaseStudy from '../../layouts/CaseStudy.astro';
+import PortfolioImage from '../../components/PortfolioImage.astro';
 import CaseStudyMedia from '../../components/CaseStudyMedia.astro';
-import { projectImages } from '../../data/project-images';
+import { projectImages, projectDetails } from '../../data/project-images';
 import '../../styles/add-group.css';
 const info = [
   ['CLIENTE', 'ADD Group'],
@@ -16,7 +17,7 @@ const info = [
       <p class="eyebrow">02 / CLIENT WORK</p>
       <h1 id="add-title">ADD <em>GROUP.</em></h1>
       <div class="case-hero-bottom"><p>Un restyling per spostare il focus dai singoli settori a un'identità più chiaramente B2B.</p><p class="case-tags">WEB DESIGN / WORDPRESS / RESTYLING / B2B</p></div>
-      <div class="add-cover"><CaseStudyMedia label="ADD GROUP / VISUAL PRINCIPALE" image={projectImages['add-group']} /></div>
+      <div class="add-cover"><CaseStudyMedia label="ADD GROUP / VISUAL PRINCIPALE" image={projectImages['add-group']} priority /></div>
     </section>
     <section class="case-info add-info" aria-label="Project info"><dl>{info.map(([label,value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}</dl></section>
     <section class="case-section add-project" aria-labelledby="add-project-title">
@@ -32,7 +33,7 @@ const info = [
     </section>
     <section class="case-section add-structure" aria-labelledby="add-structure-title">
       <div class="add-structure-copy"><p class="eyebrow">03 / STRUCTURE</p><h2 id="add-structure-title">LESS FRAGMENTED.<br /><em>MORE ADD GROUP.</em></h2><div class="case-prose"><p>La nuova struttura mette maggiormente al centro l'identità aziendale e rende più chiaro il rapporto tra ADD Group, i suoi prodotti e i diversi ambiti in cui opera.</p><p>I settori rimangono importanti, ma diventano parte dell'offerta anziché coincidere con l'intera identità del brand.</p></div></div>
-      <div class="add-structure-media"><CaseStudyMedia label="STRUTTURA / IDENTITÀ AZIENDALE" variant="detail" /></div>
+      <div class="add-structure-media"><CaseStudyMedia label="STRUTTURA / IDENTITÀ AZIENDALE" variant="detail" image={projectDetails.addCategories} /></div>
     </section>
     <section class="case-section add-direction" aria-labelledby="direction-title">
       <div class="add-direction-heading"><p class="eyebrow">04 / VISUAL DIRECTION</p><h2 id="direction-title">BUILT FOR<br /><em>BUSINESS.</em></h2><p class="eyebrow add-direction-note">DESIGN FOLLOWS POSITIONING.</p></div>
@@ -40,7 +41,7 @@ const info = [
     </section>
     <section class="case-section add-responsive" aria-labelledby="responsive-title">
       <p class="eyebrow">05 / RESPONSIVE</p><h2 id="responsive-title">SAME MESSAGE.<br /><em>EVERY SCREEN.</em></h2>
-      <div class="add-devices"><div class="add-desktop"><CaseStudyMedia label="DESKTOP" /></div><figure class="add-phone" role="img" aria-label="Placeholder dello screenshot mobile"><div class="add-phone-speaker" aria-hidden="true"></div><div class="add-phone-content" aria-hidden="true"><span></span><div></div><i></i><i></i><i></i></div><figcaption>MOBILE / PLACEHOLDER</figcaption></figure></div>
+      <div class="add-devices"><div class="add-desktop"><CaseStudyMedia label="DESKTOP" /></div><figure class="add-phone add-phone-real"><div class="add-phone-speaker" aria-hidden="true"></div><div class="add-phone-screen"><PortfolioImage image={projectDetails.addMobile} sizes="(max-width: 600px) 40vw, 22vw" /></div></figure></div>
     </section>
     <section class="case-section add-result" aria-labelledby="add-result-title"><p class="eyebrow">06 / RESULT</p><h2 id="add-result-title">A WEBSITE THAT<br /><em>FITS THE BUSINESS.</em></h2><div class="case-prose"><p>Il risultato è una presenza digitale più coerente con il modo in cui ADD Group vuole presentarsi oggi: meno vincolata alla comunicazione dei singoli settori e più orientata all'identità dell'azienda e al rapporto con il cliente business.</p></div></section>
     <section class="case-next add-next" aria-labelledby="add-next-title" data-next-project="/work/elena-bianchi"><p class="eyebrow">NEXT PROJECT / 03</p><h2 id="add-next-title"><a href="/work/elena-bianchi">ELENA BIANCHI —<br />PSICOLOGA PSICOTERAPEUTA <span aria-hidden="true">→</span></a></h2></section>

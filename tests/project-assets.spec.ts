@@ -7,6 +7,14 @@ const assets = {
   'luxury-hair-studio': 'luxury-hair-studio',
   'centro-estetico': 'sito-estetista',
 };
+const details: Record<string, string[]> = {
+  'p-mari-best-catering-ltd': ['p-mari-lista-prodotti', 'p-mari-prodotto-singolo'],
+  'add-group': ['add-group-2', 'add-group-mobile'],
+  'elena-bianchi': ['elena-bianchi-servizi'],
+  'centro-fitness': ['gym-center-2'],
+  'luxury-hair-studio': ['luxury-hair-studio-2'],
+  'centro-estetico': ['sito-estetista-listino'],
+};
 for (const width of [375, 1440]) {
   test(`asset reali, associazioni e caricamento a ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
@@ -36,15 +44,28 @@ for (const width of [375, 1440]) {
     }
     for (const [slug, filename] of Object.entries(assets)) {
       await page.goto(`/work/${slug}`);
-      const primary = page.locator('.case-media-real img');
+      const primary = page.locator('.case-hero .case-media-real img');
       await expect(primary).toHaveCount(1);
       await expect(primary).toHaveAttribute('src', new RegExp(`${filename}.*\\.webp$`));
       await expect(primary).toHaveAttribute('loading', 'eager');
       await expect(primary).toHaveAttribute('fetchpriority', 'high');
       await primary.scrollIntoViewIfNeeded();
       await expect.poll(() => primary.evaluate((img: HTMLImageElement) => img.naturalWidth > 0)).toBe(true);
-      await expect(page.locator('main img.portfolio-image')).toHaveCount(1);
-      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(3);
+      await expect(page.locator('main img.portfolio-image')).toHaveCount(slug === 'p-mari-best-catering-ltd' || slug === 'add-group' ? 3 : 2);
+      for (const filename of details[slug]) {
+        const image = page.locator(`main img.portfolio-image[src*="/${filename}."]`);
+        await expect(image).toHaveCount(1);
+        await expect(image).toHaveAttribute('loading', 'lazy');
+        await image.scrollIntoViewIfNeeded();
+        await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth > 0)).toBe(true);
+      }
+      if (slug === 'add-group') {
+        const mobile = page.locator('.add-phone img');
+        await expect(mobile).toHaveAttribute('width', '588');
+        await expect(mobile).toHaveAttribute('srcset', /480w.*588w/);
+        await expect(mobile).not.toHaveAttribute('srcset', /960w/);
+      }
+      expect(await page.locator('.case-media:not(.case-media-real)').count()).toBe(slug === 'p-mari-best-catering-ltd' ? 1 : 2);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     }
   });

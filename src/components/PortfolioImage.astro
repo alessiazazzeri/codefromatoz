@@ -7,13 +7,14 @@ interface Props {
   priority?: boolean;
 }
 const { image, sizes, priority = false } = Astro.props;
+const widths = [...new Set([480, 960, 1600, 2400, Math.min(2400, image.source.width)])].filter(width => width <= image.source.width).sort((a, b) => a - b);
 ---
 <Image
   class="portfolio-image"
   src={image.source}
   alt={image.alt}
-  width={1600}
-  widths={[480, 960, 1600, 2400]}
+  width={Math.min(1600, image.source.width)}
+  widths={widths}
   sizes={sizes}
   format="webp"
   quality={88}

@@ -1,3 +1,11 @@
+import mariCatalogue from '../../public/p-mari-lista-prodotti.png';
+import mariProduct from '../../public/p-mari-prodotto-singolo.png';
+import addCategories from '../../public/add-group-2.png';
+import addMobile from '../../public/add-group-mobile.png';
+import elenaServices from '../../public/elena-bianchi-servizi.png';
+import fitnessFeatures from '../../public/gym-center-2.png';
+import hairPhilosophy from '../../public/luxury-hair-studio-2.png';
+import beautyTreatments from '../../public/sito-estetista-listino.png';
 import mari from '../../public/p-mari-best-catering.png';
 import add from '../../public/add-group.png';
 import elena from '../../public/elena-bianchi.png';
@@ -18,3 +26,14 @@ export const projectImages: Record<string, PortfolioImage> = {
   'centro-estetico': { source: beauty, alt: 'Homepage del centro estetico: trattamenti e cura di sé', position: '0% 50%' },
   'bubu-siby': { source: bubu, alt: 'Bubu & Siby: i due gatti protagonisti del sito personale', position: '50% 50%' },
 };
+
+export const projectDetails = {
+  mariCatalogue: { source: mariCatalogue, alt: 'P.Mari: categorie del catalogo di attrezzature per la ristorazione' },
+  mariProduct: { source: mariProduct, alt: 'P.Mari: scheda forno con caratteristiche e richiesta di disponibilità' },
+  addCategories: { source: addCategories, alt: 'ADD Group: categorie merceologiche e settori serviti' },
+  addMobile: { source: addMobile, alt: 'Homepage ADD Group su mobile, con presentazione e contatto per i partner' },
+  'elena-bianchi': { source: elenaServices, alt: 'Elena Bianchi: percorsi di sostegno psicologico e servizi' },
+  'centro-fitness': { source: fitnessFeatures, alt: 'Gym Center: sezione Perché sceglierci con attrezzature, trainer e community' },
+  'luxury-hair-studio': { source: hairPhilosophy, alt: 'Luxury Hair Studio: filosofia del salone e strumenti di lavoro' },
+  'centro-estetico': { source: beautyTreatments, alt: 'Centro estetico: trattamenti viso e relativo listino' },
+} satisfies Record<string, PortfolioImage>;

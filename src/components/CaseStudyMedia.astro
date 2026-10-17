@@ -1,10 +1,10 @@
 ---
 import PortfolioImage from './PortfolioImage.astro';
 import type { PortfolioImage as ProjectImage } from '../data/portfolio';
-interface Props { label: string; variant?: 'catalogue' | 'search' | 'detail'; image?: ProjectImage; }
-const { label, variant = 'catalogue', image } = Astro.props;
+interface Props { label: string; variant?: 'catalogue' | 'search' | 'detail'; image?: ProjectImage; priority?: boolean; }
+const { label, variant = 'catalogue', image, priority = false } = Astro.props;
 ---
-{image ? <figure class={`case-media ${variant} case-media-real`}><PortfolioImage image={image} sizes="(max-width: 600px) calc(100vw - 40px), 92vw" priority /></figure> : <figure class={`case-media ${variant}`} role="img" aria-label={`Placeholder: ${label}`}>
+{image ? <figure class={`case-media ${variant} case-media-real`}><PortfolioImage image={image} sizes="(max-width: 600px) calc(100vw - 40px), 92vw" priority={priority} /></figure> : <figure class={`case-media ${variant}`} role="img" aria-label={`Placeholder: ${label}`}>
   <div class="media-bar" aria-hidden="true"><span></span><span></span><span></span><i></i></div>
   <div class="media-canvas" aria-hidden="true">
     {variant === 'search' ? <div class="media-search"><span>⌕</span><div></div><b>↗︎</b></div> : <div class="media-grid"><div></div><div></div><div></div><div></div><div></div><div></div></div>}

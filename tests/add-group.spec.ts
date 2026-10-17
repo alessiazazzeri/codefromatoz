@@ -10,7 +10,7 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.locator(".add-info dl > div")).toHaveCount(4);
     await expect(page.locator(".add-case .case-media")).toHaveCount(4);
     await expect(page.locator(".add-phone")).toHaveCount(1);
-    await expect(page.locator(".add-case img")).toHaveCount(1);
+    await expect(page.locator(".add-case img")).toHaveCount(3);
     await expect(page.locator(".add-next")).toHaveAttribute(
       "data-next-project",
       "/work/elena-bianchi",
