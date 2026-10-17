@@ -88,17 +88,86 @@ if (form) {
       }
     });
   });
-  form.addEventListener("submit", (event) => {
+  const note = document.getElementById("form-availability");
+  let token: Promise<string>;
+  function prepareToken() {
+    token = fetch("/api/contact", {
+      headers: { Accept: "application/json" },
+      cache: "no-store",
+      signal: AbortSignal.timeout(10000),
+    })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || !data.token) throw Error();
+        return data.token as string;
+      })
+      .catch(() => "");
+  }
+  prepareToken();
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    if (form.dataset.state === "sending") return;
     setContactState(form, "idle");
     fields.forEach(validate);
     if (refreshSummary().length) {
       summary.focus();
       return;
     }
-    // There is no backend configured. Never transmit, persist or log form data,
-    // and never claim success. Keep the direct email available instead.
-    setContactState(form, "error");
-    form.querySelector<HTMLElement>(".cp-error")!.focus();
+    setContactState(form, "sending");
+    try {
+      const challenge = await token;
+      if (!challenge) {
+        if (note?.firstChild)
+          note.firstChild.textContent =
+            "L’invio dal modulo non è disponibile. Puoi contattarmi direttamente: ";
+        throw Error();
+      }
+      const read = (name: string) =>
+        (
+          form.elements.namedItem(name) as
+            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        ).value;
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: read("name"),
+          email: read("email"),
+          need: read("need"),
+          project: read("project"),
+          privacy: (form.elements.namedItem("privacy") as HTMLInputElement)
+            .checked,
+          honeypot: read("contact_confirm"),
+          token: challenge,
+        }),
+        signal: AbortSignal.timeout(25000),
+      });
+      const data = await response.json();
+      if (response.status === 422 && data.fields) {
+        for (const field of fields) {
+          const error = data.fields[field.name];
+          if (typeof error !== "string") continue;
+          field.setAttribute("aria-invalid", "true");
+          const output = document.getElementById(`${field.id}-error`);
+          if (output) {
+            output.textContent = error;
+            output.hidden = false;
+          }
+        }
+        setContactState(form, "idle");
+        refreshSummary();
+        summary.focus();
+        return;
+      }
+      if (!response.ok || data.ok !== true) throw Error();
+      form.reset();
+      setContactState(form, "success");
+      form.querySelector<HTMLElement>(".cp-success")!.focus();
+    } catch {
+      setContactState(form, "error");
+      form.querySelector<HTMLElement>(".cp-error")!.focus();
+    } finally {
+      prepareToken();
+    }
   });
 }

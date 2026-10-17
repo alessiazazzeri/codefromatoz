@@ -120,3 +120,63 @@ test("senza JavaScript non invia dati e offre email diretta", async ({
   );
   await context.close();
 });
+
+for (const width of [375, 1440]) {
+  test(`invio API, errori e recupero a ${width}px`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    let outcome = 422;
+    const payloads: Record<string, unknown>[] = [];
+    await page.route("**/api/contact", async (route) => {
+      if (route.request().method() === "GET") {
+        await route.fulfill({ json: { token: "test-challenge" } });
+        return;
+      }
+      payloads.push(route.request().postDataJSON());
+      await route.fulfill({
+        status: outcome,
+        json:
+          outcome === 422
+            ? { ok: false, fields: { project: "Controlla il messaggio." } }
+            : { ok: outcome === 200 },
+      });
+    });
+    await page.goto("/contact");
+    await page.locator("#contact-name").fill("Alessia");
+    await page.locator("#contact-email").fill("visitor@example.com");
+    await page.locator("#contact-need").selectOption("Restyling");
+    await page.locator("#contact-project").fill("Una richiesta di prova.");
+    await page.locator("#contact-privacy").check();
+    const submit = page.locator(".cp-submit");
+    await submit.click();
+    await expect(page.locator("#form-errors")).toBeFocused();
+    await expect(page.locator("#contact-project-error")).toHaveText(
+      "Controlla il messaggio.",
+    );
+    outcome = 429;
+    await submit.click();
+    await expect(page.locator(".cp-error")).toBeFocused();
+    await expect(page.locator("#contact-project")).toHaveValue(
+      "Una richiesta di prova.",
+    );
+    await expect(page.locator(".cp-success")).toBeHidden();
+    outcome = 200;
+    await submit.click();
+    await expect(page.locator(".cp-success")).toBeFocused();
+    await expect(page.locator("#contact-project")).toHaveValue("");
+    expect(payloads).toHaveLength(3);
+    expect(payloads[2]).toEqual({
+      name: "Alessia",
+      email: "visitor@example.com",
+      need: "Restyling",
+      project: "Una richiesta di prova.",
+      privacy: true,
+      honeypot: "",
+      token: "test-challenge",
+    });
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+}
