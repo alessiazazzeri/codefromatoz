@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 import '../styles/services.css';
 const prices = [
   { name: 'LANDING PAGE', amount: '€650', description: 'Una pagina progettata intorno a un obiettivo preciso.', tags: 'DESIGN / DEVELOPMENT / RESPONSIVE' },
@@ -17,7 +18,7 @@ const process = [
 ];
 ---
 <Base title="Services — Code from A to Z" description="Progetto e sviluppo siti web dall'inizio alla fine — design, codice e tutto quello che c'è nel mezzo.">
-  <Header workPage servicesPage workHref="/work" />
+  <Header />
   <main id="main" class="services-page">
     <section class="srv-hero" aria-labelledby="srv-title"><p class="eyebrow">01 / SERVICES</p><h1 id="srv-title">FROM IDEA.<br /><em>TO WEBSITE.</em></h1><div class="srv-hero-bottom"><p>Progetto e sviluppo siti web dall'inizio alla fine — design, codice e tutto quello che c'è nel mezzo.</p><div><p class="srv-tags">WEB DESIGN / DEVELOPMENT / WORDPRESS / FRAMER / E-COMMERCE</p><p class="srv-micro">Lo strumento viene dopo.<br />Prima capiamo cosa deve fare il sito.</p></div></div></section>
     <section class="srv-section srv-zero" aria-labelledby="zero-title"><div class="srv-split"><div><p class="eyebrow">01 / FROM ZERO</p><h2 id="zero-title">STARTING<br /><em>FROM SCRATCH.</em></h2><p class="srv-label">SITI WEB</p></div><div class="srv-prose"><p>Hai un'attività, un progetto o un brand ma non ancora un sito — oppure quello che hai non è più recuperabile.</p><p>Partiamo da ciò che deve comunicare e da chi deve raggiungere, poi costruiamo struttura, identità visuale e interfaccia fino allo sviluppo e alla messa online.</p><p class="srv-highlight">Non parto da un template da riempire.<br />Parto dal progetto.</p></div></div><ol class="srv-flow">{['STRATEGY','UX/UI','DESIGN','DEVELOPMENT','LAUNCH'].map((step,index) => <li><span class="eyebrow">0{index+1}</span><strong>{step}</strong>{index<4 && <span class="srv-flow-arrow" aria-hidden="true">→</span>}</li>)}</ol></section>
@@ -29,5 +30,5 @@ const process = [
     <section class="srv-section srv-process" aria-labelledby="process-title"><p class="eyebrow">07 / HOW IT WORKS</p><h2 id="process-title">FROM A<br /><em>TO Z. OBVIOUSLY.</em></h2><div class="srv-az" aria-hidden="true"><span>A</span><i></i><span>Z</span></div><ol class="srv-timeline">{process.map(([title,text],index) => <li><p class="eyebrow">0{index+1} / {title}</p><p>{text}</p></li>)}</ol></section>
     <section id="contact" class="srv-section srv-final" aria-labelledby="final-title"><p class="eyebrow">08 / NOT SURE?</p><h2 id="final-title">YOU DON'T NEED<br /><em>TO KNOW THE STACK.</em></h2><div class="srv-final-bottom"><div class="srv-prose"><p>“Mi serve un sito, ma non so se WordPress, Framer o qualcos'altro.”</p><p>Perfetto. Non devi saperlo tu.</p><p>Raccontami cosa vuoi realizzare, cosa deve fare e dove vuoi arrivare. Alla parte tecnica ci penso io.</p></div><div><a class="srv-link" href="/contact">RACCONTAMI IL PROGETTO <span aria-hidden="true">→</span></a><p class="srv-note">NO TECHNICAL BRIEF REQUIRED.</p></div></div></section>
   </main>
-  <footer class="site-footer"><a class="footer-brand" href="/" aria-label="Code from A to Z, inizio pagina"><img class="brand-logo" src="/logo.png" width="183" height="142" alt="Code from A to Z" loading="lazy" decoding="async" /></a><p>© 2026 Code from A to Z di Alessia Zazzeri<br />P. IVA [PLACEHOLDER]</p><div class="footer-links"><a href="https://www.instagram.com/alessiaz.webdesign/">Instagram ↗︎</a><a href="#main">Torna su ↑</a></div></footer>
+  <SiteFooter />
 </Base>

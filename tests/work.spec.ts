@@ -25,8 +25,8 @@ for (const width of [320, 390, 768, 1440]) {
     expect(first).not.toBeNull(); expect(second).not.toBeNull();
     expect(first!.width).toBeGreaterThan(second!.width);
     if (width <= 600) expect(second!.y).toBeGreaterThan(first!.y + first!.height);
-    await expect(page.getByRole('navigation').getByRole('link', { name: 'Servizi', includeHidden: true })).toHaveAttribute('href', '/#services');
-    await expect(page.locator('.wordmark')).toHaveAttribute('href', '/');
+    await expect(page.locator('.desktop-navigation a[href="/services"]')).toHaveAttribute('href', '/services');
+    await expect(page.locator('.global-logo')).toHaveAttribute('href', '/');
     await page.keyboard.press('Tab');
     await expect(page.locator('.skip-link')).toBeFocused();
     const audit = await new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze();

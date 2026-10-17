@@ -53,6 +53,9 @@ test("card collegate per ogni case study esistente e link interni validi", async
     "/services",
     "/about",
     "/contact",
+    "/privacy-policy",
+    "/cookie-policy",
+    "/brand-exploration",
     ...available.map((project) => `/work/${project.slug}`),
   ]) {
     await page.goto(path);

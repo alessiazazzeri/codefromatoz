@@ -22,9 +22,7 @@ for (const width of [320, 375, 768, 1440]) {
       ),
     ).toBe(true);
     await expect(
-      page
-        .getByRole("navigation")
-        .getByRole("link", { name: "Alessia", includeHidden: true }),
+      page.locator('.desktop-navigation a[href="/about"]'),
     ).toHaveAttribute("aria-current", "page");
     await expect(page.locator(".ap-offline a")).toHaveAttribute(
       "href",

@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import SiteFooter from './SiteFooter.astro';
+interface Props { title: string; }
+const {title}=Astro.props;
+---
+<Base title={`${title} — Code from A to Z`}><Header /><main id="main" class="legal-placeholder"><p class="eyebrow">DOCUMENTO IN PREPARAZIONE</p><h1>{title}</h1><p>Pagina temporanea da completare. Il testo legale non è ancora disponibile.</p><a href="/contact">CONTATTI →</a></main><SiteFooter /></Base>
+<style>.legal-placeholder{padding:55px 3vw 80px;min-height:45vh}.legal-placeholder h1{font-size:clamp(40px,8vw,120px);line-height:1;margin:32px 0}.legal-placeholder>p:not(.eyebrow){font-size:17px;max-width:600px}.legal-placeholder>a{display:inline-block;font:700 12px 'Courier New',monospace;padding:15px 0;border-bottom:var(--line);margin-top:25px}@media(max-width:600px){.legal-placeholder{padding:35px 20px 50px}.legal-placeholder h1{font-size:13vw}}</style>

@@ -32,7 +32,7 @@ for (const width of [320, 375, 768, 1440]) {
       ),
     ).toBe(true);
     await expect(
-      page.getByRole("navigation").getByRole("link", { name: /Progetti/ }),
+      page.locator('.desktop-navigation a[href="/work"]'),
     ).toHaveAttribute("href", "/work");
     const audit = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])

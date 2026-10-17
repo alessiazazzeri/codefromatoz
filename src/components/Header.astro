@@ -1,8 +1,60 @@
 ---
-interface Props { workPage?: boolean; workHref?: string; servicesPage?: boolean; aboutPage?: boolean; contactPage?: boolean; }
-const { workPage = false, workHref, servicesPage = false, aboutPage = false, contactPage = false } = Astro.props;
+import BrandLogo from './brand/BrandLogo.astro';
+interface Props { previewLogo?: 1 | 2 | 3; idPrefix?: string; }
+const { previewLogo, idPrefix = 'global' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const links = [['WORK','/work'],['SERVICES','/services'],['ABOUT','/about'],['CONTACT','/contact']];
+const active = (href: string) => path === href || (href === '/work' && path.startsWith('/work/'));
+const menuId = `${idPrefix}-menu`;
 ---
-<header class="site-header">
-  <a class="wordmark" href={workPage ? "/" : "#"} aria-label="Code from A to Z, inizio pagina"><img class="brand-logo" src="/logo.png" width="183" height="142" alt="Code from A to Z" decoding="async" /></a>
-  <nav aria-label="Navigazione principale"><a href={workHref ?? (workPage ? "#client-work" : "#work")} aria-current={workPage && !servicesPage && !aboutPage && !contactPage ? "page" : undefined}>Progetti <sup>{workPage ? "06" : "04"}</sup></a><a href={servicesPage ? "/services" : (workPage ? "/#services" : "#services")} aria-current={servicesPage ? "page" : undefined}>Servizi</a><a href={aboutPage ? "/about" : (workPage ? "/#about" : "#about")} aria-current={aboutPage ? "page" : undefined}>Alessia</a><a class="nav-contact" href="/contact" aria-current={contactPage ? "page" : undefined}>Parliamone <span aria-hidden="true">↗︎</span></a></nav>
+<header class="global-header" data-navigation>
+  <a class="global-logo" href="/" aria-label="Code from A to Z, homepage">{previewLogo ? <BrandLogo direction={previewLogo} /> : <img src="/logo.png" width="183" height="142" alt="Code from A to Z" decoding="async" />}</a>
+  <nav class="desktop-navigation" aria-label="Navigazione principale">{links.map(([label,href],index) => <a href={href} aria-current={active(href) ? 'page' : undefined}><sup>0{index+1}</sup>{label}{label==='CONTACT' && <span aria-hidden="true">↗︎</span>}</a>)}</nav>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls={menuId} hidden>MENU <span aria-hidden="true">＋</span></button>
+  <dialog id={menuId} class="mobile-menu" aria-label="Menu di navigazione">
+    <div class="mobile-menu-top"><span>CODE FROM A TO Z</span><button type="button" class="menu-close" aria-label="Chiudi menu">CHIUDI <span aria-hidden="true">×</span></button></div>
+    <nav aria-label="Navigazione mobile">{links.map(([label,href],index) => <a href={href} aria-current={active(href) ? 'page' : undefined}><sup>0{index+1}</sup><span>{label}</span><i aria-hidden="true">↗︎</i></a>)}</nav>
+    <div class="mobile-menu-bottom" aria-hidden="true">A <span>→</span> Z</div>
+  </dialog>
 </header>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-navigation]').forEach(header => {
+    const open = header.querySelector<HTMLButtonElement>('.menu-toggle')!;
+    const close = header.querySelector<HTMLButtonElement>('.menu-close')!;
+    const dialog = header.querySelector<HTMLDialogElement>('dialog')!;
+    const media = matchMedia('(max-width: 767px)');
+    let previousOverflow = '';
+    let locked = false;
+    open.hidden = false;
+    function restore() {
+      if (!locked) return;
+      locked = false;
+      document.documentElement.style.overflow = previousOverflow;
+      open.setAttribute('aria-expanded','false');
+      if(media.matches) open.focus();
+    }
+    function dismiss() { if (dialog.open) dialog.close(); restore(); }
+    open.addEventListener('click', () => {
+      if (dialog.open) return;
+      previousOverflow = document.documentElement.style.overflow;
+      locked = true;
+      dialog.showModal();
+      document.documentElement.style.overflow = 'hidden';
+      open.setAttribute('aria-expanded','true');
+      close.focus();
+    });
+    close.addEventListener('click', dismiss);
+    dialog.addEventListener('click', event => { if(event.target === dialog) dismiss(); });
+    dialog.querySelectorAll('a').forEach(link => link.addEventListener('click', dismiss));
+    dialog.addEventListener('close', () => { if (!dialog.open) restore(); });
+    dialog.addEventListener('cancel', event => { event.preventDefault(); dismiss(); });
+    dialog.addEventListener('keydown', event => {
+      if(event.key !== 'Tab') return;
+      const items = [...dialog.querySelectorAll<HTMLElement>('button, a[href]')];
+      const first=items[0], last=items[items.length-1];
+      if(event.shiftKey && document.activeElement===first){event.preventDefault();last.focus();}
+      else if(!event.shiftKey && document.activeElement===last){event.preventDefault();first.focus();}
+    });
+    media.addEventListener('change', () => { if(!media.matches) dismiss(); });
+  });
+</script>

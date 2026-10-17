@@ -27,15 +27,13 @@ for (const width of [320, 375, 768, 1440]) {
       ),
     ).toBe(true);
     await expect(
-      page
-        .getByRole("navigation")
-        .getByRole("link", { name: "Servizi", includeHidden: true }),
+      page.locator('.desktop-navigation a[href="/services"]'),
     ).toHaveAttribute("aria-current", "page");
     await expect(page.locator(".srv-final a")).toHaveAttribute(
       "href",
       "/contact",
     );
-    await expect(page.locator('a[href="/contact"]')).toHaveCount(2);
+    await expect(page.locator('.global-footer a[href="/contact"]')).toHaveCount(1);
     await page.keyboard.press("Tab");
     await expect(page.locator(".skip-link")).toBeFocused();
     const audit = await new AxeBuilder({ page })

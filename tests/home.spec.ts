@@ -21,7 +21,7 @@ for (const width of [320, 390, 768, 1440]) {
     await page.evaluate(() => scrollTo(0, 0));
     await expect(page.locator(".project")).toHaveCount(4);
     await expect(page.locator(".service-grid article")).toHaveCount(6);
-    await expect(page.locator("script")).toHaveCount(1);
+    await expect(page.locator("script")).toHaveCount(2);
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -38,10 +38,11 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator(".skip-link")).toBeFocused();
     await page.keyboard.press("Enter");
     await page
-      .getByRole("navigation")
-      .getByRole("link", { name: /Progetti/ })
+      .getByRole("navigation", {name: "Navigazione footer"})
+      .getByRole("link", { name: "WORK", exact: true })
       .click();
-    await expect(page).toHaveURL(/#work$/);
+    await expect(page).toHaveURL(/\/work\/?$/);
+    await page.goto("/");
     const accessibility = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
