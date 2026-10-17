@@ -1,0 +1,13 @@
+---
+export type AZVariant = 'slash' | 'arrow' | 'square';
+interface Props { variant: AZVariant; }
+const {variant}=Astro.props;
+const a='M0 64 21 0h13l23 64H42l-4-13H18l-4 13zm22-25h12l-6-20z';
+const z='M0 0h49v12L17 51h33v13H0V52L32 13H0Z';
+---
+<svg class="az-mark" viewBox={variant==='square'?'0 0 128 128':'0 0 160 112'} fill="currentColor" aria-hidden="true">
+  {variant==='slash' && <><path d="M2 2h156v108H2z" fill="none" stroke="currentColor" stroke-width="3"/><path d={a} transform="translate(10 27)" fill-rule="evenodd"/><path class="az-accent" d="M88 15h12L75 99H63z"/><path d={z} transform="translate(100 27)"/></>}
+  {variant==='arrow' && <><path d={a} transform="translate(0 24)" fill-rule="evenodd"/><path class="az-accent" d="M66 51h21l-8-8 6-6 20 20-20 20-6-6 8-8H66z"/><path d={z} transform="translate(110 24)"/></>}
+  {variant==='square' && <><path d="M2 41V2h39M87 2h39v39M126 87v39H87M41 126H2V87" fill="none" stroke="currentColor" stroke-width="4"/><path d={a} transform="translate(13 13) scale(.72)" fill-rule="evenodd"/><path class="az-accent" d="M99 13h10L30 115H20z"/><path d={z} transform="translate(77 68) scale(.72)"/></>}
+</svg>
+<style>.az-mark{display:block;width:100%;height:100%}.az-accent{fill:var(--az-accent,currentColor)}</style>
