@@ -60,7 +60,7 @@ p {
 .placeholder-label,
 .art-index,
 .art-footer,
-.contact-placeholder > span,
+.contact-placeholder > a,
 .site-footer,
 .project-caption p,
 .portrait-placeholder small {
@@ -1084,7 +1084,7 @@ sup {
   .site-footer p {
     max-width: 200px;
   }
-  .site-footer > a:last-child {
+  .footer-links a {
     padding: 10px 0;
   }
 }
@@ -1528,3 +1528,6 @@ sup {
     visibility: visible;
   }
 }
+
+.footer-links{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:16px}
+@media(max-width:600px){.footer-links{flex-direction:column;align-items:flex-end;gap:0}}

@@ -4,5 +4,5 @@ const { workPage = false } = Astro.props;
 ---
 <header class="site-header">
   <a class="wordmark" href={workPage ? "/" : "#"} aria-label="Code from A to Z, inizio pagina"><img class="brand-logo" src="/logo.png" width="183" height="142" alt="Code from A to Z" decoding="async" /></a>
-  <nav aria-label="Navigazione principale"><a href={workPage ? "#client-work" : "#work"} aria-current={workPage ? "page" : undefined}>Progetti <sup>{workPage ? "06" : "04"}</sup></a><a href={workPage ? "/#services" : "#services"}>Servizi</a><a href={workPage ? "/#about" : "#about"}>Alessia</a><a class="nav-contact" href="#contact">Parliamone <span aria-hidden="true">↗︎</span></a></nav>
+  <nav aria-label="Navigazione principale"><a href={workPage ? "#client-work" : "#work"} aria-current={workPage ? "page" : undefined}>Progetti <sup>{workPage ? "06" : "04"}</sup></a><a href={workPage ? "/#services" : "#services"}>Servizi</a><a href={workPage ? "/#about" : "#about"}>Alessia</a><a class="nav-contact" href="mailto:info@codefromatoz.it">Parliamone <span aria-hidden="true">↗︎</span></a></nav>
 </header>
