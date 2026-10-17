@@ -17,11 +17,15 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.locator("h1")).toHaveText("TELL MEWHAT'S ONYOUR MIND.");
     await expect(page.getByLabel("Nome (obbligatorio)")).toBeEnabled();
     await expect(
-      page.getByLabel("Budget indicativo (facoltativo)"),
-    ).not.toHaveAttribute("required");
+      page.locator("#contact-brand, #contact-website, #contact-budget"),
+    ).toHaveCount(0);
     await expect(
-      page.getByLabel("Di cosa hai bisogno? (facoltativo)"),
-    ).not.toHaveAttribute("required");
+      page.getByLabel("Di cosa hai bisogno? (obbligatorio)"),
+    ).toHaveAttribute("required");
+    await expect(page.locator(".cp-budget a")).toHaveAttribute(
+      "href",
+      "/services#numbers-title",
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -29,9 +33,9 @@ for (const width of [320, 375, 768, 1440]) {
     ).toBe(true);
     await page.keyboard.press("Tab");
     await expect(page.locator(".skip-link")).toBeFocused();
-    await page.getByRole("button", { name: "INVIA IL PROGETTO" }).click();
+    await page.getByRole("button", { name: "PARLIAMONE" }).click();
     await expect(page.locator("#form-errors")).toBeFocused();
-    await expect(page.locator('[aria-invalid="true"]')).toHaveCount(4);
+    await expect(page.locator('[aria-invalid="true"]')).toHaveCount(5);
     await expect(page.locator("#contact-name-error")).toHaveText(
       "Compila questo campo.",
     );
@@ -39,21 +43,23 @@ for (const width of [320, 375, 768, 1440]) {
     await expect(page.getByLabel("Nome (obbligatorio)")).toBeFocused();
     await page.getByLabel("Nome (obbligatorio)").fill("Test visitor");
     await page.getByLabel("Email (obbligatorio)").fill("not-an-email");
-    await page.getByLabel("Hai già un sito?").fill("not-a-url");
     await page
-      .getByLabel("Raccontami il progetto (obbligatorio)")
+      .getByLabel("Raccontami in due righe cosa hai in mente (obbligatorio)")
       .fill("Messaggio di prova del modulo.");
     await page.locator("#contact-privacy").check();
-    await page.getByRole("button", { name: "INVIA IL PROGETTO" }).click();
+    await page.getByRole("button", { name: "PARLIAMONE" }).click();
     await expect(page.locator("#contact-email-error")).toHaveText(
       "Inserisci un indirizzo email valido.",
     );
-    await expect(page.locator("#contact-website-error")).toContainText(
-      "URL completo",
+    await expect(page.locator("#contact-need-error")).toContainText(
+      "Non lo so ancora",
     );
+    await page
+      .getByLabel("Di cosa hai bisogno? (obbligatorio)")
+      .selectOption("Non lo so ancora");
+    await expect(page.locator("#contact-need-error")).toBeHidden();
     await page.getByLabel("Email (obbligatorio)").fill("test@example.com");
-    await page.getByLabel("Hai già un sito?").fill("");
-    await page.getByRole("button", { name: "INVIA IL PROGETTO" }).click();
+    await page.getByRole("button", { name: "PARLIAMONE" }).click();
     await expect(page.locator("#project-form")).toHaveAttribute(
       "data-state",
       "error",

@@ -5,14 +5,16 @@ if (form) {
   const submit = form.querySelector<HTMLButtonElement>(".cp-submit")!;
   const summary = form.querySelector<HTMLElement>("#form-errors")!;
   const fields = [
-    ...fieldset.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
-      "input, textarea",
-    ),
+    ...fieldset.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >("input, textarea, select"),
   ];
   form.noValidate = true;
   fieldset.disabled = false;
   submit.disabled = false;
-  function validate(field: HTMLInputElement | HTMLTextAreaElement) {
+  function validate(
+    field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement,
+  ) {
     let message = "";
     if (
       field.required &&
@@ -23,14 +25,14 @@ if (form) {
       message =
         field.type === "checkbox"
           ? "Conferma di aver letto l’informativa privacy e il consenso."
-          : "Compila questo campo.";
+          : field instanceof HTMLSelectElement
+            ? "Seleziona un’opzione, anche “Non lo so ancora”."
+            : "Compila questo campo.";
     } else if (!field.validity.valid) {
       message =
         field.type === "email"
           ? "Inserisci un indirizzo email valido."
-          : field.type === "url"
-            ? "Inserisci un URL completo, ad esempio https://example.com."
-            : "Controlla il valore inserito.";
+          : "Controlla il valore inserito.";
     }
     const output = document.getElementById(`${field.id}-error`);
     if (output) {
@@ -72,6 +74,12 @@ if (form) {
         refreshSummary();
       }
       if (form.dataset.state === "error") setContactState(form, "idle");
+    });
+    field.addEventListener("change", () => {
+      if (field.hasAttribute("aria-invalid")) {
+        validate(field);
+        refreshSummary();
+      }
     });
     field.addEventListener("blur", () => {
       if (field.value || field.hasAttribute("aria-invalid")) {

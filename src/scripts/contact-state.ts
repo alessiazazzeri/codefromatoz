@@ -9,7 +9,7 @@ export function setContactState(form: HTMLFormElement, state: ContactState) {
   submit.innerHTML =
     state === "sending"
       ? "SENDING..."
-      : 'INVIA IL PROGETTO <span aria-hidden="true">→</span>';
+      : 'PARLIAMONE <span aria-hidden="true">→</span>';
   form.querySelectorAll<HTMLElement>(".cp-form-status").forEach((element) => {
     element.hidden = !element.classList.contains(`cp-${state}`);
   });
