@@ -64,3 +64,33 @@ Prima dell'attivazione pubblica: completa separatamente l'informativa privacy, c
 - L'IP viene trasformato con HMAC e chiave privata prima di generare la chiave KV; conservazione un'ora. Nessun IP in chiaro, messaggio o credenziale viene registrato dal codice. Le impostazioni di logging della piattaforma restano separate.
 - Nessun CAPTCHA, tracking o consenso marketing. Se lo spam reale superasse queste protezioni, valutare separatamente un controllo aggiuntivo prima di introdurlo.
 - Errori accessibili, dati conservati in caso di errore, nessun reset prima della conferma Gmail. Il browser non riceve token OAuth o dettagli delle risposte Google.
+
+## Diagnostica server-side del 502 delivery
+
+La risposta al browser rimane sempre `{ "ok": false, "code": "delivery" }`. I dettagli sono esclusivamente nelle righe server `[contact]`, correlate da un `diagnosticId` casuale che non deriva da utente, IP o messaggio.
+
+| stage | Significato |
+| --- | --- |
+| `kv.pseudonymize`, `kv.replay.sign` | Generazione degli identificativi HMAC |
+| `kv.rate.read`, `kv.replay.read`, `kv.rate.write`, `kv.replay.write` | Lettura/scrittura KV precisa che ha generato un'eccezione |
+| `oauth.fetch` | Eccezione di rete/runtime o timeout nello scambio OAuth |
+| `oauth.response` | Status HTTP Google e codice/descrizione filtrati; oppure conferma di access token ricevuto |
+| `oauth.parse` | JSON non valido o access token mancante/non valido nella risposta 2xx |
+| `mime.encode` | Eccezione nella costruzione/codifica del messaggio |
+| `gmail.fetch` | Eccezione di rete/runtime o timeout durante l'invio Gmail |
+| `gmail.response` | Status/codici/messaggio filtrati di Gmail; oppure conferma `message_accepted` |
+| `gmail.parse` | JSON non valido o identificativo messaggio mancante/non valido nella risposta 2xx |
+
+I testi dei fornitori non vengono mai riversati nei log: messaggi e codici riconosciuti sono ammessi tramite lista chiusa, testi dinamici noti sono sostituiti da categorie statiche, gli altri vengono omessi. Questo vale anche per error_description OAuth, perché una risposta di errore può contenere dati personali o credenziali. Eccezioni: solo tipo riconosciuto, mai message/stack. Nessun token, secret, header Authorization, chiave KV, contenuto del modulo, email, IP o ID messaggio Gmail viene registrato.
+
+Per leggere i log: Workers & Pages → progetto Pages → Deployments → deployment Production corrente → Functions / Real-time logs → avvio dello stream. Le etichette possono variare nell'interfaccia Cloudflare. In alternativa, da un computer già autenticato con Wrangler:
+
+```sh
+wrangler pages deployment tail <DEPLOYMENT_ID> --project-name <PROJECT_NAME> --format pretty
+```
+
+Aprire lo stream prima di un singolo invio, filtrare `[contact]` e seguire lo stesso diagnosticId. Non condividere dump di richieste o log della piattaforma con dati personali; sono sufficienti le righe applicative filtrate. Non è necessario attivare analytics. Il codice non configura conservazione o logging infrastrutturale.
+
+La richiesta Gmail usa correttamente POST users/me/messages/send, Bearer token server-side, MIME con CRLF, corpo UTF-8 codificato base64 e messaggio completo base64url senza padding. `me` identifica l'account che ha autorizzato il refresh token: deve essere la casella configurata o un account con un'identità send-as autorizzata e appropriata. Lo scope gmail.send non consente di leggere il profilo o verificare le identità: nessuna chiamata o scope aggiuntivo è stato introdotto per scoprirle.
+
+Le operazioni KV precedono OAuth/Gmail: anche un tentativo che poi fallisce può consumare il token e incrementare il contatore. Rimane il limite best effort esistente; per la diagnosi basta un solo invio dopo il deploy, con token fresco e almeno due secondi dal caricamento.

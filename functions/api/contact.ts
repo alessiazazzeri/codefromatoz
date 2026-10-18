@@ -1,3 +1,4 @@
+import { contactLog, exceptionKind, googleError } from "../../server/contact-diagnostics";
 import { contactNeeds } from "../../src/data/contact";
 interface KV {
   get(key: string): Promise<string | null>;
@@ -173,6 +174,8 @@ export async function onRequestPost({ request, env }: Context) {
       "Conferma di aver letto l’informativa privacy.";
   if (Object.keys(fields).length)
     return json({ ok: false, code: "validation", fields }, 422);
+  const diagnosticId = crypto.randomUUID();
+  let stage = "kv.pseudonymize";
   try {
     // KV counters are a best-effort distributed throttle, not an atomic quota.
     // Raw IPs and form contents are never stored in KV or application logs.
@@ -183,16 +186,22 @@ export async function onRequestPost({ request, env }: Context) {
         env.CONTACT_FORM_SECRET,
         ip + ":" + Math.floor(Date.now() / 3600000),
       ));
+    stage = "kv.rate.read";
     const count = Number((await env.CONTACT_RATE_LIMIT.get(key)) ?? "0");
     if (!Number.isFinite(count) || count >= 5)
       return json({ ok: false, code: "rate" }, 429, { "Retry-After": "3600" });
+    stage = "kv.replay.sign";
     const used = "contact:used:" + (await sign(env.CONTACT_FORM_SECRET, token));
+    stage = "kv.replay.read";
     if (await env.CONTACT_RATE_LIMIT.get(used))
       return json({ ok: false, code: "duplicate" }, 409);
+    stage = "kv.rate.write";
     await env.CONTACT_RATE_LIMIT.put(key, String(count + 1), {
       expirationTtl: ttl,
     });
+    stage = "kv.replay.write";
     await env.CONTACT_RATE_LIMIT.put(used, "1", { expirationTtl: ttl });
+    stage = "oauth.fetch";
     const oauth = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -204,10 +213,18 @@ export async function onRequestPost({ request, env }: Context) {
       }),
       signal: AbortSignal.timeout(10000),
     });
-    if (!oauth.ok) return json({ ok: false, code: "delivery" }, 502);
-    const credentials = (await oauth.json()) as { access_token?: string };
-    if (!credentials.access_token)
+    if (!oauth.ok) {
+      contactLog('error', { diagnosticId, stage: 'oauth.response', event: 'http_error', status: oauth.status, ...await googleError(oauth, 'oauth') });
       return json({ ok: false, code: "delivery" }, 502);
+    }
+    stage = "oauth.parse";
+    const credentials = (await oauth.json()) as { access_token?: unknown } | null;
+    if (typeof credentials?.access_token !== 'string' || !credentials.access_token.trim()) {
+      contactLog('error', { diagnosticId, stage, event: 'missing_access_token', status: oauth.status });
+      return json({ ok: false, code: "delivery" }, 502);
+    }
+    contactLog('info', { diagnosticId, stage: 'oauth.response', event: 'access_token_received', status: oauth.status });
+    stage = "mime.encode";
     const message = [
       `From: ${mailbox}`,
       `To: ${mailbox}`,
@@ -225,6 +242,7 @@ export async function onRequestPost({ request, env }: Context) {
       .replace(/\+/g, "-")
       .replace(/\//g, "_")
       .replace(/=+$/, "");
+    stage = "gmail.fetch";
     const response = await fetch(
       "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
       {
@@ -237,12 +255,20 @@ export async function onRequestPost({ request, env }: Context) {
         signal: AbortSignal.timeout(10000),
       },
     );
-    if (!response.ok) return json({ ok: false, code: "delivery" }, 502);
-    const sent = (await response.json()) as { id?: string };
-    return sent.id
-      ? json({ ok: true })
-      : json({ ok: false, code: "delivery" }, 502);
-  } catch {
+    if (!response.ok) {
+      contactLog('error', { diagnosticId, stage: 'gmail.response', event: 'http_error', status: response.status, ...await googleError(response, 'gmail') });
+      return json({ ok: false, code: "delivery" }, 502);
+    }
+    stage = "gmail.parse";
+    const sent = (await response.json()) as { id?: unknown } | null;
+    if (typeof sent?.id !== 'string' || !sent.id.trim()) {
+      contactLog('error', { diagnosticId, stage, event: 'missing_message_id', status: response.status });
+      return json({ ok: false, code: "delivery" }, 502);
+    }
+    contactLog('info', { diagnosticId, stage: 'gmail.response', event: 'message_accepted', status: response.status });
+    return json({ ok: true });
+  } catch (error) {
+    contactLog('error', { diagnosticId, stage, event: 'exception', exception: exceptionKind(error) });
     return json({ ok: false, code: "delivery" }, 502);
   }
 }
