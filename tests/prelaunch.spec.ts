@@ -15,11 +15,23 @@ const headers = Object.fromEntries(readFileSync('dist/_headers', 'utf8').split('
 }));
 
 test('metadata centralizzati, sitemap, robots, social e icone', async ({ page, request }) => {
-  const sitemap = await (await request.get('/sitemap.xml')).text();
-  const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
+  const indexResponse = await request.get('/sitemap-index.xml');
+  expect(indexResponse.status()).toBe(200);
+  const index = await indexResponse.text();
+  expect(index).toContain('<sitemapindex');
+  const sitemapUrls = [...index.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
+  expect(sitemapUrls).toEqual([`${domain}/sitemap-0.xml`]);
+  const locations: string[] = [];
+  for (const url of sitemapUrls) {
+    const response = await request.get(new URL(url).pathname);
+    expect(response.status()).toBe(200);
+    locations.push(...[...(await response.text()).matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]));
+  }
+  expect(new Set(locations).size).toBe(locations.length);
+  for (const url of locations) expect(new URL(url).origin).toBe(domain);
   expect(locations).toHaveLength(11);
   const robots = await (await request.get('/robots.txt')).text();
-  expect(robots).toContain(`Sitemap: ${domain}/sitemap.xml`);
+  expect(robots).toContain(`Sitemap: ${domain}/sitemap-index.xml`);
   expect(robots).not.toContain('Disallow: /privacy-policy');
   for (const { file, route } of pages) {
     const path = route === '/404.html' ? '/404' : route;
